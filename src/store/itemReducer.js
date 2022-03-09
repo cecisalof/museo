@@ -2,7 +2,7 @@ import { RETRIEVE_ITEMS } from "./itemTypes";
 
 const initialState = {
   items: [],
-  potato: 'potato'
+  potato: '🥔'
 }
 
 const itemReducer = (state = initialState, action) => {
