@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppLoading from 'expo-app-loading';
 import { useFonts, Roboto_700Bold, Roboto_400Regular } from '@expo-google-fonts/roboto';
-// import * as Typo from './src/assets/styles/typography'
+import * as Typo from './src/assets/styles/typography'
 
 function HomeScreen({ navigation }) {
   return (
