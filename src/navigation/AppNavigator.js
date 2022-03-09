@@ -1,6 +1,6 @@
 //AppNavigator:  we will define the type of navigation to internal screens app
 import { createStackNavigator } from "@react-navigation/stack";
-import {Component} from "react";
+import { Component } from "react";
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailsScreen from '../screens/DetailsScreen';
