@@ -15,7 +15,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: FONT_REGULAR, fontSize: 16 }}>Home Screen {this.props.potato}</Text>
+        <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen {this.props.potato}</Text>
         <Button
           title="Go to Details!"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/

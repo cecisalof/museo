@@ -15,7 +15,7 @@ class DetailsScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: FONT_REGULAR, fontSize: 16 }}>Details Screen</Text>
+        <Text style={[FONT_REGULAR, {fontSize: 16 }]}>Details Screen</Text>
         <Button
           title="Go to Shop!"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
