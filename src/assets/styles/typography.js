@@ -18,7 +18,7 @@ import {
 
 // FONT FAMILY
 export const FONT_FAMILY_REGULAR = Roboto_400Regular;
-export const FONT_FAMILY_BOLD = Roboto_700Bold;
+export const FONT_FAMILY_BOLD = Roboto_900Black;
 
 // FONT WEIGHT
 export const FONT_WEIGHT_REGULAR = '400';

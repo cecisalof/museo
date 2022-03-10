@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
-// import AppLoading from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
@@ -40,7 +40,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.fontsLoaded) {
+    if (!this.state.fontsLoaded) {
+      return <AppLoading />;
+    }
      return (
        <Provider store={store}>
          <NavigationContainer>
@@ -48,8 +50,5 @@ export default class App extends React.Component {
          </NavigationContainer>
        </Provider>
      );
-     } else {
-        return null;
-      }
   }
 };

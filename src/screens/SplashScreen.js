@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+// import { FONT_FAMILY_REGULAR } from '../assets/styles/typography'
 import {
   Text,
   View,
@@ -44,7 +45,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: Typography.FONT_FAMILY_REGULAR, fontSize: 16 }}>Cargando...</Text>
+        <Text>Cargando...</Text>
       </View>
     );
   }

@@ -3,21 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import logo from '../assets/images/splash.png'
 // import { FONT_FAMILY_BOLD, FONT_FAMILY_REGULAR, LINE_HEIGHT_19, FONT_SIZE_16  } from '../assets/styles/typography'
-import {
-  useFonts,
-  Roboto_100Thin,
-  Roboto_100Thin_Italic,
-  Roboto_300Light,
-  Roboto_300Light_Italic,
-  Roboto_400Regular,
-  Roboto_400Regular_Italic,
-  Roboto_500Medium,
-  Roboto_500Medium_Italic,
-  Roboto_700Bold,
-  Roboto_700Bold_Italic,
-  Roboto_900Black,
-  Roboto_900Black_Italic
-} from '@expo-google-fonts/roboto'
 // import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
 // import  {Typography, Colors, Mixins} from '../assets/styles/index'
 import {
@@ -70,13 +55,13 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         color: '#fff',
-        backgroundColor: '000'
+        backgroundColor: 'green'
        },
       android: {
-        backgroundColor: 'black'
+        backgroundColor: '#000'
       },
       default: {
-        color: 'black'
+        color: '#000'
       }
     })
   },
@@ -101,7 +86,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   textBold: {
-    // fontFamily: Roboto_900Black,
+    // fontFamily: FONT_FAMILY_REGULAR,
     // fontSize: FONT_SIZE_16,
     // lineHeight: LINE_HEIGHT_19,
     color: '#FFF',

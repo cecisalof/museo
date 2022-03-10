@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
+// import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
 import {
   Text,
   View,
@@ -19,7 +19,7 @@ class ShopScreen extends Component {
         <View style={{ }}>
 
         </View>
-        <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen</Text>
+        <Text >Home Screen</Text>
         <Button
           title="Go to Details!"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
