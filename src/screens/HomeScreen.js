@@ -13,6 +13,7 @@ import {
 
 class HomeScreen extends Component {
   render() {
+    console.log(this.props.items);
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen</Text>
