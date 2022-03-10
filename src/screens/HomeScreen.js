@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import logo from '../assets/images/splash.png'
-// import { FONT_FAMILY_BOLD, FONT_FAMILY_REGULAR, LINE_HEIGHT_19, FONT_SIZE_16  } from '../assets/styles/typography'
 // import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
-// import  {Typography, Colors, Mixins} from '../assets/styles/index'
 import {
   Text,
   View,
@@ -52,16 +50,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     color: '#FFF',
     backgroundColor: '#000',
+    fontFamily: 'Roboto',
     ...Platform.select({
       ios: {
         color: '#fff',
-        backgroundColor: 'green'
+        backgroundColor: '#000',
        },
       android: {
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+
       },
       default: {
-        color: '#000'
+        color: '#000',
       }
     })
   },
@@ -71,9 +71,8 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 3,
-    marginLeft: 19,
-    marginBottom: 35,
-    backgroundColor: '#F00'
+    marginHorizontal: 300,
+    backgroundColor: '#F00',
   },
   touchableContainer: {
     flex: 3,
@@ -81,16 +80,19 @@ const styles = StyleSheet.create({
     paddingTop: 35
   },
   text: {
-    // fontSize: FONT_SIZE_16,
+    fontSize: 16,
+    lineHeight: 19,
     color: '#FFF',
     textAlign: 'left',
+    marginHorizontal: 19
   },
   textBold: {
-    // fontFamily: FONT_FAMILY_REGULAR,
-    // fontSize: FONT_SIZE_16,
-    // lineHeight: LINE_HEIGHT_19,
+    fontFamily: 'Roboto-Bold',
+    fontSize: 16,
+    lineHeight: 19,
     color: '#FFF',
     textAlign: 'left',
+    marginHorizontal: 19
   },
   textHeader: {
     justifyContent: 'center',
