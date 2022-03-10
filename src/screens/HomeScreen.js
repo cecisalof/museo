@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { FONT_REGULAR, FONT_BOLD, FONT_SIZE_12 } from '../assets/styles/typography'
+// import { FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, FONT_SIZE_12 } from '../assets/styles/typography'
 import logo from '../assets/images/splash.png'
-import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
+import { Typography, Spacing, Colors, Mixins } from '../assets/styles/index'
+// import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
 import {
   Text,
   View,
@@ -16,6 +17,7 @@ import {
   setItems,
 } from "../store/itemActions";
 // {this.props.potato}
+console.log(Typography, Spacing, Colors);
 class HomeScreen extends Component {
   render() {
     return (
@@ -24,9 +26,9 @@ class HomeScreen extends Component {
           Bienvenidos
             <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
         </Text>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={{ width: 305, height: 159 }} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={{ width: 305, height: 159 }} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={{ width: 305, height: 159 }} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
       </View>
     );
   }
@@ -43,17 +45,22 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    fontFamily: Typography.FONT_FAMILY_BOLD,
+    fontSize: Typography.FONT_SIZE_16,
     color: '#FFF',
     textAlign: 'left',
   },
   button: {
     flex: 2,
     justifyContent: 'center',
-    backgroundColor: PRIMARY,
-
+    backgroundColor: Typography.PRIMARY,
     borderWidth: 5,
-    borderColor: WHITE
+    borderColor: Typography.WHITE
   },
+  floors: {
+    width: 200,
+    height: 150
+  }
 
 });
 
