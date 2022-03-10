@@ -8,14 +8,14 @@ import {
   Button
 } from "react-native";
 import {
-  retrieveItems,
+  setItems,
 } from "../store/itemActions";
 
 class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen {this.props.potato}</Text>
+        <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen</Text>
         <Button
           title="Go to Details!"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
@@ -32,10 +32,8 @@ class HomeScreen extends Component {
 
 //---- Connect to props functions and values -----//
 
-function mapStateToProps({items, potato}) {
-  return {items, potato}
+function mapStateToProps({items}) {
+  return {items}
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({retrieveItems}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps)(HomeScreen);

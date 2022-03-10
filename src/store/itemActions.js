@@ -1,6 +1,6 @@
-import { RETRIEVE_ITEMS } from "./itemTypes"
+import { SET_ITEMS } from "./itemTypes"
 
-export const retrieveItems = (items) => ({
-  type: RETRIEVE_ITEMS,
+export const setItems = (items) => ({
+  type: SET_ITEMS,
   payload: items
 })
