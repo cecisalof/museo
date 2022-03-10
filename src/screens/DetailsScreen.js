@@ -8,7 +8,7 @@ import {
   Button
 } from "react-native";
 import {
-  retrieveItems,
+  setItems,
 } from "../store/itemActions";
 
 class DetailsScreen extends Component {
@@ -32,10 +32,9 @@ class DetailsScreen extends Component {
 
 //---- Connect to props functions and values -----//
 
-function mapStateToProps({items, potato}) {
-  return {items, potato}
+
+function mapStateToProps({items}) {
+  return {items}
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({retrieveItems}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);
+export default connect(mapStateToProps)(DetailsScreen);

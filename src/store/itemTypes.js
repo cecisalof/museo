@@ -1,1 +1,1 @@
-export const RETRIEVE_ITEMS = "RETRIEVE_ITEMS";
+export const SET_ITEMS = "SET_ITEMS";

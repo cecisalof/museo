@@ -9,7 +9,7 @@ import {
   StyleSheet
 } from "react-native";
 import {
-  retrieveItems,
+  setItems,
 } from "../store/itemActions";
 
 class ShopScreen extends Component {
@@ -36,10 +36,8 @@ class ShopScreen extends Component {
 
 //---- Connect to props functions and values -----//
 
-function mapStateToProps({items, potato}) {
-  return {items, potato}
+function mapStateToProps({items}) {
+  return {items}
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({retrieveItems}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShopScreen);
+export default connect(mapStateToProps)(ShopScreen);
