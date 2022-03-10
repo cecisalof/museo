@@ -7,6 +7,7 @@ import {
   Button
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
+import {Typography} from '../assets/styles/index.js'
 import {
   setItems,
 } from "../store/itemActions";
@@ -43,7 +44,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: 'Roboto_400Regular', fontSize: 16 }}>Cargando...</Text>
+        <Text style={{ fontFamily: Typography.FONT_FAMILY_REGULAR, fontSize: 16 }}>Cargando...</Text>
       </View>
     );
   }

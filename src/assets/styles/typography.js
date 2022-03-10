@@ -1,5 +1,5 @@
  // Fonts types and sizes
-// import { scaleFont } from './mixins';
+import { scaleFont } from './mixins';
 import {
   useFonts,
   Roboto_100Thin,
@@ -18,19 +18,20 @@ import {
 
 // FONT FAMILY
 export const FONT_FAMILY_REGULAR = Roboto_400Regular;
-export const FONT_FAMILY_BOLD = Roboto_900Black;
+export const FONT_FAMILY_BOLD = Roboto_700Bold;
 
 // FONT WEIGHT
 export const FONT_WEIGHT_REGULAR = '400';
 export const FONT_WEIGHT_BOLD = '800';
 
 // FONT SIZE
+export const FONT_SIZE_18 = 18;
 export const FONT_SIZE_16 = 16;
 export const FONT_SIZE_14 = 14;
 export const FONT_SIZE_12 = 12;
 
 // LINE HEIGHT
-export const LINE_HEIGHT_24 = 24;
+export const LINE_HEIGHT_19 = 19;
 export const LINE_HEIGHT_20 = 20;
 export const LINE_HEIGHT_16 = 16;
 
