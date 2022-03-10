@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, FONT_SIZE_12 } from '../assets/styles/typography'
 import logo from '../assets/images/splash.png'
-import { Typography, Spacing, Colors, Mixins } from '../assets/styles/index'
-// import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
 import {
   Text,
   View,
@@ -16,10 +13,11 @@ import {
 import {
   setItems,
 } from "../store/itemActions";
-// {this.props.potato}
-console.log(Typography, Spacing, Colors);
+
+
 class HomeScreen extends Component {
   render() {
+    console.log(this.props.items);
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.text}>
@@ -45,23 +43,22 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontFamily: Typography.FONT_FAMILY_BOLD,
-    fontSize: Typography.FONT_SIZE_16,
+    // fontFamily: FONT_FAMILY_BOLD,
+    fontSize: 16,
     color: '#FFF',
     textAlign: 'left',
   },
   button: {
     flex: 2,
     justifyContent: 'center',
-    backgroundColor: Typography.PRIMARY,
+    // backgroundColor: PRIMARY,
     borderWidth: 5,
-    borderColor: Typography.WHITE
+    // borderColor: WHITE,
   },
   floors: {
     width: 200,
-    height: 150
+    height: 150,
   }
-
 });
 
 //---- Connect to props functions and values -----//

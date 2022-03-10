@@ -20,7 +20,7 @@ class SplashScreen extends Component {
       const items = await axios.get('https://mb9jo4pgqa.execute-api.eu-west-1.amazonaws.com/pro/api/items/all?limit=1000')
       this.props.setItems(items.data.results)
     }catch(e){
-      const items = []
+      items = []
       try {
         items = await AsyncStorage.getItem('@items')
         items = JSON.parse(items)
