@@ -5,7 +5,8 @@ import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
 import {
   Text,
   View,
-  Button
+  Button,
+  StyleSheet
 } from "react-native";
 import {
   retrieveItems,
@@ -14,7 +15,10 @@ import {
 class ShopScreen extends Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={ styles.mainContainer }>
+        <View style={{ }}>
+
+        </View>
         <Text style={[FONT_REGULAR, { fontSize: 16 }]}>Home Screen</Text>
         <Button
           title="Go to Details!"

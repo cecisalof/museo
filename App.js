@@ -16,7 +16,6 @@ function App() {
   });
 
   if (!fontsLoaded) {
-    console.log('no carga la typo');
     return <AppLoading />;
   }
 
