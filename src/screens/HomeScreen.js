@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import logo from '../assets/images/splash.png'
+import floors from '../assets/images/floors/Planta1.png'
+import line from '../assets/images/floors/Line.png'
 // import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
 import {
   Text,
@@ -32,9 +33,12 @@ class HomeScreen extends Component {
           <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
         </View>
         <View style={styles.touchableContainer}>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></View>
+          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></View>
+          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></View>
         </View>
         <View style={styles.menu}>
           <Text style={styles.textHeader}>Footer with icons</Text>
@@ -66,23 +70,43 @@ const styles = StyleSheet.create({
     })
   },
   menu: {
-    flex: 0.5,
+    flex: 0.2,
     justifyContent: 'center'
   },
   titleContainer: {
-    flex: 3,
+    flex: 2,
     marginHorizontal: 300,
     backgroundColor: '#F00',
   },
   touchableContainer: {
-    flex: 3,
-    alignItems: 'center',
-    paddingTop: 35
+    flex: 1,
+    paddingTop: 20,
+    marginLeft: 28,
+    marginRight: 40
+  },
+  floorLabelsContainer: {
+    flex: 0.2,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  floorLabels: {
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#FFFFFFDE',
+    textAlign: 'right',
+    marginRight: 30
+  },
+  floorLabels2: {
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#FFFFFFDE',
+    textAlign: 'right',
+    marginRight: 15
   },
   text: {
     fontSize: 16,
     lineHeight: 19,
-    color: '#FFF',
+    color: '#FFFFFFDE',
     textAlign: 'left',
     marginHorizontal: 19
   },
@@ -90,25 +114,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: 16,
     lineHeight: 19,
-    color: '#FFF',
+    color: '#FFFFFFDE',
     textAlign: 'left',
     marginHorizontal: 19
   },
   textHeader: {
     justifyContent: 'center',
-    color: '#FFF'
+    color: '#FFFFFFDE'
   },
   button: {
-    flex: 2,
+    flex: 0.2,
     justifyContent: 'space-between',
+    alignItems: 'center',
     borderWidth: 5,
   },
   floors: {
-    width: 200,
-    height: 150,
+    width: 218,
+    height: 122,
+  },
+  line: {
+    flex: 0.1,
+    width: 79,
+    height: 1
   },
   footer: {
-    flex: 0.5
+    flex: 1.5
   }
 });
 
