@@ -3,6 +3,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerMenu from './src/navigation/DrawerNavigator';
 import AppLoading from 'expo-app-loading';
+import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
@@ -46,7 +47,7 @@ export default class App extends React.Component {
      return (
        <Provider store={store}>
          <NavigationContainer>
-           <DrawerMenu />
+           <AppNavigator />
          </NavigationContainer>
        </Provider>
      );
