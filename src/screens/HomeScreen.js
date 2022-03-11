@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     height: 122,
   },
   line: {
-    flex: 0.1,
     width: 79,
     height: 1
   },
