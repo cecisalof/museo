@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
 import {
   Text,
   View,
@@ -11,19 +10,15 @@ import {
   setItems,
 } from "../store/itemActions";
 
-class DetailsScreen extends Component {
+class BaseFloor extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text >Details Screen</Text>
+        <Text >Planta Baja</Text>
         <Button
-          title="Go to Shop!"
+          title="Volver a la Home"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
-          onPress={() => this.props.navigation.navigate('Shop', {
-              itemId: 86,
-              otherParam: 'anything you want here',
-            })
-            }
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     );
@@ -37,4 +32,4 @@ function mapStateToProps({items}) {
   return {items}
 }
 
-export default connect(mapStateToProps)(DetailsScreen);
+export default connect(mapStateToProps)(BaseFloor);
