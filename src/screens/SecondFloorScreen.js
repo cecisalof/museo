@@ -12,22 +12,15 @@ import {
   setItems,
 } from "../store/itemActions";
 
-class ShopScreen extends Component {
+class SecondFloor extends Component {
   render() {
     return (
-      <View style={ styles.mainContainer }>
-        <View style={{ }}>
-
-        </View>
-        <Text >Home Screen</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text >Planta 2</Text>
         <Button
-          title="Go to Details!"
+          title="Volver a la home"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
-          onPress={() => this.props.navigation.navigate('Details', {
-              itemId: 86,
-              otherParam: 'anything you want here',
-            })
-            }
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     );
@@ -40,4 +33,4 @@ function mapStateToProps({items}) {
   return {items}
 }
 
-export default connect(mapStateToProps)(ShopScreen);
+export default connect(mapStateToProps)(SecondFloor);

@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -9,7 +10,6 @@ import { translations } from './src/translations'
 import store from './src/store/store';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
-
 i18n.translations = translations;
 i18n.defaultLocale = 'es';
 i18n.locale = Localization.locale;
@@ -23,7 +23,7 @@ export default class App extends React.Component {
 
   async loadFonts() {
     await Font.loadAsync({
-      // Load a font `Montserrat` from a static resource
+      // Load a font `Roboto` from a static resource
       Roboto: require('./src/assets/fonts/Roboto-Regular.ttf'),
 
       // Any string can be used as the fontFamily name. Here we use an object to provide more control

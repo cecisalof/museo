@@ -1,12 +1,26 @@
 //AppNavigator:  we will define the type of navigation to internal screens app
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Component } from "react";
-
 import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
-import ShopScreen from '../screens/ShopScreen';
+import BaseFloorScreen from '../screens/BaseFloorScreen';
+import FirstFloorScreen from '../screens/FirstFloorScreen';
+import SecondFloorScreen from '../screens/SecondFloorScreen';
 
+
+const Drawer = createDrawerNavigator();
+
+function DrawerMenu() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
+      <Drawer.Screen name="BaseFloor" component={BaseFloorScreen}  options={{ title: 'Planta Baja' }} />
+      <Drawer.Screen name="FirstFloor" component={FirstFloorScreen} options={{ title: 'Planta 1' }} />
+      <Drawer.Screen name="SecondFloor" component={SecondFloorScreen}  options={{ title: 'Planta 2' }} />
+    </Drawer.Navigator>
+  );
+}
 const Stack = createStackNavigator();
 
 class AppNavigator extends Component {
@@ -14,10 +28,12 @@ class AppNavigator extends Component {
     return (
       <Stack.Navigator initialRouteName="Splash">
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
-        <Stack.Screen name="Splash" component={SplashScreen}  options={{ title: 'Splash' }} />
-        <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Overview' }} />
-        <Stack.Screen name="Details" component={DetailsScreen}  options={{ title: 'Details' }} />
-        <Stack.Screen name="Shop" component={ShopScreen}  options={{ title: 'Shop' }} />
+        <Stack.Screen name="DrawerMenu" component={DrawerMenu}  options={{ headerShown: true }} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="BaseFloor" component={BaseFloorScreen} options={{ title: 'Planta Baja' }} />
+        <Stack.Screen name="FirstFloor" component={FirstFloorScreen} options={{ title: 'Planta 1' }} />
+        <Stack.Screen name="SecondFloor" component={SecondFloorScreen} options={{ title: 'Planta 2' }} />
       </Stack.Navigator>
     )
   }

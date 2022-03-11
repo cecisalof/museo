@@ -18,14 +18,12 @@ import {
   setItems,
 } from "../store/itemActions";
 
+
 class HomeScreen extends Component {
   render() {
     console.log(this.props.items);
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.menu}>
-          <Text style={styles.textHeader}>Header</Text>
-        </View>
         <View styles={styles.titleContainer}>
           <Text style={styles.textBold}>
             Bienvenidos
@@ -33,11 +31,14 @@ class HomeScreen extends Component {
           <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
         </View>
         <View style={styles.touchableContainer}>
-          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}
+            onPress={() => this.props.navigation.navigate('SecondFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
           <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></View>
-          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}
+            onPress={() => this.props.navigation.navigate('FirstFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
             <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></View>
-          <TouchableOpacity  style={styles.button}><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity  style={styles.button}
+            onPress={() => this.props.navigation.navigate('BaseFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
             <View style={styles.floorLabelsContainer}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></View>
         </View>
         <View style={styles.menu}>
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   floorLabels: {
+    fontFamily: 'Roboto',
     fontSize: 12,
     lineHeight: 16,
     color: '#FFFFFFDE',
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   text: {
+    fontFamily: 'Roboto',
     fontSize: 16,
     lineHeight: 19,
     color: '#FFFFFFDE',
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 19
   },
   textBold: {
+    paddingTop: 24,
     fontFamily: 'Roboto-Bold',
     fontSize: 16,
     lineHeight: 19,
@@ -119,6 +123,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 19
   },
   textHeader: {
+    fontFamily: 'Roboto',
     justifyContent: 'center',
     color: '#FFFFFFDE'
   },
