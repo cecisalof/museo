@@ -13,20 +13,25 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor
+  PlatformColor,
+  Linking
 } from "react-native";
-import line from '../assets/images/floors/Line.png';
+import Item from '../components/atoms/MenuItem.js';
 import baseFloor from '../assets/images/icons/baseFloor.png';
+import firstFloor from '../assets/images/icons/firstFloor.png';
+import secondFloor from '../assets/images/icons/secondFloor.png';
+import people from '../assets/images/icons/museumFriends.png';
 import HomeScreen from '../screens/HomeScreen';
 import BaseFloorScreen from '../screens/BaseFloorScreen';
 import FirstFloorScreen from '../screens/FirstFloorScreen';
 import SecondFloorScreen from '../screens/SecondFloorScreen';
 import SplashScreen from '../screens/SplashScreen';
-import { Color, Font } from '../assets/styles/index.js'
+import { Color, Font } from '../assets/styles/index.js';
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerMenu() {
+const DrawerMenu = () => {
+  // const dimensions = useWindowDimensions();
   return (
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
@@ -63,27 +68,37 @@ export default function DrawerMenu() {
   );
 }
 
-function CustomDrawerContent(props) {
+const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView {...props} style={styles.container}>
       <View style={styles.menuTitleContainer}>
         <Text style={styles.menuTitle}>Menú</Text>
         <Text style={styles.menuSubtitle}>Museo Egipcio Melilla</Text>
       </View>
-      <View style={styles.tabContainer}>
-        <Image source={baseFloor} style={styles.floorIcon}/><DrawerItem style={styles.drawerItem}label="Planta Baja" onPress={() => alert('Link to help')} />
-      </View>
-      <DrawerItem label="Planta1" onPress={() => alert('Link to help')} />
-      <DrawerItem label="Planta2" onPress={() => alert('Link to help')} />
+        <Item
+          label = 'Planta Baja'
+          onPress = {() => props.navigation.navigate('Planta Baja')}
+          image= {baseFloor}
+        />
+        <Item
+          label = 'Planta 1'
+          onPress = {() => props.navigation.navigate('Planta 1')}
+          image= {firstFloor}
+        />
+        <Item
+          label = 'Planta 2'
+          onPress = {() => props.navigation.navigate('Planta 2')}
+          image= {secondFloor}
+        />
+        <Item
+          label = 'Amigos del Museo'
+          onPress = {() => Linking.openURL('https://fundaciongaselec.es/contacto/')}
+          image= {people}
+        />
     </DrawerContentScrollView>
   );
 }
 
-// const MenuItems = ({ navigation}) => {
-//   return (
-//     <DrawerContentScrollView>
-//   )
-// }
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
@@ -101,20 +116,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: Font.FONT_SIZE_12,
     lineHeight: Font.LINE_HEIGHT_16
-  },
-  floorIcon: {
-    width: 19,
-    height: 24
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 16
-  },
-  drawerItem: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
   }
 });
+
+export default DrawerMenu;
