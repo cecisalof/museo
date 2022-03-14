@@ -1,10 +1,8 @@
 //Custom design
-export const PRIMARY = '#FAE6E4';
-export const SECONDARY = '#D99578';
-export const WHITE = '#FFFFFF';
-export const BLACK = '#000000';
-
-// ACTIONS
-
-
-// GRAYSCALE
+const Color = {
+  PRIMARY: "#FAE6E4",
+  SECONDARY: '#D99578',
+  WHITE: "#FFFFFF",
+  BLACK: "#000000",
+};
+export default Color;

@@ -1,6 +1,5 @@
-import * as Colors from './colors';
-import * as Spacing from './spacing';
-import * as Typography from './typography';
-import * as Mixins from './mixins';
+import Color from './colors';
+import Font from './typography';
 
-export { Typography, Spacing, Colors, Mixins };
+
+export { Font, Color };

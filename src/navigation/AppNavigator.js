@@ -16,7 +16,7 @@ class AppNavigator extends Component {
     return (
       <Stack.Navigator initialRouteName="Drawer">
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
-        <Stack.Screen name="Drawer" component={DrawerMenu} options={{ headerShown: false }}/>
+        <Stack.Screen name="Menú" component={DrawerMenu} options={{ headerShown: false }}/>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="BaseFloor" component={BaseFloorScreen} options={{ title: 'Planta Baja' }} />
         <Stack.Screen name="FirstFloor" component={FirstFloorScreen} options={{ title: 'Planta 1' }} />
