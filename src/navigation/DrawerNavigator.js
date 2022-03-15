@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {React, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator,
   DrawerContentScrollView,
@@ -62,13 +62,15 @@ const DrawerMenu = () => {
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }}/>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Planta Baja" component={BaseFloorScreen} />
-      <Drawer.Screen name="Planta 1" component={FirstFloorScreen} />
+      <Drawer.Screen name="Planta 1" component={FirstFloorScreen}  />
       <Drawer.Screen name="Planta 2" component={SecondFloorScreen} />
     </Drawer.Navigator>
   );
 }
 
 const CustomDrawerContent = (props) => {
+  const [activeButton, SetActiveButton] = useState(false);
+
   return (
     <DrawerContentScrollView {...props} style={styles.container}>
       <View style={styles.menuTitleContainer}>
@@ -77,7 +79,12 @@ const CustomDrawerContent = (props) => {
       </View>
         <Item
           label = 'Planta Baja'
-          onPress = {() => props.navigation.navigate('Planta Baja')}
+          onPress = {() => {
+            SetActiveButton(true);
+            console.log(activeButton);
+            props.navigation.navigate('Planta Baja')
+            }
+          }
           image= {baseFloor}
         />
         <Item

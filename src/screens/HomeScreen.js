@@ -42,9 +42,6 @@ class HomeScreen extends Component {
             onPress={() => this.props.navigation.navigate('BaseFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
           <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('BaseFloor')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
         </View>
-        <View style={styles.menu}>
-          <Text style={styles.textHeader}>Footer with icons</Text>
-        </View>
       </View>
     );
   }
