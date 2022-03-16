@@ -52,6 +52,7 @@ const DrawerMenu = () => {
       screenOptions={{
         headerTitle: (props) => <Logo {...props} />,
         headerTintColor: '#FFFFFF',
+        headerBackButtonMenuEnabled: false,
         headerStyle: {
           backgroundColor: Color.BLACK,
           borderBottomColor: Color.SECONDARY,
@@ -81,8 +82,8 @@ const DrawerMenu = () => {
           })
         }} }
         >
-      <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }}/>
-      <Drawer.Screen name="Home" component={HomeScreen}  />
+      <Drawer.Screen name="Splash" component={SplashScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="BaseFloor" component={BaseFloorScreen} />
       <Drawer.Screen name="FirstFloor" component={FirstFloorScreen}  />
       <Drawer.Screen name="SecondFloor" component={SecondFloorScreen} />

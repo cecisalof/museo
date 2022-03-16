@@ -41,12 +41,13 @@ class AppNavigator extends Component {
             borderBottomColor: Color.SECONDARY,
             borderWidth: 2,
           },
+          headerBackTitleVisible: false ,
           headerTitle: (props) => <Logo {...props} />
         }}
         >
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
         <Stack.Screen name="Menú" component={DrawerMenu} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Inicio" component={HomeScreen} />
         <Stack.Screen name="Planta Baja" component={BaseFloorScreen}  />
         <Stack.Screen name="Planta 1" component={FirstFloorScreen}  />
         <Stack.Screen name="Planta 2" component={SecondFloorScreen} />
