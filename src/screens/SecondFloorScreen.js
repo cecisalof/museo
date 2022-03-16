@@ -1,29 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
+// import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
 import {
   Text,
   View,
-  Button
+  Button,
+  StyleSheet
 } from "react-native";
 import {
   setItems,
 } from "../store/itemActions";
 
-class DetailsScreen extends Component {
+class SecondFloor extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={[FONT_REGULAR, {fontSize: 16 }]}>Details Screen</Text>
+          <Text >Planta 2</Text>
         <Button
-          title="Go to Shop!"
+          title="Volver a la home"
           /* we call navigate function on navigation prop with the name of the route to move the user to*/
-          onPress={() => this.props.navigation.navigate('Shop', {
-              itemId: 86,
-              otherParam: 'anything you want here',
-            })
-            }
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     );
@@ -32,9 +29,8 @@ class DetailsScreen extends Component {
 
 //---- Connect to props functions and values -----//
 
-
 function mapStateToProps({items}) {
   return {items}
 }
 
-export default connect(mapStateToProps)(DetailsScreen);
+export default connect(mapStateToProps)(SecondFloor);

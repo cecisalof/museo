@@ -8,6 +8,7 @@ import {
   Button
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
+import {Typography} from '../assets/styles/index.js'
 import {
   setItems,
 } from "../store/itemActions";
