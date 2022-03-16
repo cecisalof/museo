@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import floors from '../assets/images/floors/Planta1.png'
 import line from '../assets/images/floors/Line.png'
 
 
@@ -36,14 +35,14 @@ class HomeScreen extends Component {
           </View>
           <View style={styles.touchableContainer}>
             <TouchableOpacity  style={styles.button}
-              onPress={() => this.props.navigation.navigate('Planta 2')} ><Image source={floors} style={styles.floors} />
+              onPress={() => this.props.navigation.navigate('Planta 2')} ><Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 2')}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
             <TouchableOpacity  style={styles.button}
-              onPress={() => this.props.navigation.navigate('Planta 1')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+              onPress={() => this.props.navigation.navigate('Planta 1')} ><Image source={require('../assets/images/floors/App-Planta-1.png')} style={styles.floors} /></TouchableOpacity>
             <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 1')}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
             <TouchableOpacity  style={styles.button}
-              onPress={() => this.props.navigation.navigate('Planta Baja')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+              onPress={() => this.props.navigation.navigate('Planta Baja')} ><Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} /></TouchableOpacity>
             <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta Baja')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
           </View>
         </View>
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     marginRight: 40
   },
   floorLabelsContainer: {
-    flex: 0.2,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
@@ -138,10 +137,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFFDE'
   },
   button: {
-    flex: 0.2,
     justifyContent: 'space-between',
     alignItems: 'center',
-    // borderWidth: 5,
   },
   floors: {
     width: 218,
