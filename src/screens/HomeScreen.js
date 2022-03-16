@@ -12,7 +12,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor
+  PlatformColor,
+  SafeAreaView
 } from "react-native";
 import {
   setItems,
@@ -23,31 +24,40 @@ class HomeScreen extends Component {
   render() {
     console.log(this.props.items);
     return (
-      <View style={styles.mainContainer}>
-        <View styles={styles.titleContainer}>
-          <Text style={styles.textBold}>
-            Bienvenidos
-          </Text>
-          <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View styles={styles.titleContainer}>
+            <Text style={styles.textBold}>
+              Bienvenidos
+            </Text>
+            <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+          </View>
+          <View style={styles.touchableContainer}>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta 2')} ><Image source={floors} style={styles.floors} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 2')}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta 1')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 1')}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta Baja')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta Baja')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.touchableContainer}>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('SecondFloor')} ><Image source={floors} style={styles.floors} />
-          </TouchableOpacity>
-           <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('SecondFloor')}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('FirstFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('FirstFloor')}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('BaseFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('BaseFloor')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+        <View style={styles.footer}>
+          <Text style={styles.text}>Footer</Text>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000'
+  },
   mainContainer: {
     flex: 1,
     justifyContent: 'flex-start',
@@ -129,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 5,
+    // borderWidth: 5,
   },
   floors: {
     width: 218,
@@ -140,7 +150,7 @@ const styles = StyleSheet.create({
     height: 1
   },
   footer: {
-    flex: 1.5
+    flex: 0.2
   }
 });
 

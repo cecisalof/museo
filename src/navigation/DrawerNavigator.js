@@ -27,6 +27,10 @@ import FirstFloorScreen from '../screens/FirstFloorScreen';
 import SecondFloorScreen from '../screens/SecondFloorScreen';
 import SplashScreen from '../screens/SplashScreen';
 import { Color, Font } from '../assets/styles/index.js';
+import facebook from '../assets/images/icons/facebook.png';
+import instagram from '../assets/images/icons/instagram.png';
+import twitter from '../assets/images/icons/twitter.png';
+import youtube from '../assets/images/icons/youtube.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,11 +40,18 @@ const DrawerMenu = () => {
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
+          headerTintColor: '#FFFFFF',
+        headerStyle: {
+          backgroundColor: Color.BLACK,
+          borderBottomColor: Color.SECONDARY,
+          borderWidth: 2,
+        },
         drawerStyle: {
           width: 304,
           backgroundColor: Color.PRIMARY,
           borderTopRightRadius: 16,
           borderBottomRightRadius: 16,
+
           overlayColor: 'transparent',
           ...Platform.select({
             ios: {
@@ -60,10 +71,10 @@ const DrawerMenu = () => {
         }} }
         >
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }}/>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Planta Baja" component={BaseFloorScreen} />
-      <Drawer.Screen name="Planta 1" component={FirstFloorScreen}  />
-      <Drawer.Screen name="Planta 2" component={SecondFloorScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen}  />
+      <Drawer.Screen name="BaseFloor" component={BaseFloorScreen} />
+      <Drawer.Screen name="FirstFloor" component={FirstFloorScreen}  />
+      <Drawer.Screen name="SecondFloor" component={SecondFloorScreen} />
     </Drawer.Navigator>
   );
 }
@@ -72,11 +83,12 @@ const CustomDrawerContent = (props) => {
   const [activeButton, SetActiveButton] = useState(false);
 
   return (
-    <DrawerContentScrollView {...props} style={styles.container}>
+    <DrawerContentScrollView {...props} style={styles.drawerContainer}>
       <View style={styles.menuTitleContainer}>
         <Text style={styles.menuTitle}>Menú</Text>
         <Text style={styles.menuSubtitle}>Museo Egipcio Melilla</Text>
       </View>
+      <View style={styles.itemContainer}>
         <Item
           label = 'Planta Baja'
           onPress = {() => {
@@ -102,13 +114,26 @@ const CustomDrawerContent = (props) => {
           onPress = {() => Linking.openURL('https://fundaciongaselec.es/contacto/')}
           image= {people}
         />
+      </View>
+      <View style={styles.iconContainer}>
+        <View style={styles.socialMedia}>
+            <TouchableOpacity><Image source={instagram} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={facebook} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={twitter} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={youtube} style={styles.icons} /></TouchableOpacity>
+          </View>
+      </View>
     </DrawerContentScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  drawerContainer: {
+    flex: 1,
     backgroundColor: 'transparent',
+  },
+  itemContainer: {
+    flex: 1
   },
   menuTitleContainer: {
     paddingTop: 48,
@@ -123,6 +148,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: Font.FONT_SIZE_12,
     lineHeight: Font.LINE_HEIGHT_16
+  },
+  icons: {
+    width: 20,
+    height: 20
+  },
+  socialMedia: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-end'
+  },
+  iconContainer: {
+    // position: 'absolute',
+    // bottom: 0
   }
 });
 
