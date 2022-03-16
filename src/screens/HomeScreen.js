@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import logo from '../assets/images/splash.png'
-import { FONT_FAMILY_BOLD, FONT_FAMILY_REGULAR, LINE_HEIGHT_19, FONT_SIZE_16  } from '../assets/styles/typography'
-// import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
-// import  {Typography, Colors, Mixins} from '../assets/styles/index'
+import floors from '../assets/images/floors/Planta1.png'
+import line from '../assets/images/floors/Line.png'
+
 import {
   Text,
   View,
@@ -13,7 +12,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor
+  PlatformColor,
+  SafeAreaView
+
 } from "react-native";
 import {
   setItems,
@@ -23,90 +24,133 @@ class HomeScreen extends Component {
   render() {
     console.log(this.props.items);
     return (
-      <View style={styles.mainContainer}>
-        <View style={styles.menu}>
-          <Text style={styles.textHeader}>Header</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View styles={styles.titleContainer}>
+            <Text style={styles.textBold}>
+              Bienvenidos
+            </Text>
+            <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+          </View>
+          <View style={styles.touchableContainer}>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta 2')} ><Image source={floors} style={styles.floors} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 2')}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta 1')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta 1')}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Planta Baja')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Planta Baja')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+          </View>
         </View>
-        <View styles={styles.titleContainer}>
-          <Text style={styles.textBold}>
-            Bienvenidos
-          </Text>
-          <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+        <View style={styles.footer}>
+          <Text style={styles.text}>Footer</Text>
         </View>
-        <View style={styles.touchableContainer}>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}><Image source={logo} style={styles.floors} /></TouchableOpacity>
-        </View>
-        <View style={styles.menu}>
-          <Text style={styles.textHeader}>Footer with icons</Text>
-        </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000'
+  },
   mainContainer: {
     flex: 1,
     justifyContent: 'flex-start',
     color: '#FFF',
     backgroundColor: '#000',
+    fontFamily: 'Roboto',
     ...Platform.select({
       ios: {
         color: '#fff',
-        backgroundColor: '#000'
+        backgroundColor: '#000',
        },
       android: {
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+
       },
       default: {
-        color: '#000'
+        color: '#000',
       }
     })
   },
   menu: {
-    flex: 0.5,
+    flex: 0.2,
     justifyContent: 'center'
   },
   titleContainer: {
-    flex: 3,
-    marginLeft: 19,
-    marginBottom: 35,
-    backgroundColor: '#F00'
+    flex: 2,
+    marginHorizontal: 300,
+    backgroundColor: '#F00',
   },
   touchableContainer: {
-    flex: 3,
-    alignItems: 'center',
-    paddingTop: 35
+    flex: 1,
+    paddingTop: 20,
+    marginLeft: 28,
+    marginRight: 40
+  },
+  floorLabelsContainer: {
+    flex: 0.2,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  floorLabels: {
+    fontFamily: 'Roboto',
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#FFFFFFDE',
+    textAlign: 'right',
+    marginRight: 30
+  },
+  floorLabels2: {
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#FFFFFFDE',
+    textAlign: 'right',
+    marginRight: 15
   },
   text: {
-    // fontSize: FONT_SIZE_16,
-    color: '#FFF',
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    lineHeight: 19,
+    color: '#FFFFFFDE',
     textAlign: 'left',
+    marginHorizontal: 19
   },
   textBold: {
-    // fontFamily: Roboto_900Black,
-    // fontSize: FONT_SIZE_16,
-    // lineHeight: LINE_HEIGHT_19,
-    color: '#FFF',
+    paddingTop: 24,
+    fontFamily: 'Roboto-Bold',
+    fontSize: 16,
+    lineHeight: 19,
+    color: '#FFFFFFDE',
     textAlign: 'left',
+    marginHorizontal: 19
   },
   textHeader: {
+    fontFamily: 'Roboto',
     justifyContent: 'center',
-    color: '#FFF'
+    color: '#FFFFFFDE'
   },
   button: {
-    flex: 2,
+    flex: 0.2,
     justifyContent: 'space-between',
-    borderWidth: 5,
+    alignItems: 'center',
+    // borderWidth: 5,
   },
   floors: {
-    width: 200,
-    height: 150,
+    width: 218,
+    height: 122,
+  },
+  line: {
+    width: 79,
+    height: 1
   },
   footer: {
-    flex: 0.5
+    flex: 0.2
   }
 });
 

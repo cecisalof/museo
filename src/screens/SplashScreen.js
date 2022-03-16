@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { FONT_FAMILY_REGULAR, FONT_SIZE_16   } from '../assets/styles/typography'
+// import { FONT_FAMILY_REGULAR } from '../assets/styles/typography'
 import {
   Text,
   View,
   Button
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
+import {Typography} from '../assets/styles/index.js'
 import {
   setItems,
 } from "../store/itemActions";
@@ -44,7 +45,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: FONT_SIZE_16  }}>Cargando...</Text>
+        <Text>Cargando...</Text>
       </View>
     );
   }

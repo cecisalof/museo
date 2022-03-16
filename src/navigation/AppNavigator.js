@@ -1,26 +1,66 @@
 //AppNavigator:  we will define the type of navigation to internal screens app
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Component } from "react";
-
 import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
-import ShopScreen from '../screens/ShopScreen';
+import BaseFloorScreen from '../screens/BaseFloorScreen';
+import FirstFloorScreen from '../screens/FirstFloorScreen';
+import SecondFloorScreen from '../screens/SecondFloorScreen';
+import DrawerMenu from '../navigation/DrawerNavigator';
+import Footer from '../components/atoms/Footer.js'
+import logo from '../assets/images/logo.png'
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  PlatformColor,
+  SafeAreaView
+} from "react-native";
+import { Color } from '../assets/styles/index.js';
 
 const Stack = createStackNavigator();
+
+function Logo() {
+  return (
+    <Image
+      source={logo}
+      style={styles.logo}
+    />
+  );
+}
 
 class AppNavigator extends Component {
   render() {
     return (
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator initialRouteName="Drawer"
+        screenOptions={{
+          headerTintColor: '#FFFFFF',
+          headerStyle: {
+            backgroundColor: Color.BLACK,
+            borderBottomColor: Color.SECONDARY,
+            borderWidth: 2,
+          },
+          headerBackTitleVisible: false ,
+          headerTitle: (props) => <Logo {...props} />
+        }}
+        >
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
-        <Stack.Screen name="Splash" component={SplashScreen}  options={{ title: 'Splash' }} />
-        <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Overview' }} />
-        <Stack.Screen name="Details" component={DetailsScreen}  options={{ title: 'Details' }} />
-        <Stack.Screen name="Shop" component={ShopScreen}  options={{ title: 'Shop' }} />
+        <Stack.Screen name="Menú" component={DrawerMenu} options={{ headerShown: false }} />
+        <Stack.Screen name="Inicio" component={HomeScreen} />
+        <Stack.Screen name="Planta Baja" component={BaseFloorScreen}  />
+        <Stack.Screen name="Planta 1" component={FirstFloorScreen}  />
+        <Stack.Screen name="Planta 2" component={SecondFloorScreen} />
       </Stack.Navigator>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    height: 33,
+    width: 83
+  }
+});
 
 export default AppNavigator;
