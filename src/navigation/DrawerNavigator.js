@@ -1,4 +1,4 @@
-import {React, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator,
   DrawerContentScrollView,
@@ -92,7 +92,7 @@ const DrawerMenu = () => {
 }
 
 const CustomDrawerContent = (props) => {
-  const [activeButton, SetActiveButton] = useState(false);
+  // const [activeButton, SetActiveButton] = useState(false);
 
   return (
     <DrawerContentScrollView {...props} style={styles.drawerContainer}>
@@ -104,8 +104,8 @@ const CustomDrawerContent = (props) => {
         <Item
           label = 'Planta Baja'
           onPress = {() => {
-            SetActiveButton(true);
-            console.log(activeButton);
+            // SetActiveButton(true);
+            // console.log(activeButton);
             props.navigation.navigate('Planta Baja')
             }
           }

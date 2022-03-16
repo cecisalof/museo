@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import floors from '../assets/images/floors/Planta1.png'
 import line from '../assets/images/floors/Line.png'
 
+
 import {
   Text,
   View,
@@ -19,6 +20,7 @@ import {
 import {
   setItems,
 } from "../store/itemActions";
+
 
 class HomeScreen extends Component {
   render() {
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   mainContainer: {
-    flex: 1,
+    flex: 3,
     justifyContent: 'flex-start',
     color: '#FFF',
     backgroundColor: '#000',
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F00',
   },
   touchableContainer: {
-    flex: 1,
+    flex: 3,
     paddingTop: 20,
     marginLeft: 28,
     marginRight: 40
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     height: 1
   },
   footer: {
-    flex: 0.2
+    flex: 0.5
   }
 });
 
