@@ -17,14 +17,12 @@ import {
   Linking
 } from "react-native";
 import Item from '../components/atoms/MenuItem.js';
-import baseFloor from '../assets/images/icons/baseFloor.png';
 import firstFloor from '../assets/images/icons/firstFloor.png';
+import baseFloor from '../assets/images/icons/baseFloor.png';
 import secondFloor from '../assets/images/icons/secondFloor.png';
 import people from '../assets/images/icons/museumFriends.png';
 import HomeScreen from '../screens/HomeScreen';
-import BaseFloorScreen from '../screens/BaseFloorScreen';
-import FirstFloorScreen from '../screens/FirstFloorScreen';
-import SecondFloorScreen from '../screens/SecondFloorScreen';
+import FloorScreen from '../screens/FloorScreen';
 import SplashScreen from '../screens/SplashScreen';
 import { Color, Font } from '../assets/styles/index.js';
 import facebook from '../assets/images/icons/facebook.png';
@@ -84,9 +82,7 @@ const DrawerMenu = () => {
         >
       <Drawer.Screen name="Splash" component={SplashScreen} />
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="BaseFloor" component={BaseFloorScreen} />
-      <Drawer.Screen name="FirstFloor" component={FirstFloorScreen}  />
-      <Drawer.Screen name="SecondFloor" component={SecondFloorScreen} />
+      <Drawer.Screen name="Floor" component={FloorScreen} />
     </Drawer.Navigator>
   );
 }
@@ -103,22 +99,17 @@ const CustomDrawerContent = (props) => {
       <View style={styles.itemContainer}>
         <Item
           label = 'Planta Baja'
-          onPress = {() => {
-            // SetActiveButton(true);
-            // console.log(activeButton);
-            props.navigation.navigate('Planta Baja')
-            }
-          }
+          onPress = {() => { props.navigation.navigate('Floor',  {floorId: 'floor-0'})}}
           image= {baseFloor}
         />
         <Item
           label = 'Planta 1'
-          onPress = {() => props.navigation.navigate('Planta 1')}
+          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-1'})}
           image= {firstFloor}
         />
         <Item
           label = 'Planta 2'
-          onPress = {() => props.navigation.navigate('Planta 2')}
+          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2'})}
           image= {secondFloor}
         />
         <Item

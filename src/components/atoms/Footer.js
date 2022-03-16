@@ -1,6 +1,4 @@
 import HomeScreen from '../../screens/HomeScreen.js';
-import BaseFloorScreen from '../../screens/BaseFloorScreen.js';
-import SplashScreen from '../../screens/SplashScreen';
 import {
   Text,
   View,
@@ -19,8 +17,8 @@ import shopIcon from '../../assets/images/icons/shoppingBag.png';
 const Footer = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity name="Splash" component={SplashScreen}><Image source={shopIcon} /></TouchableOpacity>
-      <TouchableOpacity name="Planta Baja" component={BaseFloorScreen}><Image source={shopIcon} /></TouchableOpacity>
+      <TouchableOpacity><Image source={shopIcon} /></TouchableOpacity>
+      <TouchableOpacity><Image source={shopIcon} /></TouchableOpacity>
     </View>
   );
 }

@@ -4,9 +4,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Component } from "react";
 import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/HomeScreen';
-import BaseFloorScreen from '../screens/BaseFloorScreen';
-import FirstFloorScreen from '../screens/FirstFloorScreen';
-import SecondFloorScreen from '../screens/SecondFloorScreen';
+import FloorScreen from '../screens/FloorScreen';
+import CollectionScreen from '../screens/CollectionScreen';
+import ItemScreen from '../screens/ItemScreen';
 import DrawerMenu from '../navigation/DrawerNavigator';
 import Footer from '../components/atoms/Footer.js'
 import logo from '../assets/images/logo.png'
@@ -48,9 +48,9 @@ class AppNavigator extends Component {
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
         <Stack.Screen name="Menú" component={DrawerMenu} options={{ headerShown: false }} />
         <Stack.Screen name="Inicio" component={HomeScreen} />
-        <Stack.Screen name="Planta Baja" component={BaseFloorScreen}  />
-        <Stack.Screen name="Planta 1" component={FirstFloorScreen}  />
-        <Stack.Screen name="Planta 2" component={SecondFloorScreen} />
+        <Stack.Screen name="Floor" component={FloorScreen} />
+        <Stack.Screen name="Collection" component={CollectionScreen}/>
+        <Stack.Screen name="Item" component={ItemScreen}/>
       </Stack.Navigator>
     )
   }
