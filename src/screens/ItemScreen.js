@@ -1,27 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { FONT_REGULAR, FONT_BOLD } from '../assets/styles/typography'
 import {
   Text,
   View,
   Button,
-  StyleSheet
+  FlatList
 } from "react-native";
 import {
   setItems,
 } from "../store/itemActions";
 
-class SecondFloor extends Component {
+class ItemScreen extends Component {
   render() {
+    const { item, panels } = this.props.route.params;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text >Planta 2</Text>
-        <Button
-          title="Volver a la home"
-          /* we call navigate function on navigation prop with the name of the route to move the user to*/
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
+        <Text>{item.title_es}</Text>
+        <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text>
       </View>
     );
   }
@@ -29,8 +25,9 @@ class SecondFloor extends Component {
 
 //---- Connect to props functions and values -----//
 
+
 function mapStateToProps({items}) {
   return {items}
 }
 
-export default connect(mapStateToProps)(SecondFloor);
+export default connect(mapStateToProps)(ItemScreen);

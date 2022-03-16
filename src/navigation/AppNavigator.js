@@ -4,10 +4,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Component } from "react";
 import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/HomeScreen';
-import BaseFloorScreen from '../screens/BaseFloorScreen';
-import FirstFloorScreen from '../screens/FirstFloorScreen';
-import SecondFloorScreen from '../screens/SecondFloorScreen';
-
+import FloorScreen from '../screens/FloorScreen';
+import CollectionScreen from '../screens/CollectionScreen';
+import ItemScreen from '../screens/ItemScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,9 +14,9 @@ function DrawerMenu() {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
-      <Drawer.Screen name="BaseFloor" component={BaseFloorScreen}  options={{ title: 'Planta Baja' }} />
-      <Drawer.Screen name="FirstFloor" component={FirstFloorScreen} options={{ title: 'Planta 1' }} />
-      <Drawer.Screen name="SecondFloor" component={SecondFloorScreen}  options={{ title: 'Planta 2' }} />
+      <Drawer.Screen name="BaseFloor" component={FloorScreen}  options={{ title: 'Planta Baja' }} />
+      <Drawer.Screen name="FirstFloor" component={FloorScreen} options={{ title: 'Planta 1' }} />
+      <Drawer.Screen name="SecondFloor" component={FloorScreen}  options={{ title: 'Planta 2' }} />
     </Drawer.Navigator>
   );
 }
@@ -31,9 +30,11 @@ class AppNavigator extends Component {
         <Stack.Screen name="DrawerMenu" component={DrawerMenu}  options={{ headerShown: true }} />
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="BaseFloor" component={BaseFloorScreen} options={{ title: 'Planta Baja' }} />
-        <Stack.Screen name="FirstFloor" component={FirstFloorScreen} options={{ title: 'Planta 1' }} />
-        <Stack.Screen name="SecondFloor" component={SecondFloorScreen} options={{ title: 'Planta 2' }} />
+        <Stack.Screen name="BaseFloor" component={FloorScreen} options={{ title: 'Planta Baja' }} />
+        <Stack.Screen name="FirstFloor" component={FloorScreen} options={{ title: 'Planta 1' }} />
+        <Stack.Screen name="SecondFloor" component={FloorScreen} options={{ title: 'Planta 2' }} />
+        <Stack.Screen name="Collection" component={CollectionScreen}/>
+        <Stack.Screen name="Item" component={ItemScreen}/>
       </Stack.Navigator>
     )
   }

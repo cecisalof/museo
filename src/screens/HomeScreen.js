@@ -32,15 +32,15 @@ class HomeScreen extends Component {
         </View>
         <View style={styles.touchableContainer}>
           <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('SecondFloor')} ><Image source={floors} style={styles.floors} />
+            onPress={() => this.props.navigation.navigate('SecondFloor', {floorId: 'floor-2'})} ><Image source={floors} style={styles.floors} />
           </TouchableOpacity>
-           <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('SecondFloor')}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+           <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('SecondFloor', {floorId: 'floor-2'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
           <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('FirstFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('FirstFloor')}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            onPress={() => this.props.navigation.navigate('FirstFloor', {floorId: 'floor-1'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('FirstFloor', {floorId: 'floor-1'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
           <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('BaseFloor')} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('BaseFloor')}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            onPress={() => this.props.navigation.navigate('BaseFloor', {floorId: 'floor-0'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('BaseFloor', {floorId: 'floor-0'})}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
         </View>
         <View style={styles.menu}>
           <Text style={styles.textHeader}>Footer with icons</Text>
