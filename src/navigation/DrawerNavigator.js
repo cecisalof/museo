@@ -31,8 +31,18 @@ import facebook from '../assets/images/icons/facebook.png';
 import instagram from '../assets/images/icons/instagram.png';
 import twitter from '../assets/images/icons/twitter.png';
 import youtube from '../assets/images/icons/youtube.png';
+import logo from '../assets/images/logo.png'
 
 const Drawer = createDrawerNavigator();
+
+function Logo() {
+  return (
+    <Image
+      source={logo}
+      style={styles.logo}
+    />
+  );
+}
 
 const DrawerMenu = () => {
   // const dimensions = useWindowDimensions();
@@ -40,7 +50,8 @@ const DrawerMenu = () => {
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
-          headerTintColor: '#FFFFFF',
+        headerTitle: (props) => <Logo {...props} />,
+        headerTintColor: '#FFFFFF',
         headerStyle: {
           backgroundColor: Color.BLACK,
           borderBottomColor: Color.SECONDARY,
@@ -130,14 +141,16 @@ const CustomDrawerContent = (props) => {
 const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
-  },
-  itemContainer: {
-    flex: 1
+    backgroundColor: 'transparent'
   },
   menuTitleContainer: {
+    flex: 2,
     paddingTop: 48,
     padding: 16
+  },
+  itemContainer: {
+    flex: 4,
+    paddingBottom: 16
   },
   menuTitle: {
     fontFamily: 'Roboto-Bold',
@@ -153,15 +166,17 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20
   },
-  socialMedia: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'flex-end'
-  },
   iconContainer: {
-    // position: 'absolute',
-    // bottom: 0
+      flex: 1,
+  },
+  socialMedia: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  logo: {
+    height: 33,
+    width: 83,
+    alignSelf: 'center'
   }
 });
 

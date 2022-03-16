@@ -33,13 +33,15 @@ function Logo() {
 class AppNavigator extends Component {
   render() {
     return (
-      <Stack.Navigator initialRouteName="Drawer"   screenOptions={{
+      <Stack.Navigator initialRouteName="Drawer"
+        screenOptions={{
           headerTintColor: '#FFFFFF',
           headerStyle: {
             backgroundColor: Color.BLACK,
             borderBottomColor: Color.SECONDARY,
             borderWidth: 2,
-          }
+          },
+          headerTitle: (props) => <Logo {...props} />
         }}
         >
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
@@ -55,11 +57,8 @@ class AppNavigator extends Component {
 
 const styles = StyleSheet.create({
   logo: {
-    flex: 1,
-    alignItems: 'center',
     height: 33,
     width: 83
-
   }
 });
 
