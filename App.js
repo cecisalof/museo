@@ -1,8 +1,21 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
+import {
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+  PlatformColor,
+  SafeAreaView
+} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './src/navigation/AppNavigator';
+import DrawerMenu from './src/navigation/DrawerNavigator';
+import Footer from './src/components/atoms/Footer.js'
 import AppLoading from 'expo-app-loading';
+import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
@@ -46,7 +59,7 @@ export default class App extends React.Component {
      return (
        <Provider store={store}>
          <NavigationContainer>
-           <AppNavigator />
+            <AppNavigator />
          </NavigationContainer>
        </Provider>
      );

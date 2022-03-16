@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import floors from '../assets/images/floors/Planta1.png'
 import line from '../assets/images/floors/Line.png'
-// import { PRIMARY, WHITE, BLACK } from '../assets/styles/colors'
+
 import {
   Text,
   View,
@@ -12,7 +12,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor
+  PlatformColor,
+  SafeAreaView
+
 } from "react-native";
 import {
   setItems,
@@ -23,36 +25,42 @@ class HomeScreen extends Component {
   render() {
     console.log(this.props.items);
     return (
-      <View style={styles.mainContainer}>
-        <View styles={styles.titleContainer}>
-          <Text style={styles.textBold}>
-            Bienvenidos
-          </Text>
-          <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View styles={styles.titleContainer}>
+            <Text style={styles.textBold}>
+              Bienvenidos
+            </Text>
+            <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+          </View>
+          <View style={styles.touchableContainer}>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})} ><Image source={floors} style={styles.floors} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+            <TouchableOpacity  style={styles.button}
+              onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
+            <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.touchableContainer}>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('SecondFloor', {floorId: 'floor-2'})} ><Image source={floors} style={styles.floors} />
-          </TouchableOpacity>
-           <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('SecondFloor', {floorId: 'floor-2'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('FirstFloor', {floorId: 'floor-1'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('FirstFloor', {floorId: 'floor-1'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-          <TouchableOpacity  style={styles.button}
-            onPress={() => this.props.navigation.navigate('BaseFloor', {floorId: 'floor-0'})} ><Image source={floors} style={styles.floors} /></TouchableOpacity>
-          <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('BaseFloor', {floorId: 'floor-0'})}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+        <View style={styles.footer}>
+          <Text style={styles.text}>Footer</Text>
         </View>
-        <View style={styles.menu}>
-          <Text style={styles.textHeader}>Footer with icons</Text>
-        </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
+    backgroundColor: '#000'
+  },
+  mainContainer: {
+    flex: 3,
     justifyContent: 'flex-start',
     color: '#FFF',
     backgroundColor: '#000',
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F00',
   },
   touchableContainer: {
-    flex: 1,
+    flex: 3,
     paddingTop: 20,
     marginLeft: 28,
     marginRight: 40
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 5,
+    // borderWidth: 5,
   },
   floors: {
     width: 218,
@@ -143,7 +151,7 @@ const styles = StyleSheet.create({
     height: 1
   },
   footer: {
-    flex: 1.5
+    flex: 0.5
   }
 });
 
