@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import { Component } from 'react';
 import {
   Text,
   View,
@@ -29,7 +29,7 @@ i18n.locale = Localization.locale;
 // When a value is missing from a language it'll fallback to another language with the key present.
 i18n.fallbacks = true;
 
-export default class App extends React.Component {
+export default class App extends Component {
   state = {
     fontsLoaded: false,
   };
