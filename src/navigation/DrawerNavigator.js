@@ -13,7 +13,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor,
   Linking
 } from "react-native";
 import Item from '../components/atoms/MenuItem.js';
@@ -177,7 +176,25 @@ const styles = StyleSheet.create({
     width: 83
   },
   search: {
-    marginRight: '10%'
+    marginRight: '10%',
+    ...Platform.select({
+      ios: {
+        width: 24,
+        height: 24,
+        marginRight: '10%'
+       },
+      android: {
+        width: 24,
+        height: 24,
+        marginRight: 16
+      },
+      default: {
+        width: 24,
+        height: 24,
+        marginRight: 16
+      }
+    })
+
   }
 });
 
