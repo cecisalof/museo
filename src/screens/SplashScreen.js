@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { FONT_FAMILY_REGULAR } from '../assets/styles/typography'
+import { Color, Font } from '../assets/styles/index.js';
 import {
   Text,
   View,
-  Button
+  Button,
+  StyleSheet,
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 import {Typography} from '../assets/styles/index.js'
@@ -44,15 +45,28 @@ class SplashScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Cargando...</Text>
+      <View style={styles.splash}>
+        <Text style={styles.splashText}>Cargando</Text>
       </View>
     );
   }
 }
-
+const styles = StyleSheet.create({
+splash: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: Color.BLACK,
+  color: Color.WHITE
+},
+splashText: {
+  fontFamily: 'Roboto-Bold',
+  fontSize: Font.FONT_SIZE_18,
+  lineHeight: Font.LINE_HEIGHT_16,
+  color: Color.WHITE
+}
 //---- Connect to props functions and values -----//
-
+})
 function mapStateToProps({items}) {
   return {items}
 }
