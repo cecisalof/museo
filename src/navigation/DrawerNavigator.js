@@ -80,9 +80,9 @@ const DrawerMenu = () => {
           })
         }} }
         >
-      <Drawer.Screen name="Splash" component={SplashScreen} />
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Floor" component={FloorScreen} />
+      <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerTitleAlign: "center" }} />
+      <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }} />
+      <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
     </Drawer.Navigator>
   );
 }
@@ -167,8 +167,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 33,
-    width: 83,
-    alignSelf: 'center'
+    width: 83
   }
 });
 

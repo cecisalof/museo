@@ -14,7 +14,6 @@ import {
   Image,
   StyleSheet,
   Platform,
-  PlatformColor,
   SafeAreaView
 } from "react-native";
 import { Color } from '../assets/styles/index.js';
