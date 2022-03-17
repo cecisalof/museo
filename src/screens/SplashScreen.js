@@ -46,7 +46,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.splash}>
-        <Text style={styles.splashText}>Cargando</Text>
+        <Text style={styles.splashText}>Cargando...</Text>
       </View>
     );
   }
@@ -60,8 +60,8 @@ splash: {
   color: Color.WHITE
 },
 splashText: {
-  fontFamily: 'Roboto-Bold',
-  fontSize: Font.FONT_SIZE_18,
+  fontFamily: 'Roboto',
+  fontSize: Font.FONT_SIZE_14,
   lineHeight: Font.LINE_HEIGHT_16,
   color: Color.WHITE
 }
