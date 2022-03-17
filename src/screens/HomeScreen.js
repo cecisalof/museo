@@ -18,6 +18,7 @@ import {
 import {
   setItems,
 } from "../store/itemActions";
+import { Color, Font } from '../assets/styles/index.js';
 
 
 class HomeScreen extends Component {
@@ -35,20 +36,20 @@ class HomeScreen extends Component {
             </View>
             <View style={styles.touchableContainer}>
               <TouchableOpacity  style={styles.button}
-                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})} ><Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
+                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2'})} ><Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
               <TouchableOpacity  style={styles.button}
                 onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1'})} ><Image source={require('../assets/images/floors/App-Planta-1.png')} style={styles.floors} /></TouchableOpacity>
-              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
               <TouchableOpacity  style={styles.button}
-                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2'})} ><Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} /></TouchableOpacity>
+                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})} ><Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} /></TouchableOpacity>
               <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0'})}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
             </View>
-            <View style={styles.footer}>
-              <Text style={styles.text}>Footer</Text>
-            </View>
           </ImageBackground>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.text}>Footer</Text>
         </View>
       </SafeAreaView>
     );
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 6,
-    color: '#FFF',
+    color: Color.WHITE,
     backgroundColor: '#000',
     fontFamily: 'Roboto',
     ...Platform.select({
       ios: {
-        color: '#fff',
+        color: Color.WHITE,
         backgroundColor: '#000',
        },
       android: {
@@ -103,44 +104,22 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 12,
     lineHeight: 16,
-    color: '#FFFFFFDE',
+    color: Color.WHITE,
     textAlign: 'right',
-    marginRight: 30,
-    // ...Platform.select({
-    //   ios: {
-    //     marginRight: '10%',
-    //    },
-    //   android: {
-    //     marginRight: '10%'
-    //   },
-    //   default: {
-    //       marginRight: '%',
-    //   }
-    // }),
+    marginRight: 30
   },
   floorLabels2: {
     fontSize: 12,
     lineHeight: 16,
-    color: '#FFFFFFDE',
+    color: Color.WHITE,
     textAlign: 'right',
-    marginRight: 15,
-    // ...Platform.select({
-    //   ios: {
-    //     marginRight: '4%',
-    //    },
-    //   android: {
-    //     marginRight: '4%'
-    //   },
-    //   default: {
-    //       marginRight: '1%',
-    //   }
-    // }),
+    marginRight: 15
   },
   text: {
     fontFamily: 'Roboto',
     fontSize: 16,
     lineHeight: 19,
-    color: '#FFFFFFDE',
+    color: Color.WHITE,
     textAlign: 'left',
     marginHorizontal: '4%'
   },
@@ -159,14 +138,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: 16,
     lineHeight: 19,
-    color: '#FFFFFFDE',
+    color: Color.WHITE,
     textAlign: 'left',
     marginHorizontal: '4%'
   },
   textHeader: {
     fontFamily: 'Roboto',
     justifyContent: 'center',
-    color: '#FFFFFFDE'
+    color: Color.WHITE
   },
   button: {
     alignItems: 'center',
@@ -180,8 +159,8 @@ const styles = StyleSheet.create({
     height: 1
   },
   footer: {
-    flex: 0.2,
-    backgroundColor: 'transparent'
+    flex: 1,
+    backgroundColor: Color.BLACK
   }
 });
 

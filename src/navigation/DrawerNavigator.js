@@ -47,7 +47,7 @@ const DrawerMenu = () => {
              <TouchableOpacity
                onPress={() => alert('This is a button!')}
                title="Search"
-               color="#fff"
+               color="#FFFFFFDE"
              ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
            ),
         headerTintColor: '#FFFFFF',

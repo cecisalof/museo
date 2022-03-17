@@ -19,6 +19,7 @@ class Floor extends Component {
     console.log(floor.collection_set)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {/*VITRINAS*/}
         <FlatList
           style={{ width: "100%" }}
           contentContainerStyle={{}}
