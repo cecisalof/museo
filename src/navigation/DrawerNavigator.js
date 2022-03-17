@@ -49,12 +49,19 @@ const DrawerMenu = () => {
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
         headerTitle: (props) => <Logo {...props} />,
+        headerRight: () => (
+             <TouchableOpacity
+               onPress={() => alert('This is a button!')}
+               title="Search"
+               color="#fff"
+             ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
+           ),
         headerTintColor: '#FFFFFF',
         headerBackButtonMenuEnabled: false,
         headerStyle: {
           backgroundColor: Color.BLACK,
           borderBottomColor: Color.SECONDARY,
-          borderWidth: 2,
+          borderWidth: 2
         },
         drawerStyle: {
           width: 304,
@@ -168,6 +175,9 @@ const styles = StyleSheet.create({
   logo: {
     height: 33,
     width: 83
+  },
+  search: {
+    marginRight: '10%'
   }
 });
 
