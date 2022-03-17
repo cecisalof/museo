@@ -22,7 +22,7 @@ class SplashScreen extends Component {
     try{
       const items = await axios.get('https://mb9jo4pgqa.execute-api.eu-west-1.amazonaws.com/pro/api/items/all?limit=1000')
       this.props.setItems(items.data.results)
-    }catch(e){
+    } catch(e) {
       items = []
       try {
         items = await AsyncStorage.getItem('@items')
@@ -30,7 +30,7 @@ class SplashScreen extends Component {
       } catch(e) {}
       if (items && items != [] && items.length > 1){
         // it's ok, we have items from other attempt... we can go and try in another moment again
-      }else{
+      } else {
         alert(i18n.t('errors.loading'))
       }
     }

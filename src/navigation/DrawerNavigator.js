@@ -24,18 +24,13 @@ import HomeScreen from '../screens/HomeScreen';
 import FloorScreen from '../screens/FloorScreen';
 import SplashScreen from '../screens/SplashScreen';
 import { Color, Font } from '../assets/styles/index.js';
-import facebook from '../assets/images/icons/facebook.png';
-import instagram from '../assets/images/icons/instagram.png';
-import twitter from '../assets/images/icons/twitter.png';
-import youtube from '../assets/images/icons/youtube.png';
-import logo from '../assets/images/logo.png'
 
 const Drawer = createDrawerNavigator();
 
 function Logo() {
   return (
     <Image
-      source={logo}
+      source={require('../assets/images/logo.png')}
       style={styles.logo}
     />
   );
@@ -126,10 +121,10 @@ const CustomDrawerContent = (props) => {
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.socialMedia}>
-            <TouchableOpacity><Image source={instagram} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={facebook} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={twitter} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={youtube} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={require('../assets/images/icons/instagram.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={require('../assets/images/icons/facebook.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={require('../assets/images/icons/twitter.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity><Image source={require('../assets/images/icons/youtube.png')} style={styles.icons} /></TouchableOpacity>
           </View>
       </View>
     </DrawerContentScrollView>
@@ -161,14 +156,28 @@ const styles = StyleSheet.create({
     lineHeight: Font.LINE_HEIGHT_16
   },
   icons: {
-    width: 20,
-    height: 20
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        width: 30,
+        height: 30
+       },
+      android: {
+        width: 30,
+        height: 30
+      },
+      default: {
+        width: 20,
+        height: 20
+      }
+    })
   },
   iconContainer: {
-      flex: 1,
+    flex: 1
   },
   socialMedia: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-evenly'
   },
   logo: {
@@ -194,7 +203,6 @@ const styles = StyleSheet.create({
         marginRight: 16
       }
     })
-
   }
 });
 
