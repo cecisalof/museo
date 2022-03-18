@@ -22,13 +22,15 @@ class Floor extends Component {
   render() {
     const { params } = this.props.route; //Param inherit in Home SreenView from floor´s touchable opacity
     console.log(params);
+    const floors = [this.props]; // TO DO: EXTRACT floorId that matches with the view 
+    console.log(floors);
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     console.log(floor.collection_set)
     return (
       <View style={styles.showcaseContainer}>
         <View style={styles.floorButtonsContainer}>
           <View style={styles.floorButtonSelectedContainer}>
-            <TouchableOpacity style={styles.floorButtonSelected}><Image  source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{ params.floorName }</Text></TouchableOpacity>
+            <View style={styles.floorButtonSelected}><Image  source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{ params.floorName }</Text></View>
           </View>
           <View style={styles.smallButtonContainer}>
             <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>{ params.floorName }</Text></TouchableOpacity>
