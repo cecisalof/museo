@@ -40,7 +40,8 @@ class CollectionRow extends React.Component {
 const styles = StyleSheet.create({
   collectionImage: {
     flex: 1,
-    height: 150,
+    resizeMode: 'cover',
+    height: 125,
     width: '100%'
   },
   gradient: {

@@ -18,15 +18,9 @@ import { Color, Font } from '../assets/styles/index.js';
 class CollectionScreen extends Component {
   render() {
     const { collection } = this.props.route.params;
+    console.log(collection);
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.collectionHeader}>
-          <Text style={styles.text}>Planta 2</Text>
-          <View>
-            <TouchableOpacity><Text style={styles.text}>Planta Baja</Text></TouchableOpacity>
-            <TouchableOpacity><Text style={styles.text}>Planta 1</Text></TouchableOpacity>
-          </View>
-        </View>
         {/*PIEZAS*/}
         <FlatList
           style={styles.collectionList}
@@ -56,20 +50,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Color.BLACK,
   },
-  collectionHeader: {
-    flex: 1,
-    flexDirection: 'row'
-  },
   collectionContainer: {
     flex: 2,
-    borderTopColor: Color.SECONDARY
+    borderBottomColor: Color.SECONDARY
   },
   collectionList: {
     width: "100%"
-  },
-  text: {
-    fontFamily: 'Roboto',
-    color: Color.WHITE
   }
 })
 //---- Connect to props functions and values -----//
