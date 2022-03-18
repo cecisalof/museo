@@ -115,16 +115,16 @@ const CustomDrawerContent = (props) => {
         />
         <Item
           label = 'Amigos del Museo'
-          onPress = {() => Linking.openURL('https://fundaciongaselec.es/contacto/')}
+          onPress = {() => Linking.openURL('https://fundaciongaselec.es/club/')}
           image= {people}
         />
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.socialMedia}>
-            <TouchableOpacity><Image source={require('../assets/images/icons/instagram.png')} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={require('../assets/images/icons/facebook.png')} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={require('../assets/images/icons/twitter.png')} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity><Image source={require('../assets/images/icons/youtube.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.instagram.com/fundaciongaselec/?hl=en')}><Image source={require('../assets/images/icons/instagram.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.facebook.com/FundacionGaselec/')}><Image source={require('../assets/images/icons/facebook.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://twitter.com/fundaciogaselec')}><Image source={require('../assets/images/icons/twitter.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.youtube.com/c/fundaciongaselec')}><Image source={require('../assets/images/icons/youtube.png')} style={styles.icons} /></TouchableOpacity>
           </View>
       </View>
     </DrawerContentScrollView>
