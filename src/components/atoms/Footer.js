@@ -10,29 +10,68 @@ import {
   PlatformColor
 } from "react-native";
 import { Color, Font } from '../../assets/styles/index.js';
-import shopIcon from '../../assets/images/icons/shoppingBag.png';
 
 
 
 const Footer = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity><Image source={shopIcon} /></TouchableOpacity>
-      <TouchableOpacity><Image source={shopIcon} /></TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity><Image source={require('../../assets/images/icons/shoppingBag.png')} style={styles.icons}/></TouchableOpacity>
+        <Image source={require('../../assets/images/gaselec-logo.png')} style={styles.gaselecLogo}></Image>
+        <TouchableOpacity><Image source={require('../../assets/images/icons/pin.png')} style={styles.icons}/></TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     position: 'absolute',
-    top:0,
-    left:0,
-    right:0,
+    top: 0,
+    left: 0,
+    right: 0,
     backgroundColor: '#000',
-    borderTopColor: Color.SECONDARY,
-    height: 15
+    height: 82
+  },
+  footer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  icons: {
+    ...Platform.select({
+      ios: {
+        width: 24,
+        height: 24
+       },
+      android: {
+        width: 24,
+        height: 24
+      },
+      default: {
+        width: 24,
+        height: 24
+      }
+    })
+  },
+  gaselecLogo:{
+    ...Platform.select({
+      ios: {
+        width: '20%',
+        height: '50%'
+       },
+      android: {
+        width: '20%',
+        height: '50%'
+      },
+      default: {
+        width: 73,
+        height: 35
+      }
+    })
   }
 });
 

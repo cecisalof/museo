@@ -48,9 +48,6 @@ class HomeScreen extends Component {
             </View>
           </ImageBackground>
         </View>
-        <View style={styles.footer}>
-          <Text style={styles.text}>Footer</Text>
-        </View>
       </SafeAreaView>
     );
   }

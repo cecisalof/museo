@@ -58,10 +58,29 @@ export default class App extends Component {
     }
      return (
        <Provider store={store}>
-         <NavigationContainer>
-            <AppNavigator />
-         </NavigationContainer>
+         <View style={styles.mainContainer}>
+          <NavigationContainer>
+            <View style={styles.body}>
+              <AppNavigator />
+            </View>
+            <View style={styles.footer}>
+              <Footer/>
+            </View>
+          </NavigationContainer>
+        </View>
        </Provider>
      );
   }
 };
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1
+  },
+  body: {
+    flex: 4
+  },
+  footer: {
+    flex: 0.5
+  }
+});
