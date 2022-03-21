@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  PlatformColor
+  PlatformColor,
+  Linking
 } from "react-native";
 import { Color, Font } from '../../assets/styles/index.js';
 
@@ -17,7 +18,7 @@ const Footer = () => {
   return (
     <View style={styles.container} elevation={5}>
       <View style={styles.footer}>
-        <TouchableOpacity><Image source={require('../../assets/images/icons/shoppingBag.png')} style={styles.icons}/></TouchableOpacity>
+        <TouchableOpacity onPress = {() => Linking.openURL('https://fundaciongaselec.es/tienda/')}><Image source={require('../../assets/images/icons/shoppingBag.png')} style={styles.icons}/></TouchableOpacity>
         <Image source={require('../../assets/images/gaselec-logo.png')} style={styles.gaselecLogo}></Image>
         <TouchableOpacity><Image source={require('../../assets/images/icons/pin.png')} style={styles.icons}/></TouchableOpacity>
       </View>
@@ -36,8 +37,8 @@ const styles = StyleSheet.create({
     height: 82,
     borderTopColor: Color.SECONDARY,
     borderWidth: 1,
-    // shadowColor: "#000000",
-    // shadowOpacity: 0.8,
+    // shadowColor: "#000",
+    // shadowOpacity: 0.25,
     // shadowRadius: 2,
     // shadowOffset: {
     //   height: 1,
