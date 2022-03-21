@@ -15,7 +15,7 @@ import { Color, Font } from '../../assets/styles/index.js';
 
 const Footer = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} elevation={5}>
       <View style={styles.footer}>
         <TouchableOpacity><Image source={require('../../assets/images/icons/shoppingBag.png')} style={styles.icons}/></TouchableOpacity>
         <Image source={require('../../assets/images/gaselec-logo.png')} style={styles.gaselecLogo}></Image>
@@ -33,7 +33,16 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#000',
-    height: 82
+    height: 82,
+    borderTopColor: Color.SECONDARY,
+    borderWidth: 1,
+    // shadowColor: "#000000",
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 1
+    // }
   },
   footer: {
     flex: 1,
