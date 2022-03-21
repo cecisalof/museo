@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   mainContainer: {
-    flex: 6,
+    flex: 4,
     color: Color.WHITE,
     backgroundColor: '#000',
     fontFamily: 'Roboto',
@@ -87,14 +87,13 @@ const styles = StyleSheet.create({
     marginHorizontal: '30%'
   },
   touchableContainer: {
-    flex: 1,
-    width: "100%",
+    flex: 3,
     paddingTop: '5%'
   },
   floorLabelsContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    flex: 0.5,
     alignItems: 'flex-end',
+    justifyContent: 'flex-start'
   },
   floorLabels: {
     fontFamily: 'Roboto',
@@ -144,19 +143,29 @@ const styles = StyleSheet.create({
     color: Color.WHITE
   },
   button: {
+    flex: 2,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   floors: {
-    width: 218,
-    height: 122,
+    ...Platform.select({
+      ios: {
+        width: '60%',
+        height: '100%'
+       },
+      android: {
+        width: '60%',
+        height: '100%'
+      },
+      default: {
+        width: 218,
+        height: 126
+      }
+    }),
   },
   line: {
     width: 79,
     height: 1
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: Color.BLACK
   }
 });
 
