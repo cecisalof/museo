@@ -22,7 +22,7 @@ class Floor extends Component {
   render() {
     const { params } = this.props.route; //Param inherit in Home SreenView from floor´s touchable opacity
     console.log(params);
-    const floors = [this.props]; // TO DO: EXTRACT floorId that matches with the view 
+    const floors = [this.props]; // TO DO: EXTRACT floorId that matches with the view
     console.log(floors);
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     console.log(floor.collection_set)
@@ -37,23 +37,25 @@ class Floor extends Component {
             <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>{ params.floorName }</Text></TouchableOpacity>
           </View>
         </View>
-        <FlatList
-          style={styles.showcaseList}
-          contentContainerStyle={{}}
-          data={floor.collection_set}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item, index }) => (
-            <CollectionRow
-              item={item}
-              onPress={()=> { this.props.navigation.navigate('Collection', {collection: item}) }}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          ListEmptyComponent={
-            <Text>No hay elementos</Text>
-          }
-        />
+        <View style={styles.itemsContainer}>
+          <FlatList
+            style={styles.showcaseList}
+            contentContainerStyle={{}}
+            data={floor.collection_set}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <CollectionRow
+                item={item}
+                onPress={()=> { this.props.navigation.navigate('Collection', {collection: item}) }}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={
+              <Text>No hay elementos</Text>
+            }
+          />
+        </View>
       </View>
     );
   }
@@ -67,8 +69,11 @@ const styles = StyleSheet.create({
   showcaseList: {
     width: "100%"
   },
+  itemsContainer: {
+    flex: 3
+  },
   floorButtonsContainer: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
