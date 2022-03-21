@@ -100,17 +100,17 @@ const CustomDrawerContent = (props) => {
       <View style={styles.itemContainer}>
         <Item
           label = 'Planta Baja'
-          onPress = {() => { props.navigation.navigate('Floor',  {floorId: 'floor-0'})}}
+          onPress = {() => { props.navigation.navigate('Floor',  {floorId: 'floor-0', floorName: 'Planta B'})}}
           image= {baseFloor}
         />
         <Item
           label = 'Planta 1'
-          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-1'})}
+          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-1', floorName: 'Planta 1'})}
           image= {firstFloor}
         />
         <Item
           label = 'Planta 2'
-          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2'})}
+          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2', floorName: 'Planta B'})}
           image= {secondFloor}
         />
         <Item
