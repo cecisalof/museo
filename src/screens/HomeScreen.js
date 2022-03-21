@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import line from '../assets/images/floors/Line.png'
-import WindowDimensions  from '../assets/styles/mixins.js';
 import {
   Text,
   View,
@@ -13,12 +12,17 @@ import {
   Platform,
   PlatformColor,
   SafeAreaView,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import {
   setItems,
 } from "../store/itemActions";
-import { Color, Font } from '../assets/styles/index.js';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+import { Color, Font, Mixins } from '../assets/styles/index.js';
 
 
 class HomeScreen extends Component {
@@ -97,22 +101,22 @@ const styles = StyleSheet.create({
   },
   floorLabels: {
     fontFamily: 'Roboto',
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: responsiveFontSize(1.9),
+    lineHeight: responsiveFontSize(2.5),
     color: Color.WHITE,
     textAlign: 'right',
     marginRight: 30
   },
   floorLabels2: {
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: responsiveFontSize(1.9),
+    lineHeight: responsiveFontSize(2.5),
     color: Color.WHITE,
     textAlign: 'right',
-    marginRight: 15
+    marginRight: responsiveWidth(3)
   },
   text: {
     fontFamily: 'Roboto',
-    fontSize: 16,
+    fontSize: responsiveFontSize(1.9),
     lineHeight: 19,
     color: Color.WHITE,
     textAlign: 'left',
@@ -164,8 +168,8 @@ const styles = StyleSheet.create({
     }),
   },
   line: {
-    width: 79,
-    height: 1
+    width: responsiveWidth(25),
+    height: responsiveHeight(0.2)
   }
 });
 
