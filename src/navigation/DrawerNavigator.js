@@ -110,7 +110,7 @@ const CustomDrawerContent = (props) => {
         />
         <Item
           label = 'Planta 2'
-          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2', floorName: 'Planta B'})}
+          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2', floorName: 'Planta 2'})}
           image= {secondFloor}
         />
         <Item
