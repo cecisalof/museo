@@ -20,7 +20,7 @@ class SplashScreen extends Component {
 
   async componentDidMount() {
     try{
-      const items = await axios.get('https://mb9jo4pgqa.execute-api.eu-west-1.amazonaws.com/pro/api/items/all?limit=1000')
+      const items = await axios.get('https://fundaciongaselec.codepremium.es/api/items/all?limit=1000')
       this.props.setItems(items.data.results)
     } catch(e) {
       items = []
