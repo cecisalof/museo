@@ -6,22 +6,62 @@ import {
   TouchableOpacity,
   Button,
   FlatList,
-  Image
+  Image,
+  StyleSheet,
+  Platform
 } from "react-native";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+  useResponsiveHeight,
+  useResponsiveWidth,
+} from "react-native-responsive-dimensions";
 
-class ItemPreview extends React.Component {
+import { Color, Font } from '../../assets/styles/index.js';
+
+
+class ItemPreview extends Component {
   render() {
     const {item} = this.props;
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+      <TouchableOpacity onPress={this.props.onPress} style={styles.itemButton}>
         <Image
-            style={{ flex: 1, height: 250, width: '100%'}}
+            style={styles.itemImage}
             source={{uri: item.image}}
           />
-        <Text>{item.title_es}</Text>
+        <Text style={styles.itemText}>{item.title_es}</Text>
       </TouchableOpacity>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  itemButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  itemImage: {
+    resizeMode: 'cover',
+    ...Platform.select({
+      ios: {
+        height: responsiveHeight(30),
+        width: responsiveWidth(100)
+       },
+      android: {
+        height: responsiveHeight(60),
+        width: responsiveWidth(100)
+      },
+      default: {
+        height: responsiveHeight(30),
+        width: responsiveWidth(100)
+      }
+    })
+  },
+  itemText:{
+    color: Color.WHITE
+  }
+})
 
 export default ItemPreview
