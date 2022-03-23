@@ -46,10 +46,10 @@ class AppNavigator extends Component {
         >
         {/* name prop refers to the name of the route and component prop specifies the component to render for the route. Both are required*/}
         <Stack.Screen name="Menú" component={DrawerMenu} options={{ headerShown: false }} />
-        <Stack.Screen name="Inicio" component={HomeScreen} options={{ headerTitleAlign: "center" }}/>
-        <Stack.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
-        <Stack.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center" }}/>
-        <Stack.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
+        // <Stack.Screen name="Inicio" component={HomeScreen} options={{ headerTitleAlign: "center" }}/>
+        // <Stack.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
+        // <Stack.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center" }}/>
+        // <Stack.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
       </Stack.Navigator>
     )
   }

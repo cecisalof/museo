@@ -22,6 +22,8 @@ import secondFloor from '../assets/images/icons/secondFloor.png';
 import people from '../assets/images/icons/museumFriends.png';
 import HomeScreen from '../screens/HomeScreen';
 import FloorScreen from '../screens/FloorScreen';
+import CollectionScreen from '../screens/CollectionScreen';
+import ItemScreen from '../screens/ItemScreen';
 import SplashScreen from '../screens/SplashScreen';
 import { Color, Font } from '../assets/styles/index.js';
 
@@ -84,6 +86,8 @@ const DrawerMenu = () => {
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
+      <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
     </Drawer.Navigator>
   );
 }
