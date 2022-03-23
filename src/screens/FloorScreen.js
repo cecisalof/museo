@@ -26,7 +26,7 @@ class Floor extends Component {
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     return (
       <View style={styles.showcaseContainer}>
-        <Header floors={floors} params={params}/>
+        <Header floors={floors} headerName={params.floorName} showOtherFloors={true}/>
         <View style={styles.itemsContainer}>
           <FlatList
             style={styles.showcaseList}

@@ -12,15 +12,13 @@ import {
 } from "react-native";
 import { Color, Font } from '../../assets/styles/index.js';
 
-
-
-const Footer = () => {
+const Footer = (props) => {
   return (
     <View style={styles.container} elevation={5}>
       <View style={styles.footer}>
         <TouchableOpacity onPress = {() => Linking.openURL('https://fundaciongaselec.es/tienda/')}><Image source={require('../../assets/images/icons/shoppingBag.png')} style={styles.icons}/></TouchableOpacity>
         <Image source={require('../../assets/images/gaselec-logo.png')} style={styles.gaselecLogo}></Image>
-        <TouchableOpacity><Image source={require('../../assets/images/icons/pin.png')} style={styles.icons}/></TouchableOpacity>
+        <TouchableOpacity onPress = {() => props.onPressNavigateContact()}><Image source={require('../../assets/images/icons/pin.png')} style={styles.icons}/></TouchableOpacity>
       </View>
     </View>
   );

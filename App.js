@@ -1,5 +1,4 @@
 import 'react-native-gesture-handler';
-import { Component } from 'react';
 import {
   Text,
   View,
@@ -11,7 +10,7 @@ import {
   PlatformColor,
   SafeAreaView
 } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import DrawerMenu from './src/navigation/DrawerNavigator';
 import Footer from './src/components/atoms/Footer.js'
 import AppLoading from 'expo-app-loading';
@@ -29,48 +28,37 @@ i18n.locale = Localization.locale;
 // When a value is missing from a language it'll fallback to another language with the key present.
 i18n.fallbacks = true;
 
-export default class App extends Component {
-  state = {
-    fontsLoaded: false,
-  };
+export default function App() {
+  const navigationRef = useNavigationContainerRef();
 
-  async loadFonts() {
-    await Font.loadAsync({
-      // Load a font `Roboto` from a static resource
-      Roboto: require('./src/assets/fonts/Roboto-Regular.ttf'),
+  let [fontsLoaded] = useFonts({
+    // Load a font `Roboto` from a static resource
+    Roboto: require('./src/assets/fonts/Roboto-Regular.ttf'),
+    // Any string can be used as the fontFamily name. Here we use an object to provide more control
+    'Roboto-Bold': {
+      uri: require('./src/assets/fonts/Roboto-Bold.ttf'),
+      display: Font.FontDisplay.FALLBACK,
+    },
+  });
 
-      // Any string can be used as the fontFamily name. Here we use an object to provide more control
-      'Roboto-Bold': {
-        uri: require('./src/assets/fonts/Roboto-Bold.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-    });
-    this.setState({ fontsLoaded: true });
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
 
-  componentDidMount() {
-    this.loadFonts();
-  }
-
-  render() {
-    if (!this.state.fontsLoaded) {
-      return <AppLoading />;
-    }
-     return (
-       <Provider store={store}>
-         <View style={styles.mainContainer}>
-          <NavigationContainer>
-            <View style={styles.body}>
-              <AppNavigator />
-            </View>
-            <View style={styles.footer}>
-              <Footer/>
-            </View>
-          </NavigationContainer>
-        </View>
-       </Provider>
-     );
-  }
+  return (
+     <Provider store={store}>
+       <View style={styles.mainContainer}>
+        <NavigationContainer ref={navigationRef}>
+          <View style={styles.body}>
+            <AppNavigator />
+          </View>
+          <View style={styles.footer}>
+            <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>
+          </View>
+        </NavigationContainer>
+      </View>
+     </Provider>
+   );
 };
 
 const styles = StyleSheet.create({

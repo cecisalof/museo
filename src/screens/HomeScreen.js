@@ -27,7 +27,6 @@ import { Color, Font, Mixins } from '../assets/styles/index.js';
 
 class HomeScreen extends Component {
   render() {
-    console.log(this.props.items);
     return (
       <SafeAreaView style={styles.safeAreaContainer}>
         <View style={styles.mainContainer}>

@@ -8,7 +8,6 @@ import FloorScreen from '../screens/FloorScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import ItemScreen from '../screens/ItemScreen';
 import DrawerMenu from '../navigation/DrawerNavigator';
-import Footer from '../components/atoms/Footer.js'
 import logo from '../assets/images/logo.png'
 import {
   Image,
