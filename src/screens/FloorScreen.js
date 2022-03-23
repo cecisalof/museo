@@ -21,12 +21,13 @@ import Header from '../components/atoms/Header.js';
 
 class Floor extends Component {
   render() {
+    console.log(this.props.route);
     const { params } = this.props.route; //Param inherit in Home SreenView from floor´s touchable opacity
     const floors = [this.props];
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     return (
       <View style={styles.showcaseContainer}>
-        <Header floors={floors} params={params}/>
+        <Header params={params} floor={floor} floors={floors}/>
         <View style={styles.itemsContainer}>
           <FlatList
             style={styles.showcaseList}

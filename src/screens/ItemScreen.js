@@ -12,6 +12,7 @@ import {
 import {
   setItems,
 } from "../store/itemActions";
+import Header from '../components/atoms/Header.js';
 
 class ItemScreen extends Component {
   render() {
@@ -21,6 +22,7 @@ class ItemScreen extends Component {
     {/* DETALLE DE PIEZA*/}
     return (
       <View style={styles.mainContainer}>
+        {/*<Header params={this.props.params}/>*/}
         <View style={styles.sliderContainer}>
           <Text>Carrusel</Text>
         </View>

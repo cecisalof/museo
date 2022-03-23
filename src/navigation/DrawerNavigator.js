@@ -85,9 +85,9 @@ const DrawerMenu = () => {
         >
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }} />
-      <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
+    {/*  <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center" }}/>
-      <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>*/}
     </Drawer.Navigator>
   );
 }

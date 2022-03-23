@@ -18,12 +18,14 @@ import { Color, Font } from '../assets/styles/index.js';
 
 class CollectionScreen extends Component {
   render() {
-    const { params } = this.props.route;
+    const params = this.props.route;
     const { collection } = this.props.route.params;
     console.log(collection);
+    const floorName = params.params.floorName;
+    console.log(floorName);
     return (
       <View style={styles.mainContainer}>
-        <Header params={params}/>
+        <Header params={floorName}/>
         {/* COLECCIÓN DE PIEZAS POR VITRINA*/}
         <View style={styles.collectionContainer}>
           <FlatList

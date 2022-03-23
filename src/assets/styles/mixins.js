@@ -1,33 +1,16 @@
-// import {
-//   useResponsiveHeight,
-//   useResponsiveWidth,
-//   useResponsiveScreenHeight,
-//   useResponsiveScreenWidth,
-//   useDimensionsChange
-// } from "react-native-responsive-dimensions";
-//
-//
-// export default function Dimensions() {
-//   const WINDOW_WIDTH = useResponsiveWidth(100);
-//   const WINDOW_HEIGHT = useResponsiveHeight(100);
-//   // const WINDOW_WIDTH = useWindowDimensions().width;
-//   console.log('width', WINDOW_WIDTH);
-//   // const { height, width } = useWindowDimensions();
-//   // console.log(height);
-//   // console.log(width);
-//   // const guidelineBaseWidth = 375;
-//   // const scaleSize = size => (WINDOW_WIDTH / guidelineBaseWidth) * size;
-//   // const scaleFont = size => size * WINDOW_PIXELRATIO; // Returns the scaling factor for font sizes.
-// }
-//
-// // // const WINDOW_PIXELRATIO = useWindowDimensions().scale;
-// // // const FONT_SCALE =useWindowDimensions().fontScale;
-// // // console.log('window width', WINDOW_WIDTH);
-// // // console.log('window height', WINDOW_HEIGHT);
-// // // console.log('window pixelRatio', WINDOW_PIXELRATIO);
-// // // console.log('window fonScale', FONT_SCALE);
-// // //
-// // // const guidelineBaseWidth = 375;
-// // //
-// // // const scaleSize = size => (WINDOW_WIDTH / guidelineBaseWidth) * size;
-// // // const scaleFont = size => size * WINDOW_PIXELRATIO; // Returns the scaling factor for font sizes.
+
+import { Dimensions, PixelRatio } from 'react-native';
+
+
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
+
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+console.log('window width', WINDOW_WIDTH);
+const guidelineBaseWidth = 320;
+
+// export const scaleSize = size => (WINDOW_WIDTH/guidelineBaseWidth) * size;
+// export const scaleFont = size => size * PixelRatio.getFontScale(); // Returns the scaling factor for font sizes.
+console.log('pixel ratio', PixelRatio.getFontScale());
+console.log('scaleSize', PixelRatio.getFontScale());

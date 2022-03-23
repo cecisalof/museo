@@ -13,6 +13,7 @@ import {
   PlatformColor,
   SafeAreaView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import {
   setItems,
@@ -22,10 +23,35 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import { Color, Font, Mixins } from '../assets/styles/index.js';
+import { Color, Font } from '../assets/styles/index.js';
 
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 class HomeScreen extends Component {
+  state = {
+   dimensions: {
+     window,
+     screen
+   }
+ };
+
+ onChange = ({ window, screen }) => {
+   console.log('window', window);
+   console.log('screen', screen);
+    this.setState({ dimensions: { window, screen } });
+  };
+
+  componentDidMount() {
+    this.updatedDimensions = Dimensions.addEventListener("change", this.onChange);
+  }
+
+  componentWillUnmount() {
+    this.updatedDimensions?.remove();
+  }
+
   render() {
     console.log(this.props.items);
     return (
@@ -102,22 +128,22 @@ const styles = StyleSheet.create({
   floorLabels: {
     fontFamily: 'Roboto',
     fontSize: responsiveFontSize(1.9),
-    lineHeight: responsiveFontSize(2.5),
+    lineHeight: responsiveHeight(3),
     color: Color.WHITE,
     textAlign: 'right',
     marginRight: 30
   },
   floorLabels2: {
     fontSize: responsiveFontSize(1.9),
-    lineHeight: responsiveFontSize(2.5),
+    lineHeight: responsiveHeight(2.5),
     color: Color.WHITE,
     textAlign: 'right',
-    marginRight: responsiveWidth(3)
+    marginRight: screen.width / 100
   },
   text: {
     fontFamily: 'Roboto',
     fontSize: responsiveFontSize(1.9),
-    lineHeight: 19,
+    lineHeight: responsiveHeight(2.5),
     color: Color.WHITE,
     textAlign: 'left',
     marginHorizontal: '4%'
@@ -135,8 +161,8 @@ const styles = StyleSheet.create({
       }
     }),
     fontFamily: 'Roboto-Bold',
-    fontSize: 16,
-    lineHeight: 19,
+    fontSize: responsiveFontSize(1.9),
+    lineHeight: responsiveHeight(2.5),
     color: Color.WHITE,
     textAlign: 'left',
     marginHorizontal: '4%'
@@ -162,13 +188,13 @@ const styles = StyleSheet.create({
         height: '100%'
       },
       default: {
-        width: 218,
-        height: 126
+        height: 126,
+        width: 228
       }
     }),
   },
   line: {
-    width: responsiveWidth(25),
+    width: WINDOW_WIDTH / 5,
     height: responsiveHeight(0.2)
   }
 });
