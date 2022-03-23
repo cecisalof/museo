@@ -29,25 +29,29 @@ import { Color, Font } from '../assets/styles/index.js';
 
 const Drawer = createDrawerNavigator();
 
-function Logo() {
+function Logo(props) {
   return (
-    <Image
-      source={require('../assets/images/logo.png')}
-      style={styles.logo}
-    />
+    <TouchableOpacity
+      onPress={() => props.onPress()}
+    >
+      <Image
+        source={require('../assets/images/logo.png')}
+        style={styles.logo}
+      />
+    </TouchableOpacity>
   );
 }
 
-const DrawerMenu = () => {
+const DrawerMenu = (props) => {
   // const dimensions = useWindowDimensions();
   return (
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
-        headerTitle: (props) => <Logo {...props} />,
+        headerTitle: ({ navigation }) => <Logo onPress={() => props.navigation.navigate('Home')} />,
         headerRight: () => (
              <TouchableOpacity
-               onPress={() => alert('This is a button!')}
+               onPress={() => alert('This is the search button. Pending section')}
                title="Search"
                color="#FFFFFFDE"
              ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
