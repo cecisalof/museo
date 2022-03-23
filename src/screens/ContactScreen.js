@@ -24,7 +24,7 @@ export default function Contact (){
         </View>
 
         <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com/maps?ll=35.289145,-2.941312&z=16&t=m&hl=es&gl=ES&mapclient=embed&cid=15470094306678974670')} style={styles.mapContainer}>
-          <Image source={require('../assets/images/contact/map.jpg')} style={styles.mapContainer}/>
+          <Image source={require('../assets/images/contact/map.jpg')} style={styles.mapItem}/>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com/maps?ll=35.289145,-2.941312&z=16&t=m&hl=es&gl=ES&mapclient=embed&cid=15470094306678974670')} style={styles.rowContainer}>
@@ -51,7 +51,7 @@ export default function Contact (){
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => Linking.openURL('https://fundaciongaselec.es/museo-egipcio/')} style={[styles.rowContainer, styles.buttonContainer]}>
-          <Text style={styles.itemButton}>{"Reservar y tal"}</Text>
+          <Text style={styles.itemButton}>{"Reservar"}</Text>
         </TouchableOpacity>
       </View>
       </ImageBackground>
@@ -96,13 +96,17 @@ const styles = StyleSheet.create({
   mapContainer: {
     flexDirection: 'row',
     flex: 2,
-    // height: 500,
+  },
+  mapItem: {
+    height: '100%',
+    width: '100%',
   },
   itemText: {
     fontSize: 16,
     fontFamily: 'Roboto',
     color: Color.WHITE,
-    marginLeft: 7
+    marginLeft: 7,
+    paddingRight: 10
   },
   textSmall: {
     fontSize: 12,
