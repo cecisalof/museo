@@ -28,15 +28,15 @@ import { Audio } from 'expo-av';
 class ItemScreen extends Component {
 
   async componentDidMount() {
-    Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
-    this.sound = new Audio.Sound();
+      Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
+      this.sound = new Audio.Sound();
+      console.log(this.sound);
 
-    const status = {
-      shouldPlay: false
-    }
+      const status = {
+        shouldPlay: false
+      }
+     this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', {shouldPlay: false});  }
 
-    this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', status, false);
-  }
 
   playSound() {
     console.log('Playing Sound');
@@ -89,14 +89,19 @@ class ItemScreen extends Component {
       </ScrollView>
         </View>
         <View style={styles.detailsContainer}>
+          <View><Text style={styles.smallText}>Categoría</Text></View>
           <View style={styles.titleContainer}>
             <Text style={styles.itemTitle}>{item.title_es}</Text>
             <View style={styles.iconsContainer}>
               <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-              <TouchableOpacity onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+              <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
             </View>
           </View>
-          <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text>
+          <Image style={styles.line} source={require('../assets/images/divider1.png')}></Image>
+          <Text style={styles.smallText}>{item.description_es}</Text>
+          <Text style={styles.smallText}>{item.material_es}</Text>
+          <Text style={styles.smallText}>{item.date_es}</Text>
+        {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
         </View>
       </View>
     );
@@ -187,7 +192,16 @@ const styles = StyleSheet.create({
     marginVertical: '5%'
   },
   titleContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '3%'
+  },
+  smallText:{
+    flexDirection: 'column',
+    fontSize: responsiveFontSize(1.9),
+    lineHeight: responsiveHeight(2.7),
+    fontFamily: 'Roboto',
+    marginVertical: responsiveHeight(0.5)
   },
   itemTitle: {
     flex: 1,
@@ -203,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttons:{
-    marginHorizontal: '10%'
+    marginHorizontal: '5%'
   },
   book: {
     marginHorizontal: '5%',
@@ -258,6 +272,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center"
+  },
+  line: {
+    width: 2
   }
 })
 
