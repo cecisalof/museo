@@ -23,11 +23,11 @@ import { Color, Font } from '../../assets/styles/index.js';
 
 class ItemPreview extends Component {
   render() {
-    const {item} = this.props;
+    const {item, isFullWidth} = this.props;
     return (
       <TouchableOpacity onPress={this.props.onPress} style={styles.itemButton}>
         <Image
-            style={styles.itemImage}
+            style={[styles.itemImagebase, isFullWidth ? styles.itemImageFullWidth : styles.itemImageHalfWidth]}
             source={{uri: item.image}}
           />
           <LinearGradient
@@ -39,7 +39,7 @@ class ItemPreview extends Component {
           {/* Showcase Title */}
           <View style={styles.titleContainer}>
             <Text style={styles.itemName}>{item.title_es}</Text>
-            <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
+            <Image source={require('../../assets/images/icons/white-line.png')} style={[styles.itemNameLine, isFullWidth ? {width: '40%'} : {}]}/>
           </View>
       </TouchableOpacity>
     );
@@ -52,20 +52,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  itemImage: {
+  itemImagebase: {
     resizeMode: 'cover',
     maxWidth: '100%',
     ...Platform.select({
       ios: {
         height: responsiveHeight(25),
-        width: responsiveWidth(50)
        },
       android: {
         height: responsiveHeight(25),
-        width: responsiveWidth(50)
       },
       default: {
         height: responsiveHeight(25),
+      }
+    })
+  },
+  itemImageFullWidth: {
+    ...Platform.select({
+      ios: {
+        width: responsiveWidth(100)
+       },
+      android: {
+        width: responsiveWidth(100)
+      },
+      default: {
+        width: responsiveWidth(100)
+      }
+    })
+  },
+  itemImageHalfWidth: {
+    ...Platform.select({
+      ios: {
+        width: responsiveWidth(50)
+       },
+      android: {
+        width: responsiveWidth(50)
+      },
+      default: {
         width: responsiveWidth(50)
       }
     })

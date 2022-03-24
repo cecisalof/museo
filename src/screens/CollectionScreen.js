@@ -36,6 +36,7 @@ class CollectionScreen extends Component {
               renderItem={({ item, index }) => (
                 <ItemPreview
                   item={item}
+                  isFullWidth={collection.item_set.length%2!=0 && index == (collection.item_set.length-1)}
                   onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set}) }}
                 />
               )}
