@@ -10,6 +10,9 @@ import {
   Platform
 } from "react-native";
 import {
+  responsiveHeight,
+} from "react-native-responsive-dimensions";
+import {
   setItems,
 } from "../../store/itemActions";
 import { Color, Font } from '../../assets/styles/index.js';
@@ -20,7 +23,9 @@ class Header extends Component{
       return (
       <View style={styles.floorButtonsContainer}>
         <View style={styles.floorButtonSelectedContainer}>
-          <View style={styles.floorButtonSelected}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{headerName}</Text></View>
+          <TouchableOpacity style={styles.floorButtonSelected} onPress={()=>navigation.navigate('Floor', {floorId: floorId, floorName: headerName})}>
+            <Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{headerName}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.smallButtonContainer}>
           {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta Baja'})}><Text style={styles.floorButtonsText}>Planta Baja</Text></TouchableOpacity>}
@@ -34,19 +39,20 @@ class Header extends Component{
 
 const styles = StyleSheet.create({
     floorButtonsContainer: {
-      flex: 0.5,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
+      backgroundColor: Color.BLACK,
+      height: responsiveHeight(10),
       ...Platform.select({
         ios: {
-          marginRight: '3%'
+          paddingRight: '3%'
          },
         android: {
-          marginRight: '5%'
+          paddingRight: '5%'
         },
         default: {
-          marginRight: '5%'
+          paddingRight: '5%'
         }
       })
     },
