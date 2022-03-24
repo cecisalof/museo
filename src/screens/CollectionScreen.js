@@ -7,7 +7,8 @@ import {
   Button,
   FlatList,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import ItemPreview from "../components/atoms/ItemPreview";
 import {
@@ -23,29 +24,29 @@ class CollectionScreen extends Component {
     console.log('Collection', collection);
     return (
     <View style={styles.blackBackground}>
-      <View style={styles.mainContainer}>
-        <Header params={params} headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
-        {/* COLECCIÓN DE PIEZAS POR VITRINA*/}
-        <View style={styles.collectionContainer}>
-          <FlatList
-            style={styles.collectionList}
-            contentContainerStyle={{}}
-            data={collection.item_set}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <ItemPreview
-                item={item}
-                onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set}) }}
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={
-              <Text>No hay elementos</Text>
-            }
-          />
+      <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
+        <View style={styles.mainContainer}>
+          <Header headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
+          <View style={styles.itemsContainer}>
+            <FlatList
+              numColumns={2}
+              data={collection.item_set}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => (
+                <ItemPreview
+                  item={item}
+                  onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set}) }}
+                />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              ListEmptyComponent={
+                <Text>No hay elementos</Text>
+              }
+            />
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </View>
     );
   }
@@ -57,21 +58,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row'
   },
+  bg: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
   mainContainer: {
     flex: 1,
-    backgroundColor: Color.BLACK,
+    // backgroundColor: Color.BLACK,
     justifyContent: 'center',
     maxWidth: 800
   },
-  header: {
-    flex: 0.5
-  },
-  collectionContainer: {
-    flex: 2,
-    maxWidth: 800
-  },
-  collectionList: {
-    width: "100%"
+  itemsContainer: {
+    flex: 1
   }
 })
 //---- Connect to props functions and values -----//
