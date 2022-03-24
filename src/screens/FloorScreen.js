@@ -25,8 +25,9 @@ class Floor extends Component {
     const floors = [this.props];
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     return (
+    <View style={styles.blackBackground}>
       <View style={styles.showcaseContainer}>
-        <Header floors={floors} headerName={params.floorName}/>
+        <Header floors={floors} headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
         <View style={styles.itemsContainer}>
           <FlatList
             style={styles.showcaseList}
@@ -37,7 +38,7 @@ class Floor extends Component {
             renderItem={({ item, index }) => (
               <CollectionRow
                 item={item}
-                onPress={()=> { this.props.navigation.navigate('Collection', {collection: item, floorName: params.floorName}) }}
+                onPress={()=> { this.props.navigation.navigate('Collection', {collection: item, floorName: params.floorName, floorId: params.floorId}) }}
               />
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -47,15 +48,23 @@ class Floor extends Component {
           />
         </View>
       </View>
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  blackBackground: {
+    flex: 1,
+    backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
   showcaseContainer: {
     flex: 1,
     backgroundColor: Color.BLACK,
     justifyContent: 'center',
+    maxWidth: 800
   },
   showcaseList: {
     width: "100%"
