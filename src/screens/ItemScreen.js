@@ -274,7 +274,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   line: {
-    width: 2
+    width: responsiveWidth(80),
+    height: 3
   }
 })
 
