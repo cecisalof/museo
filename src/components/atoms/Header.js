@@ -16,16 +16,16 @@ import { Color, Font } from '../../assets/styles/index.js';
 
 class Header extends Component{
     render () {
-      const { showOtherFloors, headerName } = this.props
+      const { headerName } = this.props
       return (
       <View style={styles.floorButtonsContainer}>
         <View style={styles.floorButtonSelectedContainer}>
           <View style={styles.floorButtonSelected}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{headerName}</Text></View>
         </View>
-        { showOtherFloors && <View style={styles.smallButtonContainer}>
+        <View style={styles.smallButtonContainer}>
           <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>1</Text></TouchableOpacity>
           <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>2</Text></TouchableOpacity>
-        </View> }
+        </View>
       </View>
     );
   }
