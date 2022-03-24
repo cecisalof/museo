@@ -23,17 +23,28 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-
+import { Audio } from 'expo-av';
 
 class ItemScreen extends Component {
+
+  async componentDidMount() {
+    Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
+      this.sound = await Audio.Sound.createAsync( { uri: 'https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3' },
+      { shouldPlay: false }
+      );
+    console.log(this.sound);
+  }
+
+  playSound() {
+    console.log('Playing Sound');
+    this.sound.playAsync();
+  }
+
   scrollX = new Animated.Value(0);
 
   render() {
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
-    console.log(itemImages);
-    console.log({item});
-    console.log({panels});
     {/* DETALLE DE PIEZA*/}
     return (
       <View style={styles.mainContainer}>
@@ -65,13 +76,9 @@ class ItemScreen extends Component {
           return (
             <View
               style={styles.imageContainer}
-              imageStyle={{
-               resizeMode: "cover",
-               alignSelf: "flex-start"
-             }}
               key={imageIndex}
             >
-              <ImageBackground source={{ uri: image.image }} style={styles.card}></ImageBackground>
+              <Image source={{ uri: image.image }} style={styles.card}></Image>
             </View>
           );
         })}
@@ -81,8 +88,8 @@ class ItemScreen extends Component {
           <View style={styles.titleContainer}>
             <Text style={styles.itemTitle}>{item.title_es}</Text>
             <View style={styles.iconsContainer}>
-              <Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image>
-              <Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image>
+              <TouchableOpacity><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+              <TouchableOpacity onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
             </View>
           </View>
           <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text>
