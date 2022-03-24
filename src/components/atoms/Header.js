@@ -16,15 +16,16 @@ import { Color, Font } from '../../assets/styles/index.js';
 
 class Header extends Component{
     render () {
-      const { headerName } = this.props
+      const { headerName, floorId, navigation } = this.props
       return (
       <View style={styles.floorButtonsContainer}>
         <View style={styles.floorButtonSelectedContainer}>
           <View style={styles.floorButtonSelected}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{headerName}</Text></View>
         </View>
         <View style={styles.smallButtonContainer}>
-          <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>1</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.floorButton}><Text style={styles.floorButtonsText}>2</Text></TouchableOpacity>
+          {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta Baja'})}><Text style={styles.floorButtonsText}>Planta Baja</Text></TouchableOpacity>}
+          {floorId != 'floor-1' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}><Text style={styles.floorButtonsText}>Planta 1</Text></TouchableOpacity>}
+          {floorId != 'floor-2' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}><Text style={styles.floorButtonsText}>Planta 2</Text></TouchableOpacity>}
         </View>
       </View>
     );

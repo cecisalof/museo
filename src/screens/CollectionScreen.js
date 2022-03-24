@@ -20,10 +20,11 @@ class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
     const { collection } = this.props.route.params;
-    console.log(collection);
+    console.log('Collection', collection);
     return (
+    <View style={styles.blackBackground}>
       <View style={styles.mainContainer}>
-        <Header params={params}/>
+        <Header params={params} headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
         {/* COLECCIÓN DE PIEZAS POR VITRINA*/}
         <View style={styles.collectionContainer}>
           <FlatList
@@ -45,21 +46,29 @@ class CollectionScreen extends Component {
           />
         </View>
       </View>
+    </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  blackBackground: {
+    flex: 1,
+    backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
   mainContainer: {
     flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
     backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    maxWidth: 800
   },
   header: {
     flex: 0.5
   },
   collectionContainer: {
-    flex: 2
+    flex: 2,
+    maxWidth: 800
   },
   collectionList: {
     width: "100%"
