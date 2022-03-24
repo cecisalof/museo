@@ -102,32 +102,34 @@ const CustomDrawerContent = (props) => {
   // const [activeButton, SetActiveButton] = useState(false);
 
   return (
-    <DrawerContentScrollView {...props} style={styles.drawerContainer}>
-      <View style={styles.menuTitleContainer}>
-        <Text style={styles.menuTitle}>Menú</Text>
-        <Text style={styles.menuSubtitle}>Museo Egipcio Melilla</Text>
-      </View>
-      <View style={styles.itemContainer}>
-        <Item
-          label = 'Planta Baja'
-          onPress = {() => { props.navigation.navigate('Floor',  {floorId: 'floor-0', floorName: 'Planta B'})}}
-          image= {baseFloor}
-        />
-        <Item
-          label = 'Planta 1'
-          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-1', floorName: 'Planta 1'})}
-          image= {firstFloor}
-        />
-        <Item
-          label = 'Planta 2'
-          onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2', floorName: 'Planta 2'})}
-          image= {secondFloor}
-        />
-        <Item
-          label = 'Amigos del Museo'
-          onPress = {() => Linking.openURL('https://fundaciongaselec.es/club/')}
-          image= {people}
-        />
+    <DrawerContentScrollView {...props} style={styles.drawerContainer} contentContainerStyle={styles.drawerContent}>
+      <View style={styles.mainContainer}>
+        <View style={styles.menuTitleContainer}>
+          <Text style={styles.menuTitle}>Menú</Text>
+          <Text style={styles.menuSubtitle}>Museo Egipcio Melilla</Text>
+        </View>
+        <View style={styles.itemContainer}>
+          <Item
+            label = 'Planta Baja'
+            onPress = {() => { props.navigation.navigate('Floor',  {floorId: 'floor-0', floorName: 'Planta B'})}}
+            image= {baseFloor}
+          />
+          <Item
+            label = 'Planta 1'
+            onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-1', floorName: 'Planta 1'})}
+            image= {firstFloor}
+          />
+          <Item
+            label = 'Planta 2'
+            onPress = {() => props.navigation.navigate('Floor',  {floorId: 'floor-2', floorName: 'Planta 2'})}
+            image= {secondFloor}
+          />
+          <Item
+            label = 'Amigos del Museo'
+            onPress = {() => Linking.openURL('https://fundaciongaselec.es/club/')}
+            image= {people}
+          />
+        </View>
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.socialMedia}>
@@ -142,9 +144,17 @@ const CustomDrawerContent = (props) => {
 }
 
 const styles = StyleSheet.create({
+  drawerContent: {
+    justifyContent: 'space-around',
+    flex: 1,
+    minHeight: 400
+  },
+  mainContainer: {
+    flex: 1
+  },
   drawerContainer: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   menuTitleContainer: {
     flex: 2,
@@ -166,6 +176,7 @@ const styles = StyleSheet.create({
     lineHeight: Font.LINE_HEIGHT_16
   },
   icons: {
+    resizeMode: 'contain',
     alignItems: 'center',
     ...Platform.select({
       ios: {
@@ -183,12 +194,16 @@ const styles = StyleSheet.create({
     })
   },
   iconContainer: {
-    flex: 1
+    flex: 1,
+    alignItems: 'flex-end',
+    flexDirection: 'row',
   },
   socialMedia: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    marginVertical: 20,
   },
   logo: {
     height: 33,
