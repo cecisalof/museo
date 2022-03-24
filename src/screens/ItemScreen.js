@@ -29,16 +29,20 @@ class ItemScreen extends Component {
 
   async componentDidMount() {
     Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
-      this.sound = await Audio.Sound.createAsync( { uri: 'https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3' },
-      { shouldPlay: false }
-      );
-    console.log(this.sound);
+    this.sound = new Audio.Sound();
+
+    const status = {
+      shouldPlay: false
+    }
+
+    this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', status, false);
   }
 
   playSound() {
     console.log('Playing Sound');
     this.sound.playAsync();
   }
+
 
   scrollX = new Animated.Value(0);
 
@@ -88,7 +92,7 @@ class ItemScreen extends Component {
           <View style={styles.titleContainer}>
             <Text style={styles.itemTitle}>{item.title_es}</Text>
             <View style={styles.iconsContainer}>
-              <TouchableOpacity><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+              <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
               <TouchableOpacity onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
             </View>
           </View>
@@ -197,6 +201,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center'
+  },
+  buttons:{
+    marginHorizontal: '10%'
   },
   book: {
     marginHorizontal: '5%',

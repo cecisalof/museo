@@ -136,7 +136,7 @@ const CustomDrawerContent = (props) => {
             <TouchableOpacity onPress = {() => Linking.openURL('https://www.instagram.com/fundaciongaselec/?hl=en')}><Image source={require('../assets/images/icons/instagram.png')} style={styles.icons} /></TouchableOpacity>
             <TouchableOpacity onPress = {() => Linking.openURL('https://www.facebook.com/FundacionGaselec/')}><Image source={require('../assets/images/icons/facebook.png')} style={styles.icons} /></TouchableOpacity>
             <TouchableOpacity onPress = {() => Linking.openURL('https://twitter.com/fundaciogaselec')}><Image source={require('../assets/images/icons/twitter.png')} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity onPress = {() => Linking.openURL('https://www.youtube.com/c/fundaciongaselec')}><Image source={require('../assets/images/icons/youtube.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.youtube.com/c/fundaciongaselec')}><Image source={require('../assets/images/icons/youTube.png')} style={styles.icons} /></TouchableOpacity>
           </View>
       </View>
     </DrawerContentScrollView>
