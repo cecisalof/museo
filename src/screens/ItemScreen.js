@@ -53,62 +53,67 @@ class ItemScreen extends Component {
     const itemImages = item.image_set;
     {/* DETALLE DE PIEZA*/}
     return (
-      <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
-          <View style={styles.headerContent}>
-            <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
+      <View style={styles.blackBackground}>
+        <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
+        <View style={styles.mainContainer}>
+          <View style={styles.headerContainer}>
+            <View style={styles.headerContent}>
+              <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.navigationButton} onPress={()=> { this.props.navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+            { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
           </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.navigationButton} onPress={()=> { this.props.navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
-          { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
-        </View>
-        </View>
-        <View style={styles.scrollContainer}>
-          <ScrollView
-          horizontal={true}
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event([
-          {
-            nativeEvent: {
-              contentOffset: {
-                x: this.scrollX
+          </View>
+          <View style={styles.scrollContainer}>
+            <ScrollView
+            style={styles.scroll}
+            horizontal={true}
+            pagingEnabled
+            showsHorizontalScrollIndicator={true}
+            onScroll={Animated.event([
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: this.scrollX
+                }
               }
             }
-          }
-        ], {useNativeDriver: false})}
-        scrollEventThrottle={1}
-      >
-        {itemImages.map((image, imageIndex) => {
-          return (
-            <View
-              style={styles.imageContainer}
-              key={imageIndex}
-            >
-              <Image source={{ uri: image.image }} style={styles.card}></Image>
-            </View>
-          );
-        })}
-      </ScrollView>
-        </View>
-        <View style={styles.detailsContainer}>
-          <View style={styles.border}>
-            <View><Text style={styles.smallText}>Categoría</Text></View>
-            <View style={styles.titleContainer}>
-              <Text style={styles.itemTitle}>{item.title_es}</Text>
-              <View style={styles.iconsContainer}>
-                <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+          ], {useNativeDriver: false})}
+          scrollEventThrottle={1}
+        >
+          {itemImages.map((image, imageIndex) => {
+            return (
+              <View
+                style={styles.imageContainer}
+                key={imageIndex}
+              >
+                <Image source={{ uri: image.image }} style={styles.card}></Image>
+              </View>
+            );
+          })}
+        </ScrollView>
+          </View>
+          <View style={styles.detailsContainer}>
+            <View style={styles.border}>
+              <View><Text style={styles.smallText}>Categoría</Text></View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.itemTitle}>{item.title_es}</Text>
+                <View style={styles.iconsContainer}>
+                  <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                  <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                </View>
               </View>
             </View>
+            <View style={styles.itemDescription}>
+              <Text style={styles.smallText}>{item.description_es}</Text>
+              <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
+              <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+            </View>
+          {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
           </View>
-          <View style={styles.itemDescription}>
-            <Text style={styles.smallText}>{item.description_es}</Text>
-            <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
-            <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
-          </View>
-        {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
         </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -118,9 +123,20 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     width: '100%',
-    backgroundColor: Color.PRIMARY,
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    maxWidth: 800
+  },
+  blackBackground: {
+    flex: 1,
+    backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  bg: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   headerContainer:{
     flex: 1.3,
@@ -186,8 +202,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 4,
-    marginHorizontal: '4%',
-    marginVertical: '2%'
+    backgroundColor: Color.PRIMARY
   },
   titleContainer: {
     flexDirection: 'row',
@@ -236,8 +251,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  scroll: {
+    maxWidth: 800,
+    width: responsiveWidth(100)
+  },
   imageContainer: {
-    width: responsiveWidth(100),
+    width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
     height: responsiveHeight(30)
   },
   card: {
