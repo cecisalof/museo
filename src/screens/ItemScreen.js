@@ -26,29 +26,75 @@ import {
 import { Audio } from 'expo-av';
 
 class ItemScreen extends Component {
-
-  async componentDidMount() {
-      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
-      this.sound = await new Audio.Sound();
-      console.log(this.sound);
-
-      const status = {
-        shouldPlay: false
-      }
-    await this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', {shouldPlay: false});  }
-
-
-  playSound() {
-    console.log('Playing Sound');
-    this.sound.playAsync();
+  state = {
+   isPlaying: false,
+   playbackInstance: null,
+   currentIndex: 0,
+   volume: 1.0,
+   isBuffering: false
   }
 
+  async componentDidMount() {
+    try {
+      {/*define how the audio player is going to behave.*/}
+       await Audio.setAudioModeAsync({
+         allowsRecordingIOS: false,
+         interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+         playsInSilentModeIOS: true,
+         interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+         shouldDuckAndroid: true,
+         staysActiveInBackground: true,
+         playThroughEarpieceAndroid: true
+          })
+          this.loadAudio()
+      } catch (e) {
+          console.log(e)
+        }
+      }
+
+      async loadAudio() {
+        const {currentIndex, isPlaying, volume} = this.state
+
+        try {
+          const playbackInstance = new Audio.Sound()
+          console.log('objeto de audio', playbackInstance);
+          const source = {
+            // uri: audioBookPlaylist[currentIndex].uri
+            uri: 'https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3'
+          }
+
+          const status = {
+            shouldPlay: isPlaying,
+            volume
+          }
+
+          playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+          await playbackInstance.loadAsync(source, status, false)
+          this.setState({playbackInstance})
+          } catch (e) {
+            console.log(e)
+          }
+      }
+
+      onPlaybackStatusUpdate = status => {
+        this.setState({
+          isBuffering: status.isBuffering
+        })
+      }
+
+      handlePlayPause = async () => {
+      const { isPlaying, playbackInstance } = this.state
+      isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
+
+      this.setState({
+        isPlaying: !isPlaying
+      })
+    }
 
   scrollX = new Animated.Value(0);
 
   render() {
     const { params } = this.props.route;
-    console.log(params);
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
     {/* DETALLE DE PIEZA*/}
@@ -102,7 +148,7 @@ class ItemScreen extends Component {
                   <Text style={styles.itemTitle}>{item.title_es}</Text>
                   <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-                    <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
                   </View>
                 </View>
               </View>
