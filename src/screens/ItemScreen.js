@@ -28,14 +28,14 @@ import { Audio } from 'expo-av';
 class ItemScreen extends Component {
 
   async componentDidMount() {
-      Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
-      this.sound = new Audio.Sound();
+      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
+      this.sound = await new Audio.Sound();
       console.log(this.sound);
 
       const status = {
         shouldPlay: false
       }
-     this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', {shouldPlay: false});  }
+    await this.sound.loadAsync('https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3', {shouldPlay: false});  }
 
 
   playSound() {
@@ -57,7 +57,7 @@ class ItemScreen extends Component {
             <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.navigationButton}><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.navigationButton} onPress={() => this.props.navigation.goBack()} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
           </View>
         </View>
         <View style={styles.scrollContainer}>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   headerContainer:{
-    flex: 1.5,
+    flex: 1.3,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   navigationButtonText: {
     fontFamily: 'Roboto',
     color: Color.WHITE,
-    fontSize: 12,
+    fontSize: responsiveFontSize(1.5),
     justifyContent: 'flex-end',
   },
   headerContent: {
@@ -160,29 +160,22 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%'
   },
   headerTitle: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1
   },
   headerTitleText: {
-    fontSize: 16,
+    fontSize: responsiveFontSize(2.5),
+    flexWrap: 'nowrap',
     fontFamily: 'Roboto',
     color: Color.WHITE,
-    marginLeft: 7
+    marginLeft: '3%',
+
   },
   avatar: {
-    ...Platform.select({
-      ios: {
-        width: 21,
-        height: 21
-       },
-      android: {
-        width: 21,
-        height: 21
-      },
-      default: {
-        width: 21,
-        height: 21
-      }
-    })
+    marginRight: '1%',
+    width: responsiveWidth(100) >= 425 ? responsiveWidth(5) : 24,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(3) : 24
   },
   sliderContainer: {
     flex: 2,
