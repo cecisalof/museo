@@ -59,7 +59,11 @@ class ItemScreen extends Component {
             <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
           </View>
           <View style={styles.buttonContainer}>
+<<<<<<< HEAD
             <TouchableOpacity style={styles.navigationButton} onPress={()=> { this.props.navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+=======
+            <TouchableOpacity style={styles.navigationButton} onPress={()=> { navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+>>>>>>> 1dac74e4e86447b4c501eb8a3204eeb158cbd5f4
           { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
         </View>
         </View>
