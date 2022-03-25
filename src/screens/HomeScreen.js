@@ -28,9 +28,9 @@ import { Color, Font, Mixins } from '../assets/styles/index.js';
 class HomeScreen extends Component {
   render() {
     return (
-      <SafeAreaView style={styles.safeAreaContainer}>
-        <View style={styles.mainContainer}>
-          <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
+      <SafeAreaView style={styles.blackBackground}>
+        <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
+          <View style={styles.mainContainer}>
             <View styles={styles.titleContainer}>
               <Text style={styles.textBold}>
                 Bienvenidos
@@ -38,52 +38,55 @@ class HomeScreen extends Component {
               <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
             </View>
             <View style={styles.touchableContainer}>
-              <TouchableOpacity  style={styles.button}
-                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})} ><Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})} >
+                <Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
+                <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}>
+                  <Text style={styles.floorLabels}>Planta 2</Text>
+                  <Image source={line} style={styles.line}></Image>
+                </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}><Text style={styles.floorLabels}>Planta 2</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-              <TouchableOpacity  style={styles.button}
-                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})} ><Image source={require('../assets/images/floors/App-Planta-1.png')} style={styles.floors} /></TouchableOpacity>
-              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}><Text style={styles.floorLabels}>Planta 1</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
-              <TouchableOpacity  style={styles.button}
-                onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})} ><Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} /></TouchableOpacity>
-              <TouchableOpacity style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})}><Text style={styles.floorLabels2}>Planta Baja</Text><Image source={line} style={styles.line}></Image></TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})} >
+                <Image source={require('../assets/images/floors/App-Planta-1.png')} style={styles.floors} />
+                <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}>
+                  <Text style={styles.floorLabels}>Planta 1</Text>
+                  <Image source={line} style={styles.line}></Image>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})} >
+                <Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} />
+                <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})}>
+                  <Text style={styles.floorLabels}>Planta Baja</Text>
+                  <Image source={line} style={styles.line}></Image>
+                </View>
+              </TouchableOpacity>
             </View>
-          </ImageBackground>
-        </View>
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  safeAreaContainer: {
+  blackBackground: {
     flex: 1,
-    backgroundColor: '#000'
-  },
-  mainContainer: {
-    flex: 4,
-    color: Color.WHITE,
-    backgroundColor: '#000',
-    fontFamily: 'Roboto',
-    ...Platform.select({
-      ios: {
-        color: Color.WHITE,
-        backgroundColor: '#000',
-       },
-      android: {
-        backgroundColor: '#000',
-
-      },
-      default: {
-        color: '#000',
-      }
-    })
+    backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   bg: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  mainContainer: {
+    flex: 1,
+    // backgroundColor: Color.BLACK,
+    justifyContent: 'center',
+    maxWidth: 600,
+    fontFamily: 'Roboto',
+    color: Color.WHITE
   },
   titleContainer: {
     flex: 1,
@@ -91,27 +94,33 @@ const styles = StyleSheet.create({
   },
   touchableContainer: {
     flex: 3,
-    paddingTop: '5%'
+    paddingVertical: '5%',
+    position: 'relative',
   },
   floorLabelsContainer: {
-    flex: 0.5,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start'
+    position: 'absolute',
+    right: 0,
+    bottom: 20,
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems:'flex-start',
+    ...Platform.select({
+      ios: {
+       },
+      android: {
+      },
+      default: {
+        maxWidth: 200,
+      }
+    }),
   },
   floorLabels: {
     fontFamily: 'Roboto',
-    fontSize: responsiveFontSize(1.9),
+    fontSize: responsiveFontSize(1.5),
     lineHeight: responsiveFontSize(2.5),
     color: Color.WHITE,
-    textAlign: 'right',
-    marginRight: 30
-  },
-  floorLabels2: {
-    fontSize: responsiveFontSize(1.9),
-    lineHeight: responsiveFontSize(2.5),
-    color: Color.WHITE,
-    textAlign: 'right',
-    marginRight: responsiveWidth(3)
+    marginRight: 5,
+    marginBottom: 5,
   },
   text: {
     fontFamily: 'Roboto',
@@ -122,17 +131,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '4%'
   },
   textBold: {
-    ...Platform.select({
-      ios: {
-        paddingTop: '8%',
-       },
-      android: {
-        paddingTop: '8%',
-      },
-      default: {
-        paddingTop: '3%',
-      }
-    }),
+    paddingTop: '8%',
     fontFamily: 'Roboto-Bold',
     fontSize: 16,
     lineHeight: 19,
@@ -148,23 +147,12 @@ const styles = StyleSheet.create({
   button: {
     flex: 2,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   floors: {
-    ...Platform.select({
-      ios: {
-        width: '60%',
-        height: '100%'
-       },
-      android: {
-        width: '60%',
-        height: '100%'
-      },
-      default: {
-        width: 218,
-        height: 126
-      }
-    }),
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
   },
   line: {
     width: responsiveWidth(25),

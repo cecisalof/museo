@@ -133,8 +133,8 @@ const CustomDrawerContent = (props) => {
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.socialMedia}>
-            <TouchableOpacity onPress = {() => Linking.openURL('https://www.instagram.com/fundaciongaselec/?hl=en')}><Image source={require('../assets/images/icons/instagram.png')} style={styles.icons} /></TouchableOpacity>
-            <TouchableOpacity onPress = {() => Linking.openURL('https://www.facebook.com/FundacionGaselec/')}><Image source={require('../assets/images/icons/facebook.png')} style={styles.icons} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.instagram.com/fundaciongaselec/?hl=en')}><Image source={require('../assets/images/icons/instagram.png')} style={[styles.icons, styles.iconInstagram]} /></TouchableOpacity>
+            <TouchableOpacity onPress = {() => Linking.openURL('https://www.facebook.com/FundacionGaselec/')}><Image source={require('../assets/images/icons/facebook.png')} style={[styles.icons, styles.iconInstagram]} /></TouchableOpacity>
             <TouchableOpacity onPress = {() => Linking.openURL('https://twitter.com/fundaciogaselec')}><Image source={require('../assets/images/icons/twitter.png')} style={styles.icons} /></TouchableOpacity>
             <TouchableOpacity onPress = {() => Linking.openURL('https://www.youtube.com/c/fundaciongaselec')}><Image source={require('../assets/images/icons/youTube.png')} style={styles.icons} /></TouchableOpacity>
           </View>
@@ -190,6 +190,22 @@ const styles = StyleSheet.create({
       default: {
         width: 20,
         height: 20
+      }
+    })
+  },
+  iconInstagram: {
+    ...Platform.select({
+      ios: {
+        width: 28,
+        height: 28
+       },
+      android: {
+        width: 28,
+        height: 28
+      },
+      default: {
+        width: 17,
+        height: 17
       }
     })
   },

@@ -10,7 +10,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
-  ImageBackground
+  ImageBackground,
+  SafeAreaView
 } from "react-native";
 import CollectionRow from "../components/atoms/CollectionRow";
 import {
@@ -25,7 +26,7 @@ class Floor extends Component {
     const { params } = this.props.route; //Param inherit in Home SreenView from floor´s touchable opacity
     const floor = this.props.items.find( ({ reference_id }) => reference_id == params.floorId );
     return (
-    <View style={styles.blackBackground}>
+    <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
           <Header headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
@@ -48,7 +49,7 @@ class Floor extends Component {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
     );
   }
 }

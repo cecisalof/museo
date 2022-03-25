@@ -8,7 +8,8 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  SafeAreaView
 } from "react-native";
 import ItemPreview from "../components/atoms/ItemPreview";
 import {
@@ -23,7 +24,7 @@ class CollectionScreen extends Component {
     const { collection } = this.props.route.params;
     console.log('Collection', collection);
     return (
-    <View style={styles.blackBackground}>
+    <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
           <Header headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
@@ -48,7 +49,7 @@ class CollectionScreen extends Component {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
     );
   }
 }
