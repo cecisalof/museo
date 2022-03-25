@@ -94,21 +94,23 @@ class ItemScreen extends Component {
           })}
         </ScrollView>
           </View>
-          <View style={styles.detailsContainer}>
-            <View style={styles.border}>
-              <View><Text style={styles.smallText}>Categoría</Text></View>
-              <View style={styles.titleContainer}>
-                <Text style={styles.itemTitle}>{item.title_es}</Text>
-                <View style={styles.iconsContainer}>
-                  <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-                  <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+          <View style={styles.bgPrimary}>
+            <View style={styles.detailsContainer}>
+              <View style={styles.border}>
+                <View><Text style={styles.smallText}>Categoría</Text></View>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.itemTitle}>{item.title_es}</Text>
+                  <View style={styles.iconsContainer}>
+                    <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={styles.itemDescription}>
-              <Text style={styles.smallText}>{item.description_es}</Text>
-              <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
-              <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+              <View style={styles.itemDescription}>
+                <Text style={styles.smallText}>{item.description_es}</Text>
+                <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
+                <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+              </View>
             </View>
           {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
           </View>
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headerTitleText: {
-    fontSize: responsiveFontSize(2.5),
+    fontSize: responsiveFontSize(1.8),
     flexWrap: 'nowrap',
     fontFamily: 'Roboto',
     color: Color.WHITE,
@@ -192,17 +194,21 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginRight: '1%',
-    width: responsiveWidth(100) >= 425 ? responsiveWidth(5) : 24,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(3) : 24
+    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 24,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
   },
   sliderContainer: {
     flex: 2,
     width: '100%',
     backgroundColor: Color.BLACK
   },
-  detailsContainer: {
+  bgPrimary: {
     flex: 4,
     backgroundColor: Color.PRIMARY
+  },
+  detailsContainer: {
+    marginHorizontal: '4%',
+    marginVertical: '2%'
   },
   titleContainer: {
     flexDirection: 'row',
@@ -211,8 +217,8 @@ const styles = StyleSheet.create({
   },
   smallText:{
     flexDirection: 'column',
-    fontSize: responsiveFontSize(1.9),
-    lineHeight: responsiveHeight(2.7),
+    fontSize: responsiveFontSize(1.6),
+    lineHeight: responsiveHeight(3),
     fontFamily: 'Roboto',
     marginVertical: responsiveHeight(0.5)
   },
@@ -232,13 +238,13 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%'
   },
   book: {
-    marginHorizontal: '5%',
-    width: responsiveWidth(100) >= 425 ? responsiveWidth(6) : 30,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(3.5) : 25
+    marginHorizontal: '7%',
+    width: responsiveWidth(100) >= 768 ? responsiveWidth(6.5) : 30,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 25
   },
   play: {
     alignItems: 'center',
-    width: responsiveWidth(100) >= 425 ? responsiveWidth(6) : 24,
+    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 24,
     height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
   },
   container: {
@@ -274,8 +280,8 @@ const styles = StyleSheet.create({
     marginVertical: '1%',
   },
   descriptionIcons: {
-    width: responsiveWidth(100) >= 425 ? responsiveWidth(4.5) : responsiveWidth(6),
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(3) : responsiveHeight(3.7),
+    width: 20,
+    height: 20,
     marginRight: '5%'
   },
   border: {
