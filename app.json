@@ -8,7 +8,7 @@
     "splash": {
       "image": "./src/assets/images/splash.png",
       "backgroundColor": "#000",
-      "resizeMode": "cover",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
-      }
+      },
+      "package": "es.fundaciongaselec"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
