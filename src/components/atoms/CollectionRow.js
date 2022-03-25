@@ -37,8 +37,10 @@ class CollectionRow extends React.Component {
             style={styles.gradient}
             />
          {/* Showcase Title */}
-         <Text style={styles.itemName}>{item.title_es}</Text>
-         <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
+         <View style={styles.titleContainer}>
+           <Text style={styles.itemName}>{item.title_es}</Text>
+           <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
+        </View>
        </TouchableOpacity>
       </View>
     );
@@ -59,35 +61,26 @@ const styles = StyleSheet.create({
      top: 0,
      height: '100%'
   },
-  itemName: {
+  titleContainer: {
     position: 'absolute',
-    left: responsiveWidth(5),
+    bottom: '15%',
+    left: '10%',
+    width: '100%'
+  },
+  itemName: {
     color: Color.WHITE,
     fontFamily: 'Roboto-Bold',
-    fontSize: responsiveFontSize(1.8)
+    fontSize: responsiveFontSize(1.8),
+    marginBottom: 10
   },
   itemNameLine:{
-    position: 'absolute',
-    left: responsiveWidth(5),
-    top: responsiveHeight(13),
-    height: responsiveHeight(0.2),
+    width: '40%',
     ...Platform.select({
       ios: {
-        width: responsiveWidth(25),
-        left: responsiveWidth(5),
-        top: responsiveHeight(13),
-        height: responsiveHeight(0.2)
        },
       android: {
-        width: responsiveWidth(25),
-        left: responsiveWidth(5),
-        top: responsiveHeight(13),
-        height: responsiveHeight(0.2)
       },
       default: {
-        width: 95,
-        left: responsiveWidth(5),
-        top: responsiveHeight(14),
         height: 2
       }
     })
