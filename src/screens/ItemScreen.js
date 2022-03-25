@@ -89,18 +89,21 @@ class ItemScreen extends Component {
       </ScrollView>
         </View>
         <View style={styles.detailsContainer}>
-          <View><Text style={styles.smallText}>Categoría</Text></View>
-          <View style={styles.titleContainer}>
-            <Text style={styles.itemTitle}>{item.title_es}</Text>
-            <View style={styles.iconsContainer}>
-              <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-              <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+          <View style={styles.border}>
+            <View><Text style={styles.smallText}>Categoría</Text></View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.itemTitle}>{item.title_es}</Text>
+              <View style={styles.iconsContainer}>
+                <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                <TouchableOpacity style={styles.buttons} onPress={this.playSound.bind(this)} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+              </View>
             </View>
           </View>
-          <Image style={styles.line} source={require('../assets/images/divider1.png')}></Image>
-          <Text style={styles.smallText}>{item.description_es}</Text>
-          <Text style={styles.smallText}>{item.material_es}</Text>
-          <Text style={styles.smallText}>{item.date_es}</Text>
+          <View style={styles.itemDescription}>
+            <Text style={styles.smallText}>{item.description_es}</Text>
+            <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
+            <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+          </View>
         {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
         </View>
       </View>
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flex: 4,
     marginHorizontal: '4%',
-    marginVertical: '5%'
+    marginVertical: '2%'
   },
   titleContainer: {
     flexDirection: 'row',
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     flex: 1,
-    fontSize: 18,
+    fontSize: responsiveFontSize(2.5),
     fontFamily: 'Roboto-Bold',
     lineHeight: 21,
     color: Color.BLACK
@@ -221,37 +224,13 @@ const styles = StyleSheet.create({
   },
   book: {
     marginHorizontal: '5%',
-    ...Platform.select({
-      ios: {
-        width: 30,
-        height: 23
-       },
-      android: {
-        width: 30,
-        height: 23
-      },
-      default: {
-        width: 30,
-        height: 23
-      }
-    })
+    width: responsiveWidth(100) >= 425 ? responsiveWidth(6) : 30,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(3.5) : 25
   },
   play: {
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        width: 24,
-        height: 24
-       },
-      android: {
-        width: 24,
-        height: 24
-      },
-      default: {
-        width: 24,
-        height: 24
-      }
-    }),
+    width: responsiveWidth(100) >= 425 ? responsiveWidth(6) : 24,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
   },
   container: {
   flex: 1,
@@ -273,9 +252,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  line: {
-    width: responsiveWidth(80),
-    height: 3
+  itemDescription: {
+    marginVertical: '2%'
+  },
+  iconTextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: '1%',
+  },
+  descriptionIcons: {
+    width: responsiveWidth(100) >= 425 ? responsiveWidth(4.5) : responsiveWidth(6),
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(3) : responsiveHeight(3.7),
+    marginRight: '5%'
+  },
+  border: {
+    borderBottomColor: Color.SECONDARY,
+    borderTopColor: 'transparent',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderWidth: 2
   }
 })
 
