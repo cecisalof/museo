@@ -111,6 +111,7 @@ class ItemScreen extends Component {
             { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
           </View>
           </View>
+          {/* Image slider */}
           <View style={styles.scrollContainer}>
             <ScrollView
             style={styles.scroll}
@@ -127,19 +128,20 @@ class ItemScreen extends Component {
             }
           ], {useNativeDriver: false})}
           scrollEventThrottle={1}
-        >
-          {itemImages.map((image, imageIndex) => {
-            return (
-              <View
-                style={styles.imageContainer}
-                key={imageIndex}
-              >
-                <Image source={{ uri: image.image }} style={styles.card}></Image>
-              </View>
-            );
-          })}
-        </ScrollView>
+            >
+              {itemImages.map((image, imageIndex) => {
+                return (
+                  <View
+                    style={styles.imageContainer}
+                    key={imageIndex}
+                  >
+                    <Image source={{ uri: image.image }} style={styles.card}></Image>
+                  </View>
+                );
+              })}
+            </ScrollView>
           </View>
+          {/* Main content */}
           <View style={styles.bgPrimary}>
             <View style={styles.detailsContainer}>
               <View style={styles.border}>
@@ -148,9 +150,14 @@ class ItemScreen extends Component {
                   <Text style={styles.itemTitle}>{item.title_es}</Text>
                   <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-                    <TouchableOpacity style={styles.buttons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
                   </View>
                 </View>
+              </View>
+              {/* Audio Player */}
+              <View style={styles.audioPlayer}>
+                <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
+                <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
               </View>
               <View style={styles.itemDescription}>
                 <Text style={styles.smallText}>{item.description_es}</Text>
@@ -288,10 +295,28 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100) >= 768 ? responsiveWidth(6.5) : 30,
     height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 25
   },
-  play: {
+  audioPlayer: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 24,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
+    marginVertical: '3%'
+  },
+  audioButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    marginHorizontal: '5%'
+  },
+  play:{
+    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 20,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 20
+  },
+  audioIcons: {
+    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 15,
+    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 11
   },
   container: {
   flex: 1,
@@ -335,7 +360,8 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderWidth: 2
+    borderWidth: 2,
+    marginBottom: '3%'
   }
 })
 
