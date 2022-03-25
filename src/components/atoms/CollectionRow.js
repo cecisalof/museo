@@ -25,23 +25,23 @@ class CollectionRow extends React.Component {
     // console.log( 'items', item);
     return (
       <View>
-       <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-         <Image
-             style={styles.collectionImage}
-             source={{uri: item.image}}
-           />
-           <LinearGradient
-            colors={['rgba(0,0,0,0.6)', 'rgba(0, 0, 0, 0.4)', 'transparent']}
-            end={{ x: 1, y: 0 }}
-            locations={[0.0, 0.2, 1]}
-            style={styles.gradient}
-            />
-         {/* Showcase Title */}
-         <View style={styles.titleContainer}>
-           <Text style={styles.itemName}>{item.title_es}</Text>
-           <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
-        </View>
-       </TouchableOpacity>
+        <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+           <Image
+               style={styles.collectionImage}
+               source={{uri: item.image}}
+             />
+             <LinearGradient
+              colors={['rgba(0,0,0,0.6)', 'rgba(0, 0, 0, 0.4)', 'transparent']}
+              end={{ x: 1, y: 0 }}
+              locations={[0.0, 0.2, 1]}
+              style={styles.gradient}
+              />
+           {/* Showcase Title */}
+           <View style={styles.titleContainer}>
+             <Text style={styles.itemName}>{item.title_es}</Text>
+             <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -11,8 +11,14 @@ import {
   TouchableOpacity,
   Platform,
   ImageBackground,
-  SafeAreaView
+  SafeAreaView,
+  Linking
 } from "react-native";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 import CollectionRow from "../components/atoms/CollectionRow";
 import {
   setItems,
@@ -44,6 +50,21 @@ class Floor extends Component {
               keyExtractor={(item, index) => index.toString()}
               ListEmptyComponent={
                 <Text>No hay elementos</Text>
+              }
+              ListFooterComponent={
+                <View>
+                  {params.floorId == 'floor-0' && <View style={styles.footerContainer}>
+                     <ImageBackground
+                       style={styles.collectionImage}
+                       source={require('../assets/images/floors/ShopBanner.jpg')}
+                     />
+                     <View style={styles.footerBtnContainer}>
+                       <TouchableOpacity style={styles.footerBtn} onPress = {() => Linking.openURL('https://fundaciongaselec.es/tienda/')}>
+                          <Text style={styles.footerBtnText}>Visitar tienda</Text>
+                       </TouchableOpacity>
+                     </View>
+                  </View>}
+                </View>
               }
             />
           </View>
@@ -78,6 +99,36 @@ const styles = StyleSheet.create({
   },
   itemsContainer: {
     flex: 1
+  },
+  collectionImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    height: responsiveHeight(23),
+    width: responsiveWidth(100)
+  },
+  // Footer
+  footerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
+  footerBtnContainer: {
+    position:'absolute',
+    top:0,
+    left:0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: responsiveHeight(23),
+    width: '100%'
+  },
+  footerBtn: {
+    backgroundColor: Color.BLACK,
+    paddingVertical: 8,
+    paddingHorizontal: 25
+  },
+  footerBtnText: {
+    color: Color.PRIMARY
   }
 })
 //---- Connect to props functions and values -----//

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: Color.BLACK,
     justifyContent: 'center',
-    maxWidth: 600,
+    maxWidth: 800,
     fontFamily: 'Roboto',
     color: Color.WHITE
   },
