@@ -47,6 +47,8 @@ class ItemScreen extends Component {
   scrollX = new Animated.Value(0);
 
   render() {
+    const { params } = this.props.route;
+    console.log(params);
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
     {/* DETALLE DE PIEZA*/}
@@ -57,8 +59,9 @@ class ItemScreen extends Component {
             <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.navigationButton} onPress={() => this.props.navigation.goBack()} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
-          </View>
+            <TouchableOpacity style={styles.navigationButton} onPress={()=> { navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+          { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
+        </View>
         </View>
         <View style={styles.scrollContainer}>
           <ScrollView
@@ -170,7 +173,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     color: Color.WHITE,
     marginLeft: '3%',
-
   },
   avatar: {
     marginRight: '1%',
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: '3%'
+    marginBottom: '3%',
   },
   smallText:{
     flexDirection: 'column',
@@ -200,17 +202,16 @@ const styles = StyleSheet.create({
     marginVertical: responsiveHeight(0.5)
   },
   itemTitle: {
-    flex: 1,
     fontSize: responsiveFontSize(2.5),
     fontFamily: 'Roboto-Bold',
     lineHeight: 21,
     color: Color.BLACK
   },
   iconsContainer:{
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: '20%'
   },
   buttons:{
     marginHorizontal: '5%'
