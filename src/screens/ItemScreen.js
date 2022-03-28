@@ -25,6 +25,8 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
+import moment from 'moment';
+import Slider from '@react-native-community/slider';
 
 class ItemScreen extends Component {
   state = {
@@ -32,7 +34,10 @@ class ItemScreen extends Component {
    playbackInstance: null,
    currentIndex: 0,
    volume: 1.0,
-   isBuffering: false
+   isBuffering: false,
+   trackTotalDuration: 0,
+   userPositionInTrack: 0,
+   soundProperties: null
   }
 
   async componentDidMount() {
@@ -75,6 +80,7 @@ class ItemScreen extends Component {
           } catch (e) {
             console.log(e)
           }
+
       }
 
       onPlaybackStatusUpdate = status => {
@@ -83,8 +89,26 @@ class ItemScreen extends Component {
         })
       }
 
+      getTrackDuration=  async () => {
+        const { playbackInstance } = this.state
+        const result = await playbackInstance.getStatusAsync();
+        console.log(result);
+        this.setState({
+          trackTotalDuration: result.milliToMinutes,
+          userPositionInTrack: result.positionMillis,
+          soundProperties: result
+        })
+      }
+
       handlePlayPause = async () => {
       const { isPlaying, playbackInstance } = this.state
+      this.getTrackDuration()
+      // const result = await playbackInstance.getStatusAsync();
+      // console.log('propiedades del objeto de audio', result);
+      // console.log('tiempo reproducido del audio', moment(result.positionMillis).format("mm:ss"));
+      // const milliToMinutes = moment(result.durationMillis).format("mm:ss")
+      // const positionMillis = moment(result.positionMillis).format("mm:ss")
+      // console.log('duración completa del audio', milliToMinutes);
       isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
 
       this.setState({
@@ -98,6 +122,8 @@ class ItemScreen extends Component {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
+    const trackTotalDuration =  this.milliToMinutes;
+    const userPositionInTrack = this.positionMillis;
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -155,6 +181,17 @@ class ItemScreen extends Component {
                 </View>
               </View>
               {/* Audio Player */}
+              <Slider
+                style={{width: 200, height: 40}}
+                minimumValue={0}
+                maximumValue={1000}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+              />
+              <View>
+                <Text style={styles.duration}>{this.state.trackTotalDuration}</Text>
+                <Text style={styles.duration}>{this.state.userPositionInTrack}</Text>
+              </View>
               <View style={styles.audioPlayer}>
                 <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
                 <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
@@ -366,6 +403,10 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderWidth: 2,
     marginBottom: '3%'
+  },
+  duration:{
+    color: Color.BLACK,
+    fontSize: 12
   }
 })
 
