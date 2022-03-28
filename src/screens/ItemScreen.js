@@ -13,7 +13,8 @@ import {
   Platform,
   Animated,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import {
   setItems,
@@ -99,7 +100,7 @@ class ItemScreen extends Component {
     const itemImages = item.image_set;
     {/* DETALLE DE PIEZA*/}
     return (
-      <View style={styles.blackBackground}>
+      <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
           <View style={styles.headerContainer}>
@@ -160,16 +161,18 @@ class ItemScreen extends Component {
                 <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
               </View>
               <View style={styles.itemDescription}>
-                <Text style={styles.smallText}>{item.description_es}</Text>
-                <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
-                <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+                <ScrollView style={styles.scrollText}>
+                  <Text style={styles.smallText}>{item.description_es}</Text>
+                  <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
+                  <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+                </ScrollView>
               </View>
             </View>
           {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
           </View>
         </View>
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -296,7 +299,7 @@ const styles = StyleSheet.create({
     height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 25
   },
   audioPlayer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -311,12 +314,12 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%'
   },
   play:{
-    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 20,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 20
+    width: responsiveWidth(100) >= 768 ? 40 : 20,
+    height: responsiveHeight(100) >= 800 ? 40 : 20
   },
   audioIcons: {
-    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 15,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 11
+    width: responsiveWidth(100) >= 768 ? 35 : 15,
+    height: responsiveHeight(100) >= 800 ? 26 : 11
   },
   container: {
   flex: 1,
@@ -343,7 +346,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   itemDescription: {
-    marginVertical: '2%'
+    height: responsiveHeight(15),
+    marginVertical: '2%',
   },
   iconTextRow: {
     flexDirection: 'row',
