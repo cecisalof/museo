@@ -36,8 +36,9 @@ class ItemScreen extends Component {
    volume: 1.0,
    isBuffering: false,
    trackTotalDuration: 0,
-   userPositionInTrack: 0,
-   soundProperties: null
+   positionInTrack: 0,
+   soundStatus: null,
+   currentTrackDuration: 0
   }
 
   async componentDidMount() {
@@ -66,7 +67,7 @@ class ItemScreen extends Component {
           console.log('objeto de audio', playbackInstance);
           const source = {
             // uri: audioBookPlaylist[currentIndex].uri
-            uri: 'https://gaselec-back-static.s3.amazonaws.com/MUSICA_DE_EGIPTO_SIN_DERECHOS_DE_AUTOR_TMSC_1.mp3'
+            uri: this.props.route.params.item.audio_es
           }
 
           const status = {
@@ -89,13 +90,17 @@ class ItemScreen extends Component {
         })
       }
 
-      getTrackDuration=  async () => {
+      getTrackDuration =  async () => {
         const { playbackInstance } = this.state
         const result = await playbackInstance.getStatusAsync();
-        console.log(result);
+        console.log('propiedades del objeto de audio', result);
+        const milliToMinutes = moment(result.durationMillis).format("mm:ss")
+        const positionMillis = moment(result.positionMillis).format("mm:ss")
+        console.log('duración total', milliToMinutes);
+        console.log('tiempo del track que ha sido reproducido', positionMillis);
         this.setState({
-          trackTotalDuration: result.milliToMinutes,
-          userPositionInTrack: result.positionMillis,
+          trackTotalDuration: milliToMinutes,
+          positionInTrack: positionMillis,
           soundProperties: result
         })
       }
@@ -103,14 +108,7 @@ class ItemScreen extends Component {
       handlePlayPause = async () => {
       const { isPlaying, playbackInstance } = this.state
       this.getTrackDuration()
-      // const result = await playbackInstance.getStatusAsync();
-      // console.log('propiedades del objeto de audio', result);
-      // console.log('tiempo reproducido del audio', moment(result.positionMillis).format("mm:ss"));
-      // const milliToMinutes = moment(result.durationMillis).format("mm:ss")
-      // const positionMillis = moment(result.positionMillis).format("mm:ss")
-      // console.log('duración completa del audio', milliToMinutes);
       isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
-
       this.setState({
         isPlaying: !isPlaying
       })
@@ -122,8 +120,8 @@ class ItemScreen extends Component {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
-    const trackTotalDuration =  this.milliToMinutes;
-    const userPositionInTrack = this.positionMillis;
+    const trackPositionPercentage = this.state.currentTrackDuration;
+    console.log(trackPositionPercentage);
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -181,16 +179,24 @@ class ItemScreen extends Component {
                 </View>
               </View>
               {/* Audio Player */}
-              <Slider
-                style={{width: 200, height: 40}}
-                minimumValue={0}
-                maximumValue={1000}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#000000"
-              />
-              <View>
-                <Text style={styles.duration}>{this.state.trackTotalDuration}</Text>
-                <Text style={styles.duration}>{this.state.userPositionInTrack}</Text>
+              <View style={styles.sliderContainer}>
+                <Slider
+                  style={styles.slider}
+                  value={trackPositionPercentage}
+                  minimumValue={0}
+                  maximumValue={1000}
+                  minimumTrackTintColor={Color.SECONDARY}
+                  maximumTrackTintColor="#787878"
+                  thumbStyle={styles.thumb}
+                />
+              </View>
+              <View style={styles.audioController}>
+                <View style={styles.currentDurationContainer}>
+                  <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
+                </View>
+                <View style={styles.trackDurationContainer}>
+                  <Text style={styles.totalDuration}>{this.state.trackTotalDuration}</Text>
+                </View>
               </View>
               <View style={styles.audioPlayer}>
                 <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
@@ -290,11 +296,11 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 24,
     height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
   },
-  sliderContainer: {
-    flex: 2,
-    width: '100%',
-    backgroundColor: Color.BLACK
-  },
+  // sliderContainer: {
+  //   flex: 2,
+  //   width: '100%',
+  //   backgroundColor: Color.BLACK
+  // },
   bgPrimary: {
     flex: 4,
     backgroundColor: Color.PRIMARY
@@ -404,10 +410,42 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginBottom: '3%'
   },
+  sliderContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: responsiveHeight(1)
+  },
+  slider: {
+    width: responsiveWidth(50),
+    height: '5%'
+  },
   duration:{
-    color: Color.BLACK,
-    fontSize: 12
-  }
+    color: '#787878',
+    fontSize: 14
+  },
+  trackDurationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: responsiveWidth(20),
+    justifyContent: 'flex-end'
+  },
+  currentDurationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: responsiveWidth(20),
+    justifyContent: 'flex-start'
+  },
+  totalDuration: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    color: '#787878',
+    fontSize: 14
+  },
+  audioController: {
+    flexDirection: 'row',
+    marginVertical: responsiveHeight(1)
+  },
+
 })
 
 //---- Connect to props functions and values -----//
