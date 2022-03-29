@@ -31,12 +31,11 @@ import Slider from '@react-native-community/slider';
 class ItemScreen extends Component {
   state = {
    isPlaying: false,
-   playbackInstance: null,
-   currentIndex: 0,
+   audioInstance: null,
    volume: 1.0,
    isBuffering: false,
-   trackTotalDuration: 0,
-   positionInTrack: 0,
+   trackTotalDuration: '00:00',
+   positionInTrack: '00:00',
    soundStatus: null,
    currentTrackDuration: 0
   }
@@ -57,16 +56,15 @@ class ItemScreen extends Component {
       } catch (e) {
           console.log(e)
         }
-      }
+  }
 
       async loadAudio() {
-        const {currentIndex, isPlaying, volume} = this.state
+        const {isPlaying, volume} = this.state
 
         try {
-          const playbackInstance = new Audio.Sound()
-          console.log('objeto de audio', playbackInstance);
+          const audioInstance = new Audio.Sound()
+          console.log('objeto de audio', audioInstance);
           const source = {
-            // uri: audioBookPlaylist[currentIndex].uri
             uri: this.props.route.params.item.audio_es
           }
 
@@ -75,9 +73,11 @@ class ItemScreen extends Component {
             volume
           }
 
-          playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
-          await playbackInstance.loadAsync(source, status, false)
-          this.setState({playbackInstance})
+          audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+          await audioInstance.loadAsync(source, status, false)
+          this.setState({audioInstance})
+          // audioInstance.playAsync()
+          // this.getTrackDuration()
           } catch (e) {
             console.log(e)
           }
@@ -90,9 +90,11 @@ class ItemScreen extends Component {
         })
       }
 
+      /* update audioInstance duration*/
       getTrackDuration =  async () => {
-        const { playbackInstance } = this.state
-        const result = await playbackInstance.getStatusAsync();
+        const { audioInstance } = this.state
+        console.log(audioInstance);
+        const result = await audioInstance.getStatusAsync();
         console.log('propiedades del objeto de audio', result);
         const milliToMinutes = moment(result.durationMillis).format("mm:ss")
         const positionMillis = moment(result.positionMillis).format("mm:ss")
@@ -105,23 +107,49 @@ class ItemScreen extends Component {
         })
       }
 
+      /*Update slider position*/
+      updateSlider = async () => {
+        try {
+          const audioObject = await this.state.audioInstance.getStatusAsync();
+          if (audioObject.isLoaded == true) {
+            const percentage = (audioObject.positionMillis / audioObject.durationMillis) * 100
+            console.log('slider percentage', percentage);
+             this.setState({
+               currentTrackDuration: percentage
+            })
+        }
+          } catch (error) {
+           console.log('Error');
+         }
+       }
+
+
+
       handlePlayPause = async () => {
-      const { isPlaying, playbackInstance } = this.state
+      const { isPlaying, audioInstance } = this.state
+      isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
       this.getTrackDuration()
-      isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
+      this.updateSlider()
       this.setState({
         isPlaying: !isPlaying
       })
     }
 
+  /* Slider Scroll */
   scrollX = new Animated.Value(0);
+
+  /* audio will pause when user change the screen*/
+  async componentWillUnmount() {
+    await this.state.audioInstance.stopAsync();
+    await this.state.audioInstance.unloadAsync();
+    }
+
 
   render() {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
-    const trackPositionPercentage = this.state.currentTrackDuration;
-    console.log(trackPositionPercentage);
+    const trackPositionPercentage = this.state.currentTrackDuration; /*Debo pasar positionMillis como porcentaje */
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -184,10 +212,11 @@ class ItemScreen extends Component {
                   style={styles.slider}
                   value={trackPositionPercentage}
                   minimumValue={0}
-                  maximumValue={1000}
+                  maximumValue={100}
                   minimumTrackTintColor={Color.SECONDARY}
                   maximumTrackTintColor="#787878"
                   thumbStyle={styles.thumb}
+                  onSlidingComplete={(trackPositionPercentage) => this.setState({ trackPositionPercentage })}
                 />
               </View>
               <View style={styles.audioController}>
@@ -195,7 +224,7 @@ class ItemScreen extends Component {
                   <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
                 </View>
                 <View style={styles.trackDurationContainer}>
-                  <Text style={styles.totalDuration}>{this.state.trackTotalDuration}</Text>
+                    <Text style={styles.totalDuration}>{this.state.trackTotalDuration}</Text>
                 </View>
               </View>
               <View style={styles.audioPlayer}>
@@ -378,6 +407,9 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     width: responsiveWidth(100)
   },
+  scrollText: {
+    marginBottom: '5%'
+  },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
     height: responsiveHeight(30)
@@ -390,7 +422,7 @@ const styles = StyleSheet.create({
   },
   itemDescription: {
     height: responsiveHeight(15),
-    marginVertical: '2%',
+    marginVertical: '2%'
   },
   iconTextRow: {
     flexDirection: 'row',
@@ -417,7 +449,7 @@ const styles = StyleSheet.create({
   },
   slider: {
     width: responsiveWidth(50),
-    height: '5%'
+    height: '2%'
   },
   duration:{
     color: '#787878',
