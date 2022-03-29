@@ -48,7 +48,7 @@ class ItemScreen extends Component {
          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
          playsInSilentModeIOS: true,
          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-         shouldDuckAndroid: true,
+         shouldDuckAndroid: false,
          staysActiveInBackground: true,
          playThroughEarpieceAndroid: true
           })
@@ -76,6 +76,8 @@ class ItemScreen extends Component {
           audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
           await audioInstance.loadAsync(source, status, false)
           this.setState({audioInstance})
+          const audioStatus = await audioInstance.getStatusAsync();
+          console.log(audioStatus);
           // audioInstance.playAsync()
           // this.getTrackDuration()
           } catch (e) {
@@ -94,16 +96,16 @@ class ItemScreen extends Component {
       getTrackDuration =  async () => {
         const { audioInstance } = this.state
         console.log(audioInstance);
-        const result = await audioInstance.getStatusAsync();
-        console.log('propiedades del objeto de audio', result);
-        const milliToMinutes = moment(result.durationMillis).format("mm:ss")
-        const positionMillis = moment(result.positionMillis).format("mm:ss")
+        const audioStatus = await audioInstance.getStatusAsync();
+        console.log('propiedades del objeto de audio', audioStatus);
+        const milliToMinutes = moment(audioStatus.durationMillis).format("mm:ss")
+        const positionMillis = moment(audioStatus.positionMillis).format("mm:ss")
         console.log('duración total', milliToMinutes);
-        console.log('tiempo del track que ha sido reproducido', positionMillis);
+        // console.log('tiempo del track que ha sido reproducido', positionMillis);
         this.setState({
           trackTotalDuration: milliToMinutes,
           positionInTrack: positionMillis,
-          soundProperties: result
+          soundProperties: audioStatus
         })
       }
 
@@ -124,10 +126,16 @@ class ItemScreen extends Component {
        }
 
 
-
       handlePlayPause = async () => {
-      const { isPlaying, audioInstance } = this.state
+      const { isPlaying, audioInstance, positionInTrack } = this.state
       isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
+      this.setState({
+        isPlaying: !isPlaying
+      })
+      // const audioStatus = await audioInstance.getStatusAsync();
+      // console.log('get audio status', audioStatus);
+      // const setAudioPosition = await audioInstance.setPositionAsync( audioStatus.positionMillis )
+      // console.log('set audio status', setAudioPosition);
       this.getTrackDuration()
       this.updateSlider()
       this.setState({
@@ -141,7 +149,7 @@ class ItemScreen extends Component {
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
     await this.state.audioInstance.stopAsync();
-    await this.state.audioInstance.unloadAsync();
+    // await this.state.audioInstance.unloadAsync();
     }
 
 
@@ -149,7 +157,10 @@ class ItemScreen extends Component {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
+    const trackPositionSeconds = this.state.positionInTrack;
+    console.log('segundos transcurridos', trackPositionSeconds);
     const trackPositionPercentage = this.state.currentTrackDuration; /*Debo pasar positionMillis como porcentaje */
+    console.log('porcentaje del track transcurrido', trackPositionPercentage);
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -216,7 +227,7 @@ class ItemScreen extends Component {
                   minimumTrackTintColor={Color.SECONDARY}
                   maximumTrackTintColor="#787878"
                   thumbStyle={styles.thumb}
-                  onSlidingComplete={(trackPositionPercentage) => this.setState({ trackPositionPercentage })}
+                  onValueChange={(trackPositionPercentage) => this.setState({ trackPositionPercentage })}
                 />
               </View>
               <View style={styles.audioController}>
