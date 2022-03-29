@@ -87,8 +87,10 @@ class ItemScreen extends Component {
       }
 
       onPlaybackStatusUpdate = status => {
+        const positionMillis = moment(status.positionMillis).format("mm:ss")
         this.setState({
-          isBuffering: status.isBuffering
+          isBuffering: status.isBuffering,
+          positionInTrack: positionMillis
         })
       }
 
@@ -227,7 +229,17 @@ class ItemScreen extends Component {
                   minimumTrackTintColor={Color.SECONDARY}
                   maximumTrackTintColor="#787878"
                   thumbStyle={styles.thumb}
-                  onValueChange={(trackPositionPercentage) => this.setState({ trackPositionPercentage })}
+                  onSlidingComplete={async (trackPositionPercentage) => {
+                    try {
+                      const audioObject = await this.state.audioInstance.getStatusAsync();
+                      if (audioObject.isLoaded == true) {
+                        const currentPositionMilis = Math.round(audioObject.durationMillis * trackPositionPercentage / 100)
+                        await this.state.audioInstance.setPositionAsync(currentPositionMilis)
+                      }
+                    } catch (error) {
+                       console.log('Error');
+                     }
+                  }}
                 />
               </View>
               <View style={styles.audioController}>
