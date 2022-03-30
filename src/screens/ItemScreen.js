@@ -287,6 +287,7 @@ class ItemScreen extends Component {
                   minimumTrackTintColor={Color.SECONDARY}
                   maximumTrackTintColor="#787878"
                   thumbStyle={styles.thumb}
+                  trackStyle={styles.track}
                   onSlidingComplete={ async (trackPositionPercentage) => {
                     try {
                       const audioObject = await this.state.audioInstance.getStatusAsync();
@@ -466,7 +467,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: '3%'
+    marginVertical: '1%'
   },
   audioButtons: {
     flexDirection: 'row',
@@ -513,7 +514,7 @@ const styles = StyleSheet.create({
   },
   itemDescription: {
     height: responsiveHeight(15),
-    marginVertical: '2%'
+    marginVertical: '3%'
   },
   iconTextRow: {
     flexDirection: 'row',
@@ -536,7 +537,7 @@ const styles = StyleSheet.create({
   sliderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: responsiveHeight(1)
+    marginVertical: responsiveHeight(1)
   },
   slider: {
     width: responsiveWidth(50),
@@ -566,7 +567,7 @@ const styles = StyleSheet.create({
   },
   audioController: {
     flexDirection: 'row',
-    marginVertical: responsiveHeight(1)
+    marginVertical: '1%'
   },
   normalDot: {
    height: 8,
@@ -579,6 +580,24 @@ const styles = StyleSheet.create({
    flexDirection: "row",
    position: 'absolute',
    bottom: 20
+ },
+ thumb: {
+   ...Platform.select({
+     ios: {
+       backgroundColor: Color.SECONDARY,
+       borderBottomRightRadius: 100
+      },
+     android: {
+       marginRight: '5%'
+     },
+     default: {
+       backgroundColor: Color.SECONDARY,
+       borderBottomRightRadius: 100
+     }
+   }),
+ },
+ track: {
+   height: 1
  }
 })
 
