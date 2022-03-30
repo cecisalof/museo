@@ -22,7 +22,6 @@ class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
     const { collection } = this.props.route.params;
-    console.log(this.props.route.params.collection);
     console.log('Collection', collection);
     return (
     <SafeAreaView style={styles.blackBackground}>

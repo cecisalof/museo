@@ -28,6 +28,7 @@ import {
 import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
+import { StackActions } from '@react-navigation/native';
 
 
 const window = Dimensions.get("window");
@@ -36,6 +37,7 @@ class ItemScreen extends Component {
   state = {
    isPlaying: false,
    audioInstance: null,
+   soundObj: null,
    volume: 1.0,
    isBuffering: false,
    trackTotalDuration: '00:00',
@@ -70,27 +72,27 @@ class ItemScreen extends Component {
   }
 
       async loadAudio() {
-        const {isPlaying, volume} = this.state
+        if (this.state.audioInstance == null) {
+          const {isPlaying, volume} = this.state
 
-        try {
-          const audioInstance = new Audio.Sound()
-          console.log('objeto de audio', audioInstance);
-          const source = {
-            uri: this.props.route.params.item.audio_es
-          }
+          try {
+            const audioInstance = new Audio.Sound()
+            const source = {
+              uri: this.props.route.params.item.audio_es
+            }
 
-          const status = {
-            shouldPlay: isPlaying,
-            volume
-          }
+            const status = {
+              shouldPlay: isPlaying,
+              volume
+            }
 
-          audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
-          await audioInstance.loadAsync(source, status, false)
-          this.setState({audioInstance})
-          } catch (e) {
-            console.log(e)
-          }
-
+            audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+            const soundObj= await audioInstance.loadAsync(source, status, false)
+            this.setState({audioInstance, soundObj: soundObj})
+            } catch (e) {
+              console.log(e)
+            }
+        }
       }
 
       onPlaybackStatusUpdate = status => {
@@ -131,6 +133,9 @@ class ItemScreen extends Component {
 
       /* Play & pause */
       handlePlayPause = async () => {
+        if(this.state.audioInstance == null){
+          return
+        } else {
         const { isPlaying, audioInstance, positionInTrack } = this.state
         isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
         this.setState({
@@ -138,9 +143,7 @@ class ItemScreen extends Component {
         })
         this.getTrackDuration()
         this.updateSlider()
-        this.setState({
-          isPlaying: !isPlaying
-        })
+        }
       }
 
     /* Forward */
@@ -166,22 +169,31 @@ class ItemScreen extends Component {
 
   /* Navigate back to collection View*/
   navigateBack = async () => {
-      await this.state.audioInstance.stopAsync();
-      await this.state.audioInstance.unloadAsync();
-      this.props.navigation.navigate('Collection', {collection: this.props.route.params.collection, floorName: this.props.route.params.floorName, floorId: this.props.route.params.floorId})
-      console.log(this.state.audioInstance);
+    this.props.navigation.dispatch(
+    //   CommonActions.navigate({
+    //     name: 'Collection',
+    //     params: { collection: this.props.route.params.collection,
+    //     floorName: this.props.route.params.floorName,
+    //     floorId: this.props.route.params.floorId
+    //       }
+    //     })
+
+      StackActions.replace('Collection', {collection: this.props.route.params.collection,
+      floorName: this.props.route.params.floorName,
+      floorId: this.props.route.params.floorId})
+    );
   }
 
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
-    if (this.state.audioInstance.isPlaying == true && this.state.audioInstance.isLoaded == true) {
+    if (this.state.audioInstance == null) {
+      return
+    } else {
       await this.state.audioInstance.stopAsync();
       await this.state.audioInstance.unloadAsync();
-    } else if (this.state.audioInstance.isLoaded == true && this.state.audioInstance.isPlaying == false) {
-          await this.state.audioInstance.unloadAsync();
-      }
-        // console.log(this.state.audioInstance);
+      console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
     }
+  }
 
 
   render() {
@@ -290,10 +302,20 @@ class ItemScreen extends Component {
               </View>
               <View style={styles.audioController}>
                 <View style={styles.currentDurationContainer}>
+                  { this.state.audioInstance == null &&
+                  <Text style={styles.totalDuration}>00:00</Text>
+                  }
+                  { this.state.audioInstance !== null &&
                   <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
+                  }
                 </View>
                 <View style={styles.trackDurationContainer}>
+                  { this.state.audioInstance == null &&
+                    <Text style={styles.totalDuration}>00:00</Text>
+                  }
+                  { this.state.audioInstance !== null &&
                     <Text style={styles.totalDuration}>{this.state.trackTotalDuration}</Text>
+                  }
                 </View>
               </View>
               <View style={styles.audioPlayer}>
@@ -477,7 +499,7 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100)
   },
   scrollText: {
-    marginBottom: '5%'
+    marginBottom: '8%'
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
