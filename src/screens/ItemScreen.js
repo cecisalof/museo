@@ -14,7 +14,8 @@ import {
   Animated,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  Dimensions
 } from "react-native";
 import {
   setItems,
@@ -28,6 +29,9 @@ import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 
+
+const window = Dimensions.get("window");
+
 class ItemScreen extends Component {
   state = {
    isPlaying: false,
@@ -36,9 +40,15 @@ class ItemScreen extends Component {
    isBuffering: false,
    trackTotalDuration: '00:00',
    positionInTrack: '00:00',
-   soundStatus: null,
-   currentTrackDuration: 0
+   currentTrackDuration: 0,
+   dimensions: {
+      window
+    }
   }
+
+  onDimensionsChange = ({ window }) => {
+    this.setState({ dimensions: { window } });
+  };
 
   async componentDidMount() {
     try {
@@ -53,6 +63,7 @@ class ItemScreen extends Component {
          playThroughEarpieceAndroid: true
           })
           this.loadAudio()
+          Dimensions.addEventListener("change", this.onDimensionsChange);
       } catch (e) {
           console.log(e)
         }
@@ -76,10 +87,6 @@ class ItemScreen extends Component {
           audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
           await audioInstance.loadAsync(source, status, false)
           this.setState({audioInstance})
-          const audioStatus = await audioInstance.getStatusAsync();
-          console.log(audioStatus);
-          // audioInstance.playAsync()
-          // this.getTrackDuration()
           } catch (e) {
             console.log(e)
           }
@@ -90,24 +97,19 @@ class ItemScreen extends Component {
         const positionMillis = moment(status.positionMillis).format("mm:ss")
         this.setState({
           isBuffering: status.isBuffering,
-          positionInTrack: positionMillis
+          positionInTrack: positionMillis,
         })
       }
 
-      /* update audioInstance duration*/
+      /* get audioInstance duration */
       getTrackDuration =  async () => {
         const { audioInstance } = this.state
-        console.log(audioInstance);
         const audioStatus = await audioInstance.getStatusAsync();
-        console.log('propiedades del objeto de audio', audioStatus);
         const milliToMinutes = moment(audioStatus.durationMillis).format("mm:ss")
         const positionMillis = moment(audioStatus.positionMillis).format("mm:ss")
-        console.log('duración total', milliToMinutes);
-        // console.log('tiempo del track que ha sido reproducido', positionMillis);
         this.setState({
           trackTotalDuration: milliToMinutes,
-          positionInTrack: positionMillis,
-          soundProperties: audioStatus
+          positionInTrack: positionMillis
         })
       }
 
@@ -116,8 +118,7 @@ class ItemScreen extends Component {
         try {
           const audioObject = await this.state.audioInstance.getStatusAsync();
           if (audioObject.isLoaded == true) {
-            const percentage = (audioObject.positionMillis / audioObject.durationMillis) * 100
-            console.log('slider percentage', percentage);
+            const percentage = (audioObject.positionMillis / audioObject.durationMillis) * 100;
              this.setState({
                currentTrackDuration: percentage
             })
@@ -127,23 +128,36 @@ class ItemScreen extends Component {
          }
        }
 
-
+      /* Play & pause */
       handlePlayPause = async () => {
-      const { isPlaying, audioInstance, positionInTrack } = this.state
-      isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
+        const { isPlaying, audioInstance, positionInTrack } = this.state
+        isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
+        this.setState({
+          isPlaying: !isPlaying
+        })
+        this.getTrackDuration()
+        this.updateSlider()
+        this.setState({
+          isPlaying: !isPlaying
+        })
+      }
+
+    /* Forward */
+    handleForward = async () => {
+      const { isPlaying, audioInstance } = this.state
+      const { positionMillis } = await audioInstance.getStatusAsync()
+      console.log(moment(positionMillis).format("mm:ss"));
+      const plusTen = positionMillis + 10
+      console.log( plusTen);
+      // isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
       this.setState({
-        isPlaying: !isPlaying
-      })
-      // const audioStatus = await audioInstance.getStatusAsync();
-      // console.log('get audio status', audioStatus);
-      // const setAudioPosition = await audioInstance.setPositionAsync( audioStatus.positionMillis )
-      // console.log('set audio status', setAudioPosition);
-      this.getTrackDuration()
-      this.updateSlider()
-      this.setState({
-        isPlaying: !isPlaying
+        positionInTrack: plusTen
       })
     }
+
+  /* Rewind */
+  // handleReward = async () => {
+  // }
 
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
@@ -151,7 +165,8 @@ class ItemScreen extends Component {
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
     await this.state.audioInstance.stopAsync();
-    // await this.state.audioInstance.unloadAsync();
+    await this.state.audioInstance.unloadAsync();
+    Dimensions.removeEventListener("change", this.onDimensionsChange);
     }
 
 
@@ -159,10 +174,9 @@ class ItemScreen extends Component {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
-    const trackPositionSeconds = this.state.positionInTrack;
-    console.log('segundos transcurridos', trackPositionSeconds);
-    const trackPositionPercentage = this.state.currentTrackDuration; /*Debo pasar positionMillis como porcentaje */
-    console.log('porcentaje del track transcurrido', trackPositionPercentage);
+    const trackPositionPercentage = this.state.currentTrackDuration;
+    console.log(trackPositionPercentage);
+    const windowWidth = this.state.dimensions.window.width;
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -183,7 +197,7 @@ class ItemScreen extends Component {
             style={styles.scroll}
             horizontal={true}
             pagingEnabled
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
             onScroll={Animated.event([
             {
               nativeEvent: {
@@ -206,6 +220,25 @@ class ItemScreen extends Component {
                 );
               })}
             </ScrollView>
+            <View style={styles.indicatorContainer}>
+             {itemImages.map((image, imageIndex) => {
+               const width = this.scrollX.interpolate({
+                 inputRange: [
+                   windowWidth * (imageIndex - 1),
+                   windowWidth * imageIndex,
+                   windowWidth * (imageIndex + 1)
+                 ],
+                 outputRange: [8, 16, 8],
+                 extrapolate: "clamp"
+               });
+               return (
+                 <Animated.View
+                   key={imageIndex}
+                   style={[styles.normalDot, { width }]}
+                 />
+               );
+             })}
+           </View>
           </View>
           {/* Main content */}
           <View style={styles.bgPrimary}>
@@ -229,7 +262,7 @@ class ItemScreen extends Component {
                   minimumTrackTintColor={Color.SECONDARY}
                   maximumTrackTintColor="#787878"
                   thumbStyle={styles.thumb}
-                  onSlidingComplete={async (trackPositionPercentage) => {
+                  onSlidingComplete={ async (trackPositionPercentage) => {
                     try {
                       const audioObject = await this.state.audioInstance.getStatusAsync();
                       if (audioObject.isLoaded == true) {
@@ -253,7 +286,7 @@ class ItemScreen extends Component {
               <View style={styles.audioPlayer}>
                 <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
                 <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
+                <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
               </View>
               <View style={styles.itemDescription}>
                 <ScrollView style={styles.scrollText}>
@@ -500,7 +533,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: responsiveHeight(1)
   },
-
+  normalDot: {
+   height: 8,
+   width: 8,
+   borderRadius: 4,
+   backgroundColor: Color.WHITE,
+   marginHorizontal: 4
+ },
+ indicatorContainer: {
+   flexDirection: "row",
+   position: 'absolute',
+   bottom: 20
+ }
 })
 
 //---- Connect to props functions and values -----//
