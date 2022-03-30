@@ -94,6 +94,7 @@ class ItemScreen extends Component {
       }
 
       onPlaybackStatusUpdate = status => {
+        // console.log('Sound object changing in real time', status);
         const positionMillis = moment(status.positionMillis).format("mm:ss")
         this.setState({
           isBuffering: status.isBuffering,
@@ -162,11 +163,24 @@ class ItemScreen extends Component {
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
 
+
+  /* Navigate back to collection View*/
+  navigateBack = async () => {
+      await this.state.audioInstance.stopAsync();
+      await this.state.audioInstance.unloadAsync();
+      this.props.navigation.navigate('Collection', {collection: this.props.route.params.collection, floorName: this.props.route.params.floorName, floorId: this.props.route.params.floorId})
+      console.log(this.state.audioInstance);
+  }
+
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
-    await this.state.audioInstance.stopAsync();
-    await this.state.audioInstance.unloadAsync();
-    Dimensions.removeEventListener("change", this.onDimensionsChange);
+    if (this.state.audioInstance.isPlaying == true && this.state.audioInstance.isLoaded == true) {
+      await this.state.audioInstance.stopAsync();
+      await this.state.audioInstance.unloadAsync();
+    } else if (this.state.audioInstance.isLoaded == true && this.state.audioInstance.isPlaying == false) {
+          await this.state.audioInstance.unloadAsync();
+      }
+        // console.log(this.state.audioInstance);
     }
 
 
@@ -175,7 +189,6 @@ class ItemScreen extends Component {
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
-    console.log(trackPositionPercentage);
     const windowWidth = this.state.dimensions.window.width;
     {/* DETALLE DE PIEZA*/}
     return (
@@ -187,7 +200,7 @@ class ItemScreen extends Component {
               <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.navigationButton} onPress={()=> { this.props.navigation.goBack()}} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.navigationButton} onPress={this.navigateBack} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
             { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
           </View>
           </View>
