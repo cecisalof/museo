@@ -212,6 +212,7 @@ class ItemScreen extends Component {
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
     const windowWidth = this.state.dimensions.window.width;
+    console.log(this.props);
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
