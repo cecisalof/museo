@@ -28,7 +28,7 @@ import {
 import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
-import { StackActions, CommonActions, DrawerActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 
 
 const window = Dimensions.get("window");
@@ -148,23 +148,31 @@ class ItemScreen extends Component {
 
     /* Forward */
     handleForward = async () => {
-      const { audioInstance } = this.state
-      const { positionMillis, durationMillis } = await audioInstance.getStatusAsync()
-      if (positionMillis == durationMillis) {
-        await audioInstance.setPositionAsync(0)
+      if(this.state.audioInstance == null){
+        return
       } else {
-        const plusTen = await audioInstance.setPositionAsync(positionMillis + 10000)
+        const { audioInstance } = this.state
+        const { positionMillis, durationMillis } = await audioInstance.getStatusAsync()
+        if (positionMillis == durationMillis) {
+          await audioInstance.setPositionAsync(0)
+        } else {
+          const plusTen = await audioInstance.setPositionAsync(positionMillis + 10000)
+        }
       }
     }
 
   /* Rewind */
   handleRewind = async () => {
-    const { audioInstance } = this.state
-    const { positionMillis } = await audioInstance.getStatusAsync()
-    if (positionMillis == 0) {
+    if(this.state.audioInstance == null){
       return
     } else {
-      const minusTen = await audioInstance.setPositionAsync(positionMillis - 10000)
+      const { audioInstance } = this.state
+      const { positionMillis } = await audioInstance.getStatusAsync()
+      if (positionMillis == 0) {
+        return
+      } else {
+        const minusTen = await audioInstance.setPositionAsync(positionMillis - 10000)
+      }
     }
   }
 
@@ -277,7 +285,10 @@ class ItemScreen extends Component {
                     <Text style={styles.itemTitle}>{item.title_es}</Text>
                   </View>
                   <View style={styles.iconsContainer}>
-                    <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate('Panel')} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate('Panel', {
+                        item,
+                        panels: this.props.route.params.collection.panel_set,
+                        collection: this.props.route.params.collection })} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
                   </View>
                 </View>
               </View>

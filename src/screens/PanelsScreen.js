@@ -1,3 +1,6 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   Text,
   View,
@@ -11,52 +14,57 @@ import {
   ImageBackground
 } from "react-native";
 import { Color, Font } from '../assets/styles/index.js';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+import {
+  setItems,
+} from "../store/itemActions";
+import { CommonActions } from '@react-navigation/native';
 
-export default function Contact (){
-  return (
-    <View style={styles.blackBackground}>
-      <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
-      <View style={styles.mainContainer}>
 
-        <View style={[styles.rowContainer, styles.rowHeader]}>
-          <Image source={require('../assets/images/personPin.png')} style={styles.avatar}/>
-          <Text style={styles.itemText}>{"Contacta con nosotros"}</Text>
+
+class PanelScreen extends Component {
+  navigateBack = () => {
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Item', params: {
+            item: this.props.route.params.item,
+            panels: this.props.route.params.collection.panel_set,
+            floorId: this.props.route.params.floorId,
+            floorName: this.props.route.params.floorName,
+            collection: this.props.route.params.collection
+        }}],
+      })
+    );
+  }
+
+  render() {
+    const { params } = this.props.route;
+    const panels = params.panels;
+    const item = params.item;
+    return (
+      <View style={styles.blackBackground}>
+        <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
+        <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <View style={styles.headerContent}>
+            <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>Paneles de {item.title_es}</Text></View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.navigationButton} onPress={this.navigateBack} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+          { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
+        </View>
         </View>
 
-        <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com/maps?ll=35.289145,-2.941312&z=16&t=m&hl=es&gl=ES&mapclient=embed&cid=15470094306678974670')} style={styles.mapContainer}>
-          <Image source={require('../assets/images/contact/map.jpg')} style={styles.mapItem}/>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com/maps?ll=35.289145,-2.941312&z=16&t=m&hl=es&gl=ES&mapclient=embed&cid=15470094306678974670')} style={styles.rowContainer}>
-          <Image source={require('../assets/images/contact/pin.png')} style={styles.avatar}/>
-          <Text style={styles.itemText}>{"C/Comandante Aviador García Morato, 3 52006 - Melilla"}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('tel:+34952671902')} style={styles.rowContainer}>
-          <Image source={require('../assets/images/contact/phone.png')} style={[styles.avatar, styles.avatarPhone]}/>
-          <Text style={styles.itemText}>{"952 67 19 02 - 952 67 15 75"}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('mailto:info@fundaciongaselec.es')} style={styles.rowContainer}>
-          <Image source={require('../assets/images/contact/mail.png')} style={styles.avatar}/>
-          <Text style={styles.itemText}>{"info@fundaciongaselec.es"}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('https://fundaciongaselec.es/museo-egipcio/')} style={styles.rowContainer}>
-          <Image source={require('../assets/images/contact/calendar.png')} style={styles.avatar}/>
-          <View>
-            <Text style={styles.itemText}>{"Lunes-Viernes: 8-15h / Sábados: 8:30-13h"}</Text>
-            <Text style={[styles.itemText, styles.textSmall]}>{"*Domingos y festivos cerrado"}</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('https://fundaciongaselec.es/museo-egipcio/')} style={[styles.rowContainer, styles.buttonContainer]}>
-          <Text style={styles.itemButton}>{"Reservar"}</Text>
-        </TouchableOpacity>
+        </View>
+        </ImageBackground>
       </View>
-      </ImageBackground>
-    </View>
-  );
+    );
+  }
 }
 
 
@@ -77,6 +85,63 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     maxWidth: 800,
+  },
+  headerContainer:{
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    ...Platform.select({
+      ios: {
+        marginRight: '3%'
+       },
+      android: {
+        marginRight: '5%'
+      },
+      default: {
+        marginRight: '5%'
+      }
+    }),
+    backgroundColor: Color.BLACK,
+    width: '100%'
+  },
+  buttonContainer: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  navigationButton:{
+    marginHorizontal: '10%'
+  },
+  navigationButtonText: {
+    fontFamily: 'Roboto',
+    color: Color.WHITE,
+    fontSize: responsiveWidth(100) >= 820 ? 14 : responsiveFontSize(1.5),
+    justifyContent: 'flex-end',
+  },
+  headerContent: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginHorizontal: '5%'
+  },
+  headerTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1
+  },
+  headerTitleText: {
+    fontSize: responsiveWidth(100) >= 820 ? 20 : responsiveFontSize(1.8),
+    flexWrap: 'nowrap',
+    fontFamily: 'Roboto',
+    color: Color.WHITE,
+    marginLeft: '3%',
+  },
+  avatar: {
+    marginRight: '1%',
+    width: responsiveWidth(100) >= 820 ? 30 : 24,
+    height: responsiveHeight(100) >= 800 ? 35 : 24
   },
   showcaseList: {
     width: "100%"
@@ -134,3 +199,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   }
 })
+
+//---- Connect to props functions and values -----//
+function mapStateToProps({items}) {
+  return {items}
+}
+
+export default connect(mapStateToProps)(PanelScreen);

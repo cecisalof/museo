@@ -45,7 +45,6 @@ function Logo(props) {
 }
 
 const DrawerMenu = (props) => {
-  console.log(props);
   return (
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
