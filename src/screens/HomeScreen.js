@@ -131,10 +131,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '4%'
   },
   textBold: {
-    paddingTop: '8%',
+    paddingTop: responsiveWidth(100) >= 768 ? '2%' : '8%',
     fontFamily: 'Roboto-Bold',
-    fontSize: 16,
-    lineHeight: 19,
+    fontSize: responsiveWidth(100) >= 768 ? responsiveFontSize(1.5) : 16,
+    lineHeight: responsiveWidth(100) >= 768 ? responsiveHeight(5) : 19,
     color: Color.WHITE,
     textAlign: 'left',
     marginHorizontal: '4%'

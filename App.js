@@ -14,6 +14,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import Footer from './src/components/atoms/Footer.js'
 import AppLoading from 'expo-app-loading';
 import DrawerMenu from './src/navigation/DrawerNavigator';
+import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';

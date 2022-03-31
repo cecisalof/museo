@@ -268,7 +268,9 @@ class ItemScreen extends Component {
               <View style={styles.border}>
                 <View><Text style={styles.smallText}>Categoría</Text></View>
                 <View style={styles.titleContainer}>
-                  <Text style={styles.itemTitle}>{item.title_es}</Text>
+                  <View style={styles.title}>
+                    <Text style={styles.itemTitle}>{item.title_es}</Text>
+                  </View>
                   <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
                   </View>
@@ -358,7 +360,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   headerContainer:{
-    flex: 1.3,
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -387,7 +389,7 @@ const styles = StyleSheet.create({
   navigationButtonText: {
     fontFamily: 'Roboto',
     color: Color.WHITE,
-    fontSize: responsiveFontSize(1.5),
+    fontSize: responsiveWidth(100) >= 820 ? 14 : responsiveFontSize(1.5),
     justifyContent: 'flex-end',
   },
   headerContent: {
@@ -403,7 +405,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headerTitleText: {
-    fontSize: responsiveFontSize(1.8),
+    fontSize: responsiveWidth(100) >= 820 ? 20 : responsiveFontSize(1.8),
     flexWrap: 'nowrap',
     fontFamily: 'Roboto',
     color: Color.WHITE,
@@ -411,16 +413,11 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginRight: '1%',
-    width: responsiveWidth(100) >= 768 ? responsiveWidth(5) : 24,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 24
+    width: responsiveWidth(100) >= 820 ? 30 : 24,
+    height: responsiveHeight(100) >= 800 ? 35 : 24
   },
-  // sliderContainer: {
-  //   flex: 2,
-  //   width: '100%',
-  //   backgroundColor: Color.BLACK
-  // },
   bgPrimary: {
-    flex: 4,
+    flex: 10,
     backgroundColor: Color.PRIMARY
   },
   detailsContainer: {
@@ -429,18 +426,25 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: '3%',
+    marginBottom: responsiveWidth(100) > 820 ? '1%' : '3%',
+  },
+  title: {
+    flex : 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   smallText:{
     flexDirection: 'column',
-    fontSize: responsiveFontSize(1.6),
+    fontSize: window.width > 820 ? responsiveFontSize(1) : responsiveFontSize(1.6),
     lineHeight: responsiveHeight(3),
     fontFamily: 'Roboto',
     marginVertical: responsiveHeight(0.5)
   },
   itemTitle: {
-    fontSize: responsiveFontSize(2.5),
+    fontSize: window.width > 820 ? responsiveFontSize(1.5) : responsiveFontSize(2.5),
     fontFamily: 'Roboto-Bold',
     lineHeight: 21,
     color: Color.BLACK
@@ -448,16 +452,15 @@ const styles = StyleSheet.create({
   iconsContainer:{
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginLeft: '20%'
+    alignItems: 'center'
   },
   buttons:{
     marginHorizontal: '5%'
   },
   book: {
     marginHorizontal: '7%',
-    width: responsiveWidth(100) >= 768 ? responsiveWidth(6.5) : 30,
-    height: responsiveHeight(100) >= 800 ? responsiveHeight(4) : 25
+    width: responsiveWidth(100) >= 768 ? 45 : 23,
+    height: responsiveWidth(100) >= 768 ? 35 : 18
   },
   audioPlayer: {
     flex: 1,
@@ -475,12 +478,12 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%'
   },
   play:{
-    width: responsiveWidth(100) >= 768 ? 40 : 20,
-    height: responsiveHeight(100) >= 800 ? 40 : 20
+    width: responsiveWidth(100) >= 500 ? 40 : 20,
+    height: responsiveWidth(100) >= 500 ? 40 : 20
   },
   audioIcons: {
-    width: responsiveWidth(100) >= 768 ? 35 : 15,
-    height: responsiveHeight(100) >= 800 ? 26 : 11
+    width: responsiveWidth(100) >= 500 ? 35 : 15,
+    height: responsiveWidth(100) >= 500 ? 26 : 11
   },
   container: {
   flex: 1,
@@ -497,7 +500,7 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100)
   },
   scrollText: {
-    marginBottom: '8%'
+    marginBottom: responsiveWidth(100) > 820 ? '10%' : 0
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
@@ -529,7 +532,7 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
     borderWidth: 2,
-    marginBottom: '3%'
+    marginBottom: window.width > 820 ? '1%' : '3%'
   },
   sliderContainer: {
     justifyContent: 'center',
@@ -537,7 +540,7 @@ const styles = StyleSheet.create({
     marginVertical: responsiveHeight(1)
   },
   slider: {
-    width: responsiveWidth(50),
+    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50),
     height: '2%'
   },
   duration:{
@@ -545,26 +548,26 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   trackDurationContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: responsiveWidth(20),
-    justifyContent: 'flex-end'
+    justifyContent: 'center',
   },
   currentDurationContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: responsiveWidth(20),
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
   },
   totalDuration: {
     alignItems: 'center',
     justifyContent: 'flex-end',
     color: '#787878',
-    fontSize: 14
+    fontSize: responsiveWidth(100) >=820 ? 20 : 14
   },
   audioController: {
     flexDirection: 'row',
-    marginVertical: '1%'
+    marginVertical: '1%',
   },
   normalDot: {
    height: 8,
