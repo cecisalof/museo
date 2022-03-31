@@ -13,6 +13,7 @@ import {
   Linking,
   ImageBackground
 } from "react-native";
+import PanelRow from "../components/atoms/PanelRow";
 import { Color, Font } from '../assets/styles/index.js';
 import {
   responsiveHeight,
@@ -46,6 +47,7 @@ class PanelScreen extends Component {
     const { params } = this.props.route;
     const panels = params.panels;
     const item = params.item;
+    const collection = params.collection;
     return (
       <View style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -56,10 +58,27 @@ class PanelScreen extends Component {
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.navigationButton} onPress={this.navigateBack} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
-          { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
+          </View>
         </View>
+        <View style={styles.itemsContainer}>
+          <FlatList
+            numColumns={1}
+            data={params.panels}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <PanelRow
+                item={item}
+                collection={collection}
+                onPress={()=> { this.props.navigation.navigate('Collection', {collection: item, floorName: params.floorName, floorId: params.floorId}) }}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={
+              <Text>No hay elementos</Text>
+            }
+          />
         </View>
-
         </View>
         </ImageBackground>
       </View>
@@ -118,6 +137,10 @@ const styles = StyleSheet.create({
     color: Color.WHITE,
     fontSize: responsiveWidth(100) >= 820 ? 14 : responsiveFontSize(1.5),
     justifyContent: 'flex-end',
+  },
+  text: {
+    fontFamily: 'Roboto',
+    color: Color.WHITE
   },
   headerContent: {
     flex: 2,
