@@ -277,7 +277,7 @@ class ItemScreen extends Component {
                     <Text style={styles.itemTitle}>{item.title_es}</Text>
                   </View>
                   <View style={styles.iconsContainer}>
-                    <TouchableOpacity style={styles.buttons}><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate('Panel')} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
                   </View>
                 </View>
               </View>
