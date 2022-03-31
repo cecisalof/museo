@@ -28,7 +28,7 @@ import {
 import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
-import { StackActions } from '@react-navigation/native';
+import { StackActions, CommonActions, DrawerActions } from '@react-navigation/native';
 
 
 const window = Dimensions.get("window");
@@ -66,6 +66,15 @@ class ItemScreen extends Component {
           })
           this.loadAudio()
           Dimensions.addEventListener("change", this.onDimensionsChange);
+          // this.unLoadAudio = this.props.navigation.addListener('focus', async () => {
+          //   if (this.state.audioInstance == null) {
+          //     return
+          //   } else {
+          //     await this.state.audioInstance.stopAsync();
+          //     await this.state.audioInstance.unloadAsync();
+          //     console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
+          //   }
+          // });
       } catch (e) {
           console.log(e)
         }
@@ -170,13 +179,13 @@ class ItemScreen extends Component {
   /* Navigate back to collection View*/
   navigateBack = async () => {
     this.props.navigation.dispatch(
-    //   CommonActions.navigate({
-    //     name: 'Collection',
-    //     params: { collection: this.props.route.params.collection,
-    //     floorName: this.props.route.params.floorName,
-    //     floorId: this.props.route.params.floorId
-    //       }
-    //     })
+      // CommonActions.navigate({
+      //   name: 'Collection',
+      //   params: { collection: this.props.route.params.collection,
+      //   floorName: this.props.route.params.floorName,
+      //   floorId: this.props.route.params.floorId
+      //     }
+      //   })
 
       StackActions.replace('Collection', {collection: this.props.route.params.collection,
       floorName: this.props.route.params.floorName,
