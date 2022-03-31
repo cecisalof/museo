@@ -148,20 +148,25 @@ class ItemScreen extends Component {
 
     /* Forward */
     handleForward = async () => {
-      const { isPlaying, audioInstance } = this.state
-      const { positionMillis } = await audioInstance.getStatusAsync()
-      console.log(moment(positionMillis).format("mm:ss"));
-      const plusTen = positionMillis + 10
-      console.log( plusTen);
-      // isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
-      this.setState({
-        positionInTrack: plusTen
-      })
+      const { audioInstance } = this.state
+      const { positionMillis, durationMillis } = await audioInstance.getStatusAsync()
+      if (positionMillis == durationMillis) {
+        await audioInstance.setPositionAsync(0)
+      } else {
+        const plusTen = await audioInstance.setPositionAsync(positionMillis + 10000)
+      }
     }
 
   /* Rewind */
-  // handleReward = async () => {
-  // }
+  handleRewind = async () => {
+    const { audioInstance } = this.state
+    const { positionMillis } = await audioInstance.getStatusAsync()
+    if (positionMillis == 0) {
+      return
+    } else {
+      const minusTen = await audioInstance.setPositionAsync(positionMillis - 10000)
+    }
+  }
 
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
@@ -319,7 +324,7 @@ class ItemScreen extends Component {
                 </View>
               </View>
               <View style={styles.audioPlayer}>
-                <TouchableOpacity style={styles.audioButtons}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
+                <TouchableOpacity style={styles.audioButtons} onPress={this.handleRewind}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
                 <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
                 <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
               </View>
