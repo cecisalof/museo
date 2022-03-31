@@ -66,15 +66,6 @@ class ItemScreen extends Component {
           })
           this.loadAudio()
           Dimensions.addEventListener("change", this.onDimensionsChange);
-          // this.unLoadAudio = this.props.navigation.addListener('focus', async () => {
-          //   if (this.state.audioInstance == null) {
-          //     return
-          //   } else {
-          //     await this.state.audioInstance.stopAsync();
-          //     await this.state.audioInstance.unloadAsync();
-          //     console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
-          //   }
-          // });
       } catch (e) {
           console.log(e)
         }
@@ -177,31 +168,28 @@ class ItemScreen extends Component {
 
 
   /* Navigate back to collection View*/
-  navigateBack = async () => {
+  navigateBack = () => {
     this.props.navigation.dispatch(
-      // CommonActions.navigate({
-      //   name: 'Collection',
-      //   params: { collection: this.props.route.params.collection,
-      //   floorName: this.props.route.params.floorName,
-      //   floorId: this.props.route.params.floorId
-      //     }
-      //   })
-
-      StackActions.replace('Collection', {collection: this.props.route.params.collection,
-      floorName: this.props.route.params.floorName,
-      floorId: this.props.route.params.floorId})
+      CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Collection', params: {
+          collection: this.props.route.params.collection,
+          floorName: this.props.route.params.floorName,
+          floorId: this.props.route.params.floorId}
+        }],
+      })
     );
   }
 
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
-    if (this.state.audioInstance == null) {
-      return
-    } else {
-      await this.state.audioInstance.stopAsync();
-      await this.state.audioInstance.unloadAsync();
-      console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
-    }
+      if (this.state.audioInstance == null) {
+        return
+      } else {
+        await this.state.audioInstance.stopAsync();
+        await this.state.audioInstance.unloadAsync();
+        console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
+      }
   }
 
 

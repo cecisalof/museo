@@ -13,7 +13,7 @@ import {
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import Footer from './src/components/atoms/Footer.js'
 import AppLoading from 'expo-app-loading';
-import AppNavigator from './src/navigation/AppNavigator';
+import DrawerMenu from './src/navigation/DrawerNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
@@ -49,7 +49,7 @@ export default function App() {
        <View style={styles.mainContainer}>
         <NavigationContainer ref={navigationRef}>
           <View style={styles.body}>
-            <AppNavigator />
+            <DrawerMenu />
           </View>
           <View style={styles.footer}>
             <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>
