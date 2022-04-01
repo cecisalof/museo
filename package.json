@@ -1,5 +1,5 @@
 {
-  "name": "MEM app",
+  "name": "ceci-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -46,7 +46,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-tabs": "^2.11.2",
     "react-redux": "^7.2.6",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "react-native-webview": "11.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

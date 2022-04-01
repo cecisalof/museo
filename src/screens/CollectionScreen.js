@@ -21,8 +21,8 @@ import { Color, Font } from '../assets/styles/index.js';
 class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
+    console.log(this.props.route);
     const { collection } = this.props.route.params;
-    console.log('Collection', collection);
     return (
     <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -41,7 +41,8 @@ class CollectionScreen extends Component {
                   onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set,
                     floorId:this.props.route.params.floorId,
                     floorName: this.props.route.params.floorName,
-                    collection: this.props.route.params.collection }) }}
+                    collection: this.props.route.params.collection,
+                    routeName: this.props.route.name}) }}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}

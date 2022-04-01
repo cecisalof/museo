@@ -28,7 +28,7 @@ import {
 import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
-import { CommonActions } from '@react-navigation/native';
+import Header2 from '../components/atoms/Header2.js';
 
 
 const window = Dimensions.get("window");
@@ -179,20 +179,30 @@ class ItemScreen extends Component {
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
 
-
-  /* Navigate back to collection View*/
-  navigateBack = () => {
-    this.props.navigation.dispatch(
-      CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Collection', params: {
-          collection: this.props.route.params.collection,
-          floorName: this.props.route.params.floorName,
-          floorId: this.props.route.params.floorId}
-        }],
-      })
-    );
-  }
+    toPanels = async () => {
+      if (this.state.audioInstance == null) {
+        this.props.navigation.navigate('Panel', {
+        item: this.props.route.params.item,
+        panels: this.props.route.params.collection.panel_set,
+        collection: this.props.route.params.collection,
+        floorName: this.props.route.params.floorName,
+        floorId: this.props.route.params.floorId,
+        routeName: 'Panel' })
+      } else {
+        await this.state.audioInstance.stopAsync(); // stops audio when user navigates to Panel View
+        await this.state.audioInstance.setPositionAsync(0);
+        this.setState({
+          isPlaying: false
+        })
+        this.props.navigation.navigate('Panel', {
+        item: this.props.route.params.item,
+        panels: this.props.route.params.collection.panel_set,
+        collection: this.props.route.params.collection,
+        floorName: this.props.route.params.floorName,
+        floorId: this.props.route.params.floorId,
+        routeName: 'Panel' })
+      }
+    }
 
   /* audio will pause when user change the screen*/
   async componentWillUnmount() {
@@ -212,21 +222,17 @@ class ItemScreen extends Component {
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
     const windowWidth = this.state.dimensions.window.width;
-    console.log(this.props);
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
-          <View style={styles.headerContainer}>
-            <View style={styles.headerContent}>
-              <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.navigationButton} onPress={this.navigateBack} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
-            { /* onPress={()=> { navigation.navigate('Collection', {collection: item, headerName: params.headerName, floorId: params.floorId}) }} */}
-          </View>
-          </View>
+          {/* Header */}
+          <Header2 panels={panels} item={item} collection={this.props.route.params.collection}
+            floorName={this.props.route.params.floorName}
+            floorId={this.props.route.params.floorId}
+            routeName={this.props.route.name}
+            navigation={this.props.navigation}/>
           {/* Image slider */}
           <View style={styles.scrollContainer}>
             <ScrollView
@@ -286,10 +292,7 @@ class ItemScreen extends Component {
                     <Text style={styles.itemTitle}>{item.title_es}</Text>
                   </View>
                   <View style={styles.iconsContainer}>
-                    <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate('Panel', {
-                        item,
-                        panels: this.props.route.params.collection.panel_set,
-                        collection: this.props.route.params.collection })} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons} onPress={this.toPanels} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -348,7 +351,6 @@ class ItemScreen extends Component {
                 </ScrollView>
               </View>
             </View>
-          {/*  // <Text>Para este item hay {item.image_set && item.image_set.length} imágenes y {panels && panels.length} paneles</Text> */}
           </View>
         </View>
         </ImageBackground>
@@ -375,63 +377,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
     flexDirection: 'row'
-  },
-  headerContainer:{
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    ...Platform.select({
-      ios: {
-        marginRight: '3%'
-       },
-      android: {
-        marginRight: '5%'
-      },
-      default: {
-        marginRight: '5%'
-      }
-    }),
-    backgroundColor: Color.BLACK,
-    width: '100%'
-  },
-  buttonContainer: {
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
-  },
-  navigationButton:{
-    marginHorizontal: '10%'
-  },
-  navigationButtonText: {
-    fontFamily: 'Roboto',
-    color: Color.WHITE,
-    fontSize: responsiveWidth(100) >= 820 ? 14 : responsiveFontSize(1.5),
-    justifyContent: 'flex-end',
-  },
-  headerContent: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginHorizontal: '5%'
-  },
-  headerTitle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1
-  },
-  headerTitleText: {
-    fontSize: responsiveWidth(100) >= 820 ? 20 : responsiveFontSize(1.8),
-    flexWrap: 'nowrap',
-    fontFamily: 'Roboto',
-    color: Color.WHITE,
-    marginLeft: '3%',
-  },
-  avatar: {
-    marginRight: '1%',
-    width: responsiveWidth(100) >= 820 ? 30 : 24,
-    height: responsiveHeight(100) >= 800 ? 35 : 24
   },
   bgPrimary: {
     flex: 10,

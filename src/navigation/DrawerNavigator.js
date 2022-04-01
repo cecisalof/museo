@@ -24,6 +24,7 @@ import HomeScreen from '../screens/HomeScreen';
 import FloorScreen from '../screens/FloorScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import PanelsScreen from '../screens/PanelsScreen';
+import PdfScreen from '../screens/PdfScreen';
 import ContactScreen from '../screens/ContactScreen';
 import ItemScreen from '../screens/ItemScreen';
 import SplashScreen from '../screens/SplashScreen';
@@ -94,6 +95,7 @@ const DrawerMenu = (props) => {
       <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Panel" component={PanelsScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Pdf" component={PdfScreen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Contact" component={ContactScreen} options={{ headerTitleAlign: "center" }}/>
     </Drawer.Navigator>
   );

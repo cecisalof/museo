@@ -22,7 +22,6 @@ import { Color, Font } from '../../assets/styles/index.js';
 class PanelRow extends React.Component {
   render() {
     const {item, collection} = this.props;
-    console.log(item);
     return (
       <View>
         <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>

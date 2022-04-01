@@ -24,42 +24,25 @@ import {
   setItems,
 } from "../store/itemActions";
 import { CommonActions } from '@react-navigation/native';
+import Header2 from '../components/atoms/Header2.js';
 
 
 
 class PanelScreen extends Component {
-  navigateBack = () => {
-    this.props.navigation.dispatch(
-      CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Item', params: {
-            item: this.props.route.params.item,
-            panels: this.props.route.params.collection.panel_set,
-            floorId: this.props.route.params.floorId,
-            floorName: this.props.route.params.floorName,
-            collection: this.props.route.params.collection
-        }}],
-      })
-    );
-  }
-
   render() {
     const { params } = this.props.route;
+    console.log('aquí panel View', params);
     const panels = params.panels;
     const item = params.item;
+    console.log(item);
     const collection = params.collection;
     return (
       <View style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
-          <View style={styles.headerContent}>
-            <View style={styles.headerTitle}><Image source={require('../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>Paneles de {item.title_es}</Text></View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.navigationButton} onPress={this.navigateBack} ><Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
-          </View>
-        </View>
+          <Header2 panels={panels} item={item} collection={this.props.route.params.collection}
+            routeName= {this.props.route.name}
+            navigation={this.props.navigation}/>
         <View style={styles.itemsContainer}>
           <FlatList
             numColumns={1}
@@ -70,7 +53,16 @@ class PanelScreen extends Component {
               <PanelRow
                 item={item}
                 collection={collection}
-                onPress={()=> { this.props.navigation.navigate('Collection', {collection: item, floorName: params.floorName, floorId: params.floorId}) }}
+                onPress={()=> {
+                this.props.navigation.navigate('Pdf', {
+                  floorName: this.props.route.params.floorName,
+                  floorId: this.props.route.params.floorId,
+                  routeName: this.props.route.name,
+                  navigation: this.props.navigation,
+                  piece: this.props.route.params.item,
+                  item,
+                  collection: collection})
+                }}
               />
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -106,7 +98,7 @@ const styles = StyleSheet.create({
     maxWidth: 800,
   },
   headerContainer:{
-    flex: 2,
+    flex: 0.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -125,7 +117,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   buttonContainer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },
@@ -171,55 +163,6 @@ const styles = StyleSheet.create({
   },
   itemsContainer: {
     flex: 3
-  },
-  rowContainer: {
-    flexDirection: 'row',
-    marginHorizontal: '5%',
-    flex: 1,
-    alignItems: 'center'
-  },
-  rowHeader: {
-    flex: 1
-  },
-  mapContainer: {
-    flexDirection: 'row',
-    flex: 2,
-  },
-  mapItem: {
-    height: '100%',
-    width: '100%',
-  },
-  itemText: {
-    fontSize: 16,
-    fontFamily: 'Roboto',
-    color: Color.WHITE,
-    marginLeft: 7,
-    paddingRight: 10
-  },
-  textSmall: {
-    fontSize: 12,
-  },
-  avatar: {
-    width: 30,
-    height: 30,
-    resizeMode: "cover",
-    marginRight: 5
-  },
-  avatarPhone: {
-    width: 24,
-    height: 24,
-    margin: 3,
-    marginRight: 8
-  },
-  buttonContainer: {
-    alignItems: "center",
-    flexDirection: 'column',
-  },
-  itemButton: {
-    backgroundColor: Color.PRIMARY,
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 10
   }
 })
 
