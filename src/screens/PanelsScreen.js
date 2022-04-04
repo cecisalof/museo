@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { WebView } from 'react-native-webview';
 import {
   Text,
   View,
@@ -49,7 +50,8 @@ class PanelScreen extends Component {
             data={params.panels}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
+            renderItem={({ item, index }) =>
+              (
               <PanelRow
                 item={item}
                 collection={collection}
@@ -58,11 +60,11 @@ class PanelScreen extends Component {
                   floorName: this.props.route.params.floorName,
                   floorId: this.props.route.params.floorId,
                   routeName: this.props.route.name,
-                  navigation: this.props.navigation,
                   piece: this.props.route.params.item,
-                  item,
-                  collection: collection})
+                  item: item,
+                  collection: this.props.route.params.collection})
                 }}
+
               />
             )}
             keyExtractor={(item, index) => index.toString()}

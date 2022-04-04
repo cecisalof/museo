@@ -6,7 +6,8 @@ import {
   View,
   StyleSheet,
   ImageBackground,
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from "react-native";
 import Header2 from '../components/atoms/Header2.js';
 import { Color, Font } from '../assets/styles/index.js';
@@ -21,11 +22,10 @@ import {
 
 
 class PdfScreen extends Component {
+
   render () {
     const { item } =  this.props.route.params;
-    console.log(item);
-    console.log(this.props.route.params.piece);
-    console.log(this.props.route.params);
+    console.log(Platform.OS);
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -37,10 +37,9 @@ class PdfScreen extends Component {
                 routeName= {this.props.route.name}
                 navigation={this.props.navigation}/>
             </View>
-              <WebView
-                originWhitelist={['*']}
-                source={{ uri: item.document }}
-              />
+            <WebView
+              source={{ uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=` + item.document }}
+            />
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -48,12 +47,14 @@ class PdfScreen extends Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
-    maxWidth: 800
+    maxWidth: 800,
+    overflow: 'hidden'
   },
   blackBackground: {
     flex: 1,
