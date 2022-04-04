@@ -23,10 +23,14 @@ import { CommonActions } from '@react-navigation/native';
 class Header2 extends Component{
     render () {
       const { floorName, floorId, item, collection, panels } = this.props
+      console.log(this.props);
       return (
         <View style={styles.floorButtonsContainer}>
           <View style={styles.headerContainer}>
             <View style={styles.headerContent}>
+              { this.props.routeName == 'Collection' &&
+              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{collection.title_es}</Text></View>
+              }
               { this.props.routeName == 'Item' &&
               <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
               }
@@ -40,6 +44,17 @@ class Header2 extends Component{
               }
             </View>
             <View style={styles.buttonContainer}>
+              { this.props.routeName == 'Collection' &&
+                <TouchableOpacity TouchableOpacity style={styles.navigationButton} onPress={() => {
+                    this.props.navigation.navigate('Floor', {
+                          floorName: this.props.headerName,
+                          floorId: this.props.floorId,
+                          collection: this.props.collection
+                        },
+                    );
+                  }} >
+                  <Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+                }
             { this.props.routeName == 'Item' &&
               <TouchableOpacity TouchableOpacity style={styles.navigationButton} onPress={() => {
                   this.props.navigation.dispatch(
@@ -60,7 +75,9 @@ class Header2 extends Component{
                 this.props.navigation.navigate('Item', {
                     item: this.props.item,
                     panels: this.props.collection.panel_set,
-                    collection: this.props.collection
+                    collection: this.props.collection,
+                    floorId: this.props.floorId,
+                    floorName: this.props.floorName
                     },
                   );
                 }} >

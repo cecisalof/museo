@@ -233,7 +233,7 @@ class ItemScreen extends Component {
             floorId={this.props.route.params.floorId}
             routeName={this.props.route.name}
             navigation={this.props.navigation}/>
-          {/* Image slider */}
+          {/* Image carrousel */}
           <View style={styles.scrollContainer}>
             <ScrollView
             style={styles.scroll}
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: '1%'
+    marginVertical: responsiveWidth(100) >= 768 ? 0 : '4%'
   },
   audioButtons: {
     flexDirection: 'row',
@@ -447,13 +447,8 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100) >= 500 ? 35 : 15,
     height: responsiveWidth(100) >= 500 ? 26 : 11
   },
-  container: {
-  flex: 1,
-  alignItems: "center",
-  justifyContent: "center"
-  },
   scrollContainer: {
-    height: responsiveHeight(30),
+    height: responsiveHeight(25),
     alignItems: "center",
     justifyContent: "center"
   },
@@ -462,7 +457,8 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100)
   },
   scrollText: {
-    marginBottom: responsiveWidth(100) > 820 ? '10%' : 0
+    marginVertical: responsiveWidth(100) > 820 ? '10%' : '2%'
+
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
@@ -475,8 +471,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   itemDescription: {
-    height: responsiveHeight(15),
-    marginVertical: '3%'
+    height: responsiveHeight(100) >= 768 ? responsiveHeight(30) : responsiveHeight(20)
   },
   iconTextRow: {
     flexDirection: 'row',
@@ -502,8 +497,7 @@ const styles = StyleSheet.create({
     marginVertical: responsiveHeight(1)
   },
   slider: {
-    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50),
-    height: '2%'
+    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50)
   },
   duration:{
     color: '#787878',
@@ -525,11 +519,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     color: '#787878',
-    fontSize: responsiveWidth(100) >=820 ? 20 : 14
+    fontSize: responsiveWidth(100) >= 820 ? 20 : 14
   },
   audioController: {
     flexDirection: 'row',
-    marginVertical: '1%',
+    marginBottom: responsiveWidth(100) >= 768 ? 0 : '2%',
   },
   normalDot: {
    height: 8,

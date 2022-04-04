@@ -43,7 +43,9 @@ class PanelScreen extends Component {
         <View style={styles.mainContainer}>
           <Header2 panels={panels} item={item} collection={this.props.route.params.collection}
             routeName= {this.props.route.name}
-            navigation={this.props.navigation}/>
+            navigation={this.props.navigation}
+            floorName= {params.floorName}
+            floorId={params.floorId}/>
         <View style={styles.itemsContainer}>
           <FlatList
             numColumns={1}

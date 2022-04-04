@@ -15,19 +15,20 @@ import ItemPreview from "../components/atoms/ItemPreview";
 import {
   setItems,
 } from "../store/itemActions";
-import Header from '../components/atoms/Header.js';
+import Header2 from '../components/atoms/Header2.js';
 import { Color, Font } from '../assets/styles/index.js';
 
 class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
+    console.log(params);
     console.log(this.props.route);
-    const { collection } = this.props.route.params;
+    const { collection, floorName } = this.props.route.params;
     return (
     <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
-          <Header headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
+          <Header2 routeName={this.props.route.name} collection={collection} headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}/>
           <View style={styles.itemsContainer}>
             <FlatList
               numColumns={2}
