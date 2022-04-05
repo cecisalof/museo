@@ -34,7 +34,7 @@ class HomeScreen extends Component {
 
 
 
-  fade = () => {
+  fade = (howManyTimesLeft) => {
    //Will change fadeAnim value to 0 in 5 seconds
    Animated.timing(this.state.opacity, {
      toValue: 0,
@@ -52,13 +52,14 @@ class HomeScreen extends Component {
       }).start(({ finished }) => {
         console.log(finished); //Fade out finished
         console.log(this.state.opacity._value);
+        if (howManyTimesLeft>0) this.fade(howManyTimesLeft-1)
         });
        }
      });
    };
 
    componentDidMount() {
-      this.fade()
+      this.fade(2)
     }
 
   render() {
