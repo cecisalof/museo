@@ -27,27 +27,42 @@ import { Color, Font, Mixins } from '../assets/styles/index.js';
 
 
 class HomeScreen extends Component {
-  state: {
-    animationIn: 0
+  state = {
+    opacity: new Animated.Value(1),
   }
   // fadeAnim will be used as the value for opacity. Initial Value: 0
-  fadeAnim = new Animated.Value(0);
 
-  fadeIn = () => {
-    console.log('here');
-   // Will change fadeAnim value to 1 in 5 seconds
-   Animated.timing(this.fadeAnim, {
-     toValue: 1,
-     duration: 5000,
-     useNativeDriver: false
-   }).start();
-   this.setState({
-     animationIn: this.fadeAnim
-   })
- };
+
+
+  fade = () => {
+   //Will change fadeAnim value to 0 in 5 seconds
+   Animated.timing(this.state.opacity, {
+     toValue: 0,
+     duration: 3000,
+     useNativeDriver: true
+   }).start(({ finished }) => {
+     console.log(finished);
+     console.log(this.state.opacity._value);// Fade in finished
+     if (finished) {
+        // Will change fadeAnim value to 1 in 3 seconds
+       Animated.timing(this.state.opacity, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: true
+      }).start(({ finished }) => {
+        console.log(finished); //Fade out finished
+        console.log(this.state.opacity._value);
+        });
+       }
+     });
+   };
+
+   componentDidMount() {
+      this.fade()
+    }
 
   render() {
-    const animIn = this.fadeAnim;
+    const animIn = this.state.opacity
     console.log(animIn);
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -59,9 +74,13 @@ class HomeScreen extends Component {
               </Text>
               <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
             </View>
-            <Animated.View>
-              <View style={styles.iconContainer}><Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text numberOfLines={3} onPress={this.fadeIn} style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text></View>
-            </Animated.View>
+            <View style={styles.iconContainer}>
+              <Animated.View
+                style={[  styles.fadingContainer,
+                   {opacity: this.state.opacity }]}>
+                <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text numberOfLines={3} style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text>
+              </Animated.View>
+            </View>
             <View style={styles.touchableContainer}>
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})} >
                 <Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
@@ -202,7 +221,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: 10,
     lineHeight: 12
-
   }
 });
 
