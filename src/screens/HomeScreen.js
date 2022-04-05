@@ -48,7 +48,7 @@ class HomeScreen extends Component {
         duration: 5000,
         useNativeDriver: true
       }).start(({ finished }) => {
-        if (howManyTimesLeft < 0)  this.fade()
+        if (howManyTimesLeft > 0) this.fade(howManyTimesLeft -1)
         });
        }
      });
