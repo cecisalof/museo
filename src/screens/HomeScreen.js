@@ -13,6 +13,7 @@ import {
   PlatformColor,
   SafeAreaView,
   ImageBackground,
+  Animated,
 } from "react-native";
 import {
   setItems,
@@ -26,7 +27,28 @@ import { Color, Font, Mixins } from '../assets/styles/index.js';
 
 
 class HomeScreen extends Component {
+  state: {
+    animationIn: 0
+  }
+  // fadeAnim will be used as the value for opacity. Initial Value: 0
+  fadeAnim = new Animated.Value(0);
+
+  fadeIn = () => {
+    console.log('here');
+   // Will change fadeAnim value to 1 in 5 seconds
+   Animated.timing(this.fadeAnim, {
+     toValue: 1,
+     duration: 5000,
+     useNativeDriver: false
+   }).start();
+   this.setState({
+     animationIn: this.fadeAnim
+   })
+ };
+
   render() {
+    const animIn = this.fadeAnim;
+    console.log(animIn);
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -37,6 +59,9 @@ class HomeScreen extends Component {
               </Text>
               <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
             </View>
+            <Animated.View>
+              <View style={styles.iconContainer}><Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text numberOfLines={3} onPress={this.fadeIn} style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text></View>
+            </Animated.View>
             <View style={styles.touchableContainer}>
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})} >
                 <Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
@@ -94,7 +119,7 @@ const styles = StyleSheet.create({
   },
   touchableContainer: {
     flex: 3,
-    paddingVertical: '5%',
+    paddingBottom: '5%',
     position: 'relative',
   },
   floorLabelsContainer: {
@@ -157,6 +182,27 @@ const styles = StyleSheet.create({
   line: {
     width: responsiveWidth(25),
     height: responsiveHeight(0.2)
+  },
+  iconContainer:{
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    marginHorizontal: '10%',
+  },
+  touchIcon: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: responsiveWidth(100) >= 768 ? 16 : 12,
+    height: responsiveWidth(100) >= 768 ? 22 : 16,
+    marginRight: 10
+  },
+  touch: {
+    width: 80,
+    color: Color.PRIMARY,
+    fontFamily: 'Roboto-Bold',
+    fontSize: 10,
+    lineHeight: 12
+
   }
 });
 

@@ -35,7 +35,8 @@ const Drawer = createDrawerNavigator();
 function Logo(props) {
   return (
     <TouchableOpacity
-      onPress={() => props.onPress()}
+      onPress={() =>
+        props.onPress()}
     >
       <Image
         source={require('../assets/images/logo.png')}
@@ -46,6 +47,7 @@ function Logo(props) {
 }
 
 const DrawerMenu = (props) => {
+  console.log(props.navigation);
   return (
     <Drawer.Navigator
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
