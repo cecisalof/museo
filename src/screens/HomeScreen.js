@@ -78,7 +78,9 @@ class HomeScreen extends Component {
               <Animated.View
                 style={[  styles.fadingContainer,
                    {opacity: this.state.opacity }]}>
-                <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text numberOfLines={3} style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text>
+                <View style={styles.iconContainer}>
+                  <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text>
+                </View>
               </Animated.View>
             </View>
             <View style={styles.touchableContainer}>
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    marginHorizontal: '10%',
+    marginHorizontal: '5%',
   },
   touchIcon: {
     justifyContent: 'flex-end',
@@ -216,11 +218,15 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   touch: {
-    width: 80,
+    width: 90,
+    flexWrap: 'nowrap',
     color: Color.PRIMARY,
     fontFamily: 'Roboto-Bold',
     fontSize: 10,
     lineHeight: 12
+  },
+  fadingContainer:{
+    marginVertical: '2%'
   }
 });
 
