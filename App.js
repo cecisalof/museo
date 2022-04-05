@@ -50,7 +50,7 @@ export default function App() {
        <View style={styles.mainContainer}>
         <NavigationContainer ref={navigationRef}>
           <View style={styles.body}>
-            <DrawerMenu />
+            <DrawerMenu navigationRef={navigationRef}/>
           </View>
           <View style={styles.footer}>
             <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>
