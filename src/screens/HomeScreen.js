@@ -34,15 +34,13 @@ class HomeScreen extends Component {
 
 
 
-  fade = () => {
+  fade = (howManyTimesLeft) => {
    //Will change fadeAnim value to 0 in 5 seconds
    Animated.timing(this.state.opacity, {
      toValue: 0,
      duration: 3000,
      useNativeDriver: true
    }).start(({ finished }) => {
-     console.log(finished);
-     console.log(this.state.opacity._value);// Fade in finished
      if (finished) {
         // Will change fadeAnim value to 1 in 3 seconds
        Animated.timing(this.state.opacity, {
@@ -50,15 +48,14 @@ class HomeScreen extends Component {
         duration: 5000,
         useNativeDriver: true
       }).start(({ finished }) => {
-        console.log(finished); //Fade out finished
-        console.log(this.state.opacity._value);
+        if (howManyTimesLeft < 0)  this.fade()
         });
        }
      });
    };
 
    componentDidMount() {
-      this.fade()
+      this.fade(2)
     }
 
   render() {
