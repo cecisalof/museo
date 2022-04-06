@@ -43,6 +43,7 @@ class ItemScreen extends Component {
    isBuffering: false,
    trackTotalDuration: '00:00',
    positionInTrack: '00:00',
+   durationLeft: 0,
    currentTrackDuration: 0,
    dimensions: {
       window,
@@ -103,10 +104,12 @@ class ItemScreen extends Component {
         // console.log('Sound object changing in real time', status);
          if (status.isLoaded == true) {
            const positionMillis = moment(status.positionMillis).format("mm:ss");
+           const durationLeft = moment(status.durationMillis - status.positionMillis).format("mm:ss");
            const percentage = (status.positionMillis / status.durationMillis) * 100;
            this.setState({
              isBuffering: status.isBuffering,
              positionInTrack: positionMillis,
+             durationLeft: durationLeft,
              currentTrackDuration: percentage
            })
          }
@@ -326,11 +329,11 @@ class ItemScreen extends Component {
                   }
                 </View>
                 <View style={styles.trackDurationContainer}>
-                  { this.state.audioInstance == null &&
+                  { this.state.audioInstance == null || this.state.durationLeft == 'Invalid date' &&
                     <Text style={styles.totalDuration}>00:00</Text>
                   }
-                  { this.state.audioInstance !== null &&
-                    <Text style={styles.totalDuration}>{this.state.trackTotalDuration}</Text>
+                  { this.state.audioInstance !== null && this.state.durationLeft !== 'Invalid date' &&
+                    <Text style={styles.totalDuration}>{this.state.durationLeft}</Text>
                   }
                 </View>
               </View>
