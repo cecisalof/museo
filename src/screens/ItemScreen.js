@@ -99,13 +99,17 @@ class ItemScreen extends Component {
         }
       }
 
-      onPlaybackStatusUpdate = status => {
+      onPlaybackStatusUpdate = async (status) => {
         // console.log('Sound object changing in real time', status);
-        const positionMillis = moment(status.positionMillis).format("mm:ss")
-        this.setState({
-          isBuffering: status.isBuffering,
-          positionInTrack: positionMillis,
-        })
+         if (status.isLoaded == true) {
+           const positionMillis = moment(status.positionMillis).format("mm:ss");
+           const percentage = (status.positionMillis / status.durationMillis) * 100;
+           this.setState({
+             isBuffering: status.isBuffering,
+             positionInTrack: positionMillis,
+             currentTrackDuration: percentage
+           })
+         }
       }
 
       /* get audioInstance duration */
@@ -120,21 +124,6 @@ class ItemScreen extends Component {
         })
       }
 
-      /*Update slider position*/
-      updateSlider = async () => {
-        try {
-          const audioObject = await this.state.audioInstance.getStatusAsync();
-          if (audioObject.isLoaded == true) {
-            const percentage = (audioObject.positionMillis / audioObject.durationMillis) * 100;
-             this.setState({
-               currentTrackDuration: percentage
-            })
-        }
-          } catch (error) {
-           console.log('Error');
-         }
-       }
-
       /* Play & pause */
       handlePlayPause = async () => {
         if(this.state.audioInstance == null){
@@ -146,7 +135,6 @@ class ItemScreen extends Component {
           isPlaying: !isPlaying
         })
         this.getTrackDuration()
-        this.updateSlider()
         }
       }
 
@@ -408,15 +396,15 @@ const styles = StyleSheet.create({
   },
   smallText:{
     flexDirection: 'column',
-    fontSize: window.width > 820 ? responsiveFontSize(1) : responsiveFontSize(1.6),
+    fontSize: window.width >= 820 ? responsiveFontSize(1) : responsiveFontSize(1.6),
     lineHeight: responsiveHeight(3),
     fontFamily: 'Roboto',
     marginVertical: responsiveHeight(0.5)
   },
   itemTitle: {
-    fontSize: window.width > 820 ? responsiveFontSize(1.5) : responsiveFontSize(2.5),
+    fontSize: window.width >= 820 ? 35 : responsiveFontSize(2.5),
     fontFamily: 'Roboto-Bold',
-    lineHeight: 21,
+    lineHeight: window.width >= 820 ? 40 : 21,
     color: Color.BLACK
   },
   iconsContainer:{
