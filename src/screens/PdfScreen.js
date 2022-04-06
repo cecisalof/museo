@@ -25,6 +25,7 @@ class PdfScreen extends Component {
 
   render () {
     const { item } =  this.props.route.params;
+    console.log(item);
     console.log(Platform.OS);
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -37,9 +38,16 @@ class PdfScreen extends Component {
                 routeName= {this.props.route.name}
                 navigation={this.props.navigation}/>
             </View>
-            <WebView
-              source={{ uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=` + item.document }}
-            />
+            { Platform.OS == 'ios' &&
+              <WebView
+                source={{ uri: item.document }}
+              />
+            }
+            { Platform.OS == 'android' && 
+              <WebView
+                source={{ uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=` + item.document }}
+              />
+            }
           </View>
         </ImageBackground>
       </SafeAreaView>

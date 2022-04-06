@@ -35,7 +35,6 @@ class PanelScreen extends Component {
     console.log('aquí panel View', params);
     const panels = params.panels;
     const item = params.item;
-    console.log(item);
     const collection = params.collection;
     return (
       <View style={styles.blackBackground}>
