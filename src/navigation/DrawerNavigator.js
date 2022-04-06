@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
@@ -35,8 +35,12 @@ const Drawer = createDrawerNavigator();
 function Logo(props) {
   return (
     <TouchableOpacity
-      onPress={() =>
-        props.onPress()}
+      onPress={() => props.navigationRef.dispatch(
+        CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Home'}],
+        })
+      )}
     >
       <Image
         source={require('../assets/images/logo.png')}
@@ -47,19 +51,20 @@ function Logo(props) {
 }
 
 const DrawerMenu = (props) => {
-  console.log(props.navigation);
+  const navigationRef = props.navigationRef
   return (
     <Drawer.Navigator
+      navigationRef={navigationRef}
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
-        headerTitle: ({ navigation }) => <Logo onPress={() => props.navigation.navigate('Home')} />,
-        headerRight: () => (
-             <TouchableOpacity
-               onPress={() => alert('This is the search button. Pending section')}
-               title="Search"
-               color="#FFFFFFDE"
-             ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
-           ),
+        headerTitle: (props) => <Logo {...props} navigationRef={navigationRef}  />,
+        // headerRight: () => (
+        //      <TouchableOpacity
+        //        onPress={() => alert('This is the search button. Pending section')}
+        //        title="Search"
+        //        color="#FFFFFFDE"
+        //      ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
+        //    ),
         headerTintColor: '#FFFFFF',
         headerBackButtonMenuEnabled: false,
         headerStyle: {
