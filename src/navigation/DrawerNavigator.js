@@ -203,11 +203,11 @@ const styles = StyleSheet.create({
   },
   menuTitleContainer: {
     flex: responsiveHeight(100) >= 768 ? 1 : 2,
-    paddingTop: responsiveHeight(100) >= 768 ? 48 : 24,
+    paddingVertical: responsiveHeight(100) >= 768 ? 48 : 24,
     padding: 16
   },
   itemContainer: {
-    flex: responsiveHeight(100) >= 768 ? 3 : 8,
+    flex: 8,
     paddingBottom: 16
   },
   menuTitle: {
