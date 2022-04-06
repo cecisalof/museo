@@ -32,6 +32,7 @@ import Header2 from '../components/atoms/Header2.js';
 
 
 const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
 
 class ItemScreen extends Component {
   state = {
@@ -44,8 +45,11 @@ class ItemScreen extends Component {
    positionInTrack: '00:00',
    currentTrackDuration: 0,
    dimensions: {
-      window
-    }
+      window,
+      screen
+    },
+  carrouselCurrentImage: 0,
+  leftScroll: new Animated.Value(0),
   }
 
   onDimensionsChange = ({ window }) => {
@@ -179,6 +183,7 @@ class ItemScreen extends Component {
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
 
+  /* Navigation to Panel Screen*/
     toPanels = async () => {
       if (this.state.audioInstance == null) {
         this.props.navigation.navigate('Panel', {
@@ -222,6 +227,8 @@ class ItemScreen extends Component {
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
     const windowWidth = this.state.dimensions.window.width;
+    const screenWidth = this.state.dimensions.screen.width
+    const leftScrollValue = this.state.leftScroll;
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -235,53 +242,54 @@ class ItemScreen extends Component {
             navigation={this.props.navigation}/>
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
-            <ScrollView
-            style={styles.scroll}
-            horizontal={true}
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: this.scrollX
+              <ScrollView
+              style={styles.scroll}
+              horizontal={true}
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={Animated.event([
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: this.scrollX
+                  }
                 }
               }
-            }
-          ], {useNativeDriver: false})}
-          scrollEventThrottle={1}
-            >
-              {itemImages.map((image, imageIndex) => {
-                return (
-                  <View
-                    style={styles.imageContainer}
-                    key={imageIndex}
-                  >
-                    <Image source={{ uri: image.image }} style={styles.card}></Image>
-                  </View>
-                );
-              })}
-            </ScrollView>
-            <View style={styles.indicatorContainer}>
-             {itemImages.map((image, imageIndex) => {
-               const width = this.scrollX.interpolate({
-                 inputRange: [
-                   windowWidth * (imageIndex - 1),
-                   windowWidth * imageIndex,
-                   windowWidth * (imageIndex + 1)
-                 ],
-                 outputRange: [8, 16, 8],
-                 extrapolate: "clamp"
-               });
-               return (
-                 <Animated.View
-                   key={imageIndex}
-                   style={[styles.normalDot, { width }]}
-                 />
-               );
-             })}
+            ], {useNativeDriver: false})}
+            scrollEventThrottle={1}
+              >
+                {itemImages.map((image, imageIndex) => {
+                  return (
+                    <View
+                      style={styles.imageContainer}
+                      key={imageIndex}
+                    >
+                      <Image source={{ uri: image.image }} style={styles.card}></Image>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            {  /* Carrousel Indicators*/}
+              <View style={styles.indicatorContainer}>
+               {itemImages.map((image, imageIndex) => {
+                 const width = this.scrollX.interpolate({
+                   inputRange: [
+                     windowWidth * (imageIndex - 1),
+                     windowWidth * imageIndex,
+                     windowWidth * (imageIndex + 1)
+                   ],
+                   outputRange: [8, 16, 8],
+                   extrapolate: "clamp"
+                 });
+                 return (
+                   <Animated.View
+                     key={imageIndex}
+                     style={[styles.normalDot, { width }]}
+                   />
+                 );
+               })}
+             </View>
            </View>
-          </View>
           {/* Main content */}
           <View style={styles.bgPrimary}>
             <View style={styles.detailsContainer}>
@@ -554,6 +562,13 @@ const styles = StyleSheet.create({
  },
  track: {
    height: 1
+ },
+ buttonText: {
+   color: Color.SECONDARY,
+   fontSize: 12
+ },
+ leftRigth: {
+   flexDirection: 'row'
  }
 })
 

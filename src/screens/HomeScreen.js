@@ -30,9 +30,6 @@ class HomeScreen extends Component {
   state = {
     opacity: new Animated.Value(1),
   }
-  // fadeAnim will be used as the value for opacity. Initial Value: 0
-
-
 
   fade = (howManyTimesLeft) => {
    //Will change fadeAnim value to 0 in 5 seconds
@@ -60,7 +57,6 @@ class HomeScreen extends Component {
 
   render() {
     const animIn = this.state.opacity
-    console.log(animIn);
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -74,7 +70,7 @@ class HomeScreen extends Component {
             <View style={styles.iconContainer}>
               <Animated.View
                 style={[  styles.fadingContainer,
-                   {opacity: this.state.opacity }]}>
+                   {opacity: animIn }]}>
                 <View style={styles.iconContainer}>
                   <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text>
                 </View>

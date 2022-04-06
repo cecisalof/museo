@@ -25,7 +25,8 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
       },
-      "package": "es.fundaciongaselec"
+      "package": "es.fundaciongaselec",
+      "googleServicesFile": "./src/google-services.json",
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

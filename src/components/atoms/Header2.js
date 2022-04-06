@@ -23,7 +23,7 @@ import { CommonActions } from '@react-navigation/native';
 class Header2 extends Component{
     render () {
       const { floorName, floorId, item, collection, panels } = this.props
-      console.log(this.props);
+      // console.log(this.props);
       return (
         <View style={styles.floorButtonsContainer}>
           <View style={styles.headerContainer}>
