@@ -29,6 +29,11 @@ import ContactScreen from '../screens/ContactScreen';
 import ItemScreen from '../screens/ItemScreen';
 import SplashScreen from '../screens/SplashScreen';
 import { Color, Font } from '../assets/styles/index.js';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const Drawer = createDrawerNavigator();
 
@@ -197,12 +202,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   menuTitleContainer: {
-    flex: 2,
-    paddingTop: 48,
+    flex: responsiveHeight(100) >= 768 ? 1 : 2,
+    paddingTop: responsiveHeight(100) >= 768 ? 48 : 24,
     padding: 16
   },
   itemContainer: {
-    flex: 4,
+    flex: responsiveHeight(100) >= 768 ? 3 : 8,
     paddingBottom: 16
   },
   menuTitle: {
