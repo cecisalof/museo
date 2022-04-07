@@ -36,10 +36,15 @@ class CollectionRow extends React.Component {
               locations={[0.0, 0.2, 1]}
               style={styles.gradient}
               />
-           {/* Showcase Title */}
+            {/* Collection Title */}
            <View style={styles.titleContainer}>
-             <Text style={styles.itemName}>{item.title_es}</Text>
+             <View style={styles.itemLabel}>
+              <Text style={styles.itemName}>{item.title_es}</Text>
              <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
+           </View>
+             <View style={styles.eyeContainer}>
+               <Image source={require('../../assets/images/icons/eye-icon.png')} style={styles.eye}/>
+             </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
      height: '100%'
   },
   titleContainer: {
+    flexDirection: 'row',
     position: 'absolute',
     bottom: '15%',
     left: '10%',
@@ -84,6 +90,17 @@ const styles = StyleSheet.create({
         height: 2
       }
     })
+  },
+  itemLabel:{
+    flex: 3
+  },
+  eyeContainer:{
+    flex: 1,
+    flexDirection: 'row'
+  },
+  eye: {
+    width: 24,
+    height: 16
   }
 });
 
