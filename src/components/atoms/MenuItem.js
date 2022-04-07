@@ -13,6 +13,10 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { Color } from '../../assets/styles/index.js';
+import {
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const Item = ({ label, onPress, image, style }) => {
   // const dimensions = useWindowDimensions();
@@ -30,58 +34,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
+    paddingHorizontal: 16
   },
   drawerItem: {
+    fontSize: responsiveWidth(100) >= 768 ? responsiveFontSize(1.3) : responsiveFontSize(1.8),
+    fontFamily: 'Roboto',
     ...Platform.select({
       ios: {
         width: 150,
         color: '#0E1F12',
-        paddingLeft: 12
+        paddingLeft: '5%'
        },
       android: {
         width: 150,
         color: '#0E1F12',
-        paddingLeft: 12
+        paddingLeft: '5%'
       },
       default: {
         color: '#0E1F12',
-        paddingLeft: 12
+        paddingLeft: '5%'
       }
     })
   },
   floorIcon: {
     resizeMode: 'contain',
-    width: 19,
-    height: 24
-  },
-  specialIcon: {
-    ...Platform.select({
-      ios: {
-       },
-      android: {
-      },
-      default: {
-        width: 24,
-        height: 17.45
-      }
-    })
-  },
-  tabContainerSelected: {
-    borderColor: Color.SECONDARY,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
+    width: responsiveWidth(100) >= 768 ? 40 : 19,
+    height: responsiveWidth(100) >= 768 ? 45 : 24
   }
 });
 export default Item;

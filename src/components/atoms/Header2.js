@@ -37,7 +37,6 @@ class Header2 extends Component{
               }
               { this.props.routeName == 'Panel' &&
               <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText2}>{i18n.t("header.panelLabel")}</Text>
-              <Text style={styles.headerTitleText2}>{item.title_es}</Text>
               </View>
               }
               { this.props.routeName == 'Pdf' &&

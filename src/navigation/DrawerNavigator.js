@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
   },
   menuTitle: {
     fontFamily: 'Roboto-Bold',
-    fontSize: 24,
+    fontSize: 25,
     lineHeight: 36
   },
   menuSubtitle: {
     fontFamily: 'Roboto',
-    fontSize: Font.FONT_SIZE_12,
+    fontSize: responsiveWidth(100) >= 768 ? responsiveFontSize(1.2) : 12,
     lineHeight: Font.LINE_HEIGHT_16
   },
   icons: {
@@ -226,12 +226,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       ios: {
-        width: 30,
-        height: 30
+        width: responsiveWidth(100) >= 768 ? 50 : 30,
+        height: responsiveWidth(100) >= 768 ? 50 : 30,
        },
       android: {
-        width: 30,
-        height: 30
+        width: responsiveWidth(100) >= 768 ? 50 : 30,
+        height: responsiveWidth(100) >= 768 ? 50 : 30,
       },
       default: {
         width: 20,
@@ -242,12 +242,12 @@ const styles = StyleSheet.create({
   iconInstagram: {
     ...Platform.select({
       ios: {
-        width: 28,
-        height: 28
+        width: responsiveWidth(100) >= 768 ? 48 : 20,
+        height: responsiveWidth(100) >= 768 ? 48 : 20
        },
       android: {
-        width: 28,
-        height: 28
+        width: responsiveWidth(100) >= 768 ? 48 : 20,
+        height: responsiveWidth(100) >= 768 ? 48 : 20,
       },
       default: {
         width: 17,

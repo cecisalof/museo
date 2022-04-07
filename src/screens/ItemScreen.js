@@ -29,6 +29,7 @@ import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
+import i18n from 'i18n-js';
 
 
 const window = Dimensions.get("window");
@@ -207,22 +208,10 @@ class ItemScreen extends Component {
       } else {
         await this.state.audioInstance.stopAsync();
         await this.state.audioInstance.unloadAsync();
+        console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
       }
   }
 
-  moveBody = index => {
-      if(index >= this.props.route.params.item.image_set.length){
-        index = 0
-      }else if(index < 0){
-        index = this.props.route.params.item.image_set.length
-      }
-      this.scrollRef.scrollTo({
-        x: index * (responsiveWidth(100) > 800 ? 800 : responsiveWidth(100)),
-        animation: false
-      })
-      this.setState({ carrouselCurrentImage: index });
-      console.log('mira', index, this.state.carrouselCurrentImage)
-  }
 
   render() {
     const { params } = this.props.route;
@@ -245,20 +234,7 @@ class ItemScreen extends Component {
             navigation={this.props.navigation}/>
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
-              { itemImages && itemImages.length > 1 && <TouchableOpacity
-                  style={[styles.navIconsContainer, {left: 20}]}
-                  onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}
-              >
-                <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
-              </TouchableOpacity>}
-              { itemImages && itemImages.length > 1 && <TouchableOpacity
-                style={[styles.navIconsContainer, {right: 20}]}
-                onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}
-              >
-                <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
-              </TouchableOpacity>}
               <ScrollView
-              ref={node=>this.scrollRef=node}
               style={styles.scroll}
               horizontal={true}
               pagingEnabled
@@ -310,7 +286,7 @@ class ItemScreen extends Component {
           <View style={styles.bgPrimary}>
             <View style={styles.detailsContainer}>
               <View style={styles.border}>
-                <View><Text style={styles.smallText}>Categoría</Text></View>
+                <View><Text style={styles.smallText}>{i18n.t('itemScreen.category')}</Text></View>
                 <View style={styles.titleContainer}>
                   <View style={styles.title}>
                     <Text style={styles.itemTitle}>{item.title_es}</Text>
@@ -321,51 +297,53 @@ class ItemScreen extends Component {
                 </View>
               </View>
               {/* Audio Player */}
-              <View style={styles.sliderContainer}>
-                <Slider
-                  style={styles.slider}
-                  value={trackPositionPercentage}
-                  minimumValue={0}
-                  maximumValue={100}
-                  minimumTrackTintColor={Color.SECONDARY}
-                  maximumTrackTintColor="#787878"
-                  thumbStyle={styles.thumb}
-                  trackStyle={styles.track}
-                  onSlidingComplete={ async (trackPositionPercentage) => {
-                    try {
-                      const audioObject = await this.state.audioInstance.getStatusAsync();
-                      if (audioObject.isLoaded == true) {
-                        const currentPositionMilis = Math.round(audioObject.durationMillis * trackPositionPercentage / 100)
-                        await this.state.audioInstance.setPositionAsync(currentPositionMilis)
-                      }
-                    } catch (error) {
-                       console.log('Error');
-                     }
-                  }}
-                />
-              </View>
-              <View style={styles.audioController}>
-                <View style={styles.currentDurationContainer}>
-                  { this.state.audioInstance == null &&
-                  <Text style={styles.totalDuration}>00:00</Text>
-                  }
-                  { this.state.audioInstance !== null &&
-                  <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
-                  }
+              <View style={styles.audioContainer}>
+                <View style={styles.sliderContainer}>
+                  <Slider
+                    style={styles.slider}
+                    value={trackPositionPercentage}
+                    minimumValue={0}
+                    maximumValue={100}
+                    minimumTrackTintColor={Color.SECONDARY}
+                    maximumTrackTintColor="#787878"
+                    thumbStyle={styles.thumb}
+                    trackStyle={styles.track}
+                    onSlidingComplete={ async (trackPositionPercentage) => {
+                      try {
+                        const audioObject = await this.state.audioInstance.getStatusAsync();
+                        if (audioObject.isLoaded == true) {
+                          const currentPositionMilis = Math.round(audioObject.durationMillis * trackPositionPercentage / 100)
+                          await this.state.audioInstance.setPositionAsync(currentPositionMilis)
+                        }
+                      } catch (error) {
+                         console.log('Error');
+                       }
+                    }}
+                  />
                 </View>
-                <View style={styles.trackDurationContainer}>
-                  { this.state.audioInstance == null || this.state.durationLeft == 'Invalid date' &&
+                <View style={styles.audioController}>
+                  <View style={styles.currentDurationContainer}>
+                    { this.state.audioInstance == null &&
                     <Text style={styles.totalDuration}>00:00</Text>
-                  }
-                  { this.state.audioInstance !== null && this.state.durationLeft !== 'Invalid date' &&
-                    <Text style={styles.totalDuration}>{this.state.durationLeft}</Text>
-                  }
+                    }
+                    { this.state.audioInstance !== null &&
+                    <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
+                    }
+                  </View>
+                  <View style={styles.trackDurationContainer}>
+                    { this.state.audioInstance == null || this.state.durationLeft == 'Invalid date' &&
+                      <Text style={styles.totalDuration}>00:00</Text>
+                    }
+                    { this.state.audioInstance !== null && this.state.durationLeft !== 'Invalid date' &&
+                      <Text style={styles.totalDuration}>{this.state.durationLeft}</Text>
+                    }
+                  </View>
                 </View>
-              </View>
-              <View style={styles.audioPlayer}>
-                <TouchableOpacity style={styles.audioButtons} onPress={this.handleRewind}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
+                <View style={styles.audioPlayer}>
+                  <TouchableOpacity style={styles.audioButtons} onPress={this.handleRewind}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
+                  <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                  <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
+                </View>
               </View>
               <View style={styles.itemDescription}>
                 <ScrollView style={styles.scrollText}>
@@ -407,14 +385,12 @@ const styles = StyleSheet.create({
     backgroundColor: Color.PRIMARY
   },
   detailsContainer: {
-    marginHorizontal: '4%',
     marginVertical: '2%'
   },
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: responsiveWidth(100) > 820 ? '1%' : '3%',
   },
   title: {
     flex : 1,
@@ -453,7 +429,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: responsiveWidth(100) >= 768 ? 0 : '4%'
+    marginVertical: responsiveWidth(100) >= 768 ? 0 : '2%'
   },
   audioButtons: {
     flexDirection: 'row',
@@ -480,20 +456,10 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     width: responsiveWidth(100)
   },
-  navIconsContainer: {
-    height: 30,
-    width: 30,
-    position: 'absolute',
-    bottom: 10,
-    zIndex:1
-  },
-  navIcons: {
-    height: 30,
-    maxWidth: 30,
-    resizeMode: 'contain'
-  },
   scrollText: {
-    marginVertical: responsiveWidth(100) > 820 ? '10%' : '2%'
+    marginVertical: responsiveWidth(100) > 820 ? '10%' : '3%',
+    marginBottom: '10%'
+
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
@@ -506,7 +472,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   itemDescription: {
-    height: responsiveHeight(100) >= 768 ? responsiveHeight(30) : responsiveHeight(20)
+    height: responsiveHeight(100) >= 768 ? responsiveHeight(30) : responsiveHeight(20),
+    marginHorizontal: '4%',
   },
   iconTextRow: {
     flexDirection: 'row',
@@ -519,20 +486,21 @@ const styles = StyleSheet.create({
     marginRight: '5%'
   },
   border: {
-    borderBottomColor: Color.SECONDARY,
-    borderTopColor: 'transparent',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderWidth: 2,
-    marginBottom: window.width > 820 ? '1%' : '3%'
+    // borderBottomColor: Color.SECONDARY,
+    // borderTopColor: 'transparent',
+    // borderLeftColor: 'transparent',
+    // borderRightColor: 'transparent',
+    // borderWidth: 2,
+    marginBottom: window.width > 820 ? '1%' : '3%',
+    marginHorizontal: '4%',
   },
   sliderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: responsiveHeight(1)
+    // marginVertical: responsiveHeight(1)
   },
   slider: {
-    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50)
+    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50),
   },
   duration:{
     color: '#787878',
@@ -558,6 +526,7 @@ const styles = StyleSheet.create({
   },
   audioController: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: responsiveWidth(100) >= 768 ? 0 : '2%',
   },
   normalDot: {
@@ -576,26 +545,43 @@ const styles = StyleSheet.create({
    ...Platform.select({
      ios: {
        backgroundColor: Color.SECONDARY,
-       borderBottomRightRadius: 100
       },
      android: {
-       marginRight: '5%'
+       marginRight: '5%',
+       backgroundColor: Color.SECONDARY,
      },
      default: {
        backgroundColor: Color.SECONDARY,
-       borderBottomRightRadius: 100
+       // borderBottomRightRadius: 100
      }
    }),
  },
  track: {
-   height: 1
- },
+   height: 3
+  },
  buttonText: {
    color: Color.SECONDARY,
    fontSize: 12
  },
  leftRigth: {
    flexDirection: 'row'
+ },
+ audioContainer: {
+   // backgroundColor: '#F6A27E',
+   backgroundColor: '#fff',
+   borderTopColor: Color.SECONDARY,
+   borderBottomColor: 'transparent',
+   borderLeftColor: 'transparent',
+   borderRightColor: 'transparent',
+   borderWidth: 2,
+   paddingVertical: '3%',
+   shadowColor: "#000",
+   shadowOpacity: 0.25,
+   shadowRadius: 2,
+   shadowOffset: {
+     height: 1,
+     width: 1
+   }
  }
 })
 

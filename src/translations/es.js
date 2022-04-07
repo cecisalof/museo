@@ -25,7 +25,7 @@ export const es = {
   },
   header: {
     backButton: "Volver",
-    panelLabel: "Paneles"
+    panelLabel: "Paneles seleccionados"
   },
   itemScreen: {
     category: "Categoría"
