@@ -24,6 +24,7 @@ class CollectionScreen extends Component {
     console.log(params);
     console.log(this.props.route);
     const { collection, floorName } = this.props.route.params;
+    console.log(floorName);
     return (
     <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>

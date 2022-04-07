@@ -21,15 +21,20 @@ import i18n from 'i18n-js';
 class Header extends Component{
     render () {
       const { headerName, floorId, navigation } = this.props
+      console.log(headerName);
+      console.log(this.props);
       return (
       <View style={styles.floorButtonsContainer}>
         <View style={styles.floorButtonSelectedContainer}>
           <TouchableOpacity style={styles.floorButtonSelected} onPress={()=>navigation.navigate('Floor', {floorId: floorId, floorName: headerName})}>
-            <Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.floorButtonSelectedText}>{headerName}</Text>
+            <Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/>
+              { headerName == 'Planta B' && <Text style={styles.floorButtonSelectedText}>{i18n.t('home.floorLabel.base')}</Text>}
+              { headerName == 'Planta 1' && <Text style={styles.floorButtonSelectedText}>{i18n.t('home.floorLabel.first')}</Text>}
+              { headerName == 'Planta 2' && <Text style={styles.floorButtonSelectedText}>{i18n.t('home.floorLabel.second')}</Text>}
           </TouchableOpacity>
         </View>
         <View style={styles.smallButtonContainer}>
-          {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta Baja'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.base')}</Text></TouchableOpacity>}
+          {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.base')}</Text></TouchableOpacity>}
           {floorId != 'floor-1' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.first')}</Text></TouchableOpacity>}
           {floorId != 'floor-2' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.second')}</Text></TouchableOpacity>}
         </View>

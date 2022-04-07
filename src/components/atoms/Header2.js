@@ -69,7 +69,7 @@ class Header2 extends Component{
                     })
                   );
                 }} >
-                <Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+                <Text style={styles.navigationButtonText}>{i18n.t('header.backButton')}</Text></TouchableOpacity>
               }
               { this.props.routeName == 'Panel' &&
               <TouchableOpacity style={styles.navigationButton} onPress={() => {
@@ -82,7 +82,7 @@ class Header2 extends Component{
                     },
                   );
                 }} >
-              <Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+              <Text style={styles.navigationButtonText}>{i18n.t('header.backButton')}</Text></TouchableOpacity>
               }
               { this.props.routeName == 'Pdf' &&
               <TouchableOpacity style={styles.navigationButton} onPress={() => {
@@ -95,7 +95,7 @@ class Header2 extends Component{
                       },
                   );
                 }} >
-              <Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+              <Text style={styles.navigationButtonText}>{i18n.t('header.backButton')}</Text></TouchableOpacity>
               }
             </View>
           </View>
