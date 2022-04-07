@@ -207,7 +207,6 @@ class ItemScreen extends Component {
       } else {
         await this.state.audioInstance.stopAsync();
         await this.state.audioInstance.unloadAsync();
-        console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
       }
   }
 
@@ -246,10 +245,16 @@ class ItemScreen extends Component {
             navigation={this.props.navigation}/>
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
-              { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
+              { itemImages && itemImages.length > 1 && <TouchableOpacity
+                  style={[styles.navIconsContainer, {left: 20}]}
+                  onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}
+              >
                 <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
               </TouchableOpacity>}
-              { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {right: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}>
+              { itemImages && itemImages.length > 1 && <TouchableOpacity
+                style={[styles.navIconsContainer, {right: 20}]}
+                onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}
+              >
                 <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
               </TouchableOpacity>}
               <ScrollView
