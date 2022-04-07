@@ -29,6 +29,7 @@ import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
+import i18n from 'i18n-js';
 
 
 const window = Dimensions.get("window");
@@ -285,7 +286,7 @@ class ItemScreen extends Component {
           <View style={styles.bgPrimary}>
             <View style={styles.detailsContainer}>
               <View style={styles.border}>
-                <View><Text style={styles.smallText}>Categoría</Text></View>
+                <View><Text style={styles.smallText}>{i18n.t('itemScreen.category')}</Text></View>
                 <View style={styles.titleContainer}>
                   <View style={styles.title}>
                     <Text style={styles.itemTitle}>{item.title_es}</Text>
@@ -428,7 +429,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: responsiveWidth(100) >= 768 ? 0 : '4%'
+    marginVertical: responsiveWidth(100) >= 768 ? 0 : '2%'
   },
   audioButtons: {
     flexDirection: 'row',
@@ -456,7 +457,8 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100)
   },
   scrollText: {
-    marginVertical: responsiveWidth(100) > 820 ? '10%' : '2%'
+    marginVertical: responsiveWidth(100) > 820 ? '10%' : '3%',
+    marginBottom: '5%'
 
   },
   imageContainer: {
@@ -493,10 +495,10 @@ const styles = StyleSheet.create({
   sliderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: responsiveHeight(1)
+    // marginVertical: responsiveHeight(1)
   },
   slider: {
-    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50)
+    width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50),
   },
   duration:{
     color: '#787878',
@@ -522,6 +524,7 @@ const styles = StyleSheet.create({
   },
   audioController: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: responsiveWidth(100) >= 768 ? 0 : '2%',
   },
   normalDot: {
@@ -540,20 +543,20 @@ const styles = StyleSheet.create({
    ...Platform.select({
      ios: {
        backgroundColor: Color.SECONDARY,
-       borderBottomRightRadius: 100
       },
      android: {
-       marginRight: '5%'
+       marginRight: '5%',
+       backgroundColor: Color.SECONDARY,
      },
      default: {
        backgroundColor: Color.SECONDARY,
-       borderBottomRightRadius: 100
+       // borderBottomRightRadius: 100
      }
    }),
  },
  track: {
-   height: 1
- },
+   height: 3
+  },
  buttonText: {
    color: Color.SECONDARY,
    fontSize: 12
