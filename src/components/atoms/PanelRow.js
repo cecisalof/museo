@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     textAlign: 'left',
     textTransform: 'uppercase',
-    textShadowColor: Color.BLACK,
-    textShadowOffset:{ width: 2, height: 2},
-    textShadowRadius: 1,
+    // textShadowColor: Color.BLACK,
+    // textShadowOffset:{ width: 2, height: 2},
+    // textShadowRadius: 1,
     marginBottom: 10
   },
   itemNameLine:{

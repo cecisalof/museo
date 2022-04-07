@@ -29,19 +29,12 @@ class Header2 extends Component{
         <View style={styles.floorButtonsContainer}>
           <View style={styles.headerContainer}>
             <View style={styles.headerContent}>
-              { this.props.routeName == 'Collection' &&
-              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{collection.title_es}</Text></View>
-              }
-              { this.props.routeName == 'Item' &&
-              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
-              }
-              { this.props.routeName == 'Panel' &&
-              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText2}>{i18n.t("header.panelLabel")}</Text>
+              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/>
+              { this.props.routeName == 'Collection' &&<Text style={styles.headerTitleText}>{collection.title_es}</Text>}
+              { this.props.routeName == 'Item' && <Text style={styles.headerTitleText}>{item.title_es}</Text>}
+              { this.props.routeName == 'Panel' && <Text style={styles.headerTitleText}>{i18n.t("header.panelLabel")}</Text>}
+              { this.props.routeName == 'Pdf' && <Text style={styles.headerTitleText}>{panels.title_es}</Text>}
               </View>
-              }
-              { this.props.routeName == 'Pdf' &&
-              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{panels.title_es}</Text></View>
-              }
             </View>
             <View style={styles.buttonContainer}>
               { this.props.routeName == 'Collection' &&
@@ -109,35 +102,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'flex-start',
       backgroundColor: Color.BLACK,
-      height: responsiveHeight(10),
-      ...Platform.select({
-        ios: {
-          paddingRight: '3%'
-         },
-        android: {
-          paddingRight: '5%'
-        },
-        default: {
-          paddingRight: '5%'
-        }
-      })
+      height: responsiveHeight(10)
     },
     headerContainer:{
       flex: 2,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      ...Platform.select({
-        ios: {
-          marginRight: '3%'
-         },
-        android: {
-          marginRight: '5%'
-        },
-        default: {
-          marginRight: '5%'
-        }
-      }),
+      marginRight: '4%',
       backgroundColor: Color.BLACK,
       width: '100%'
     },
@@ -169,30 +141,11 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       fontFamily: 'Roboto',
       color: Color.WHITE,
-      marginLeft: 7,
-    },
-    headerTitleText2: {
-      fontSize: responsiveFontSize(1.8),
-      flexWrap: 'nowrap',
-      fontFamily: 'Roboto',
-      color: Color.WHITE,
-      marginLeft: '3%',
+      marginLeft: '5%',
     },
     avatar: {
-      ...Platform.select({
-        ios: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-         },
-        android: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-        },
-        default: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-        }
-      })
+      width: responsiveWidth(100) >= 768 ? 40 : 21,
+      height: responsiveWidth(100) >= 768 ? 40 : 21,
     }
   })
 

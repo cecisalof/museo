@@ -51,18 +51,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'flex-start',
       backgroundColor: Color.BLACK,
-      height: responsiveHeight(10),
-      ...Platform.select({
-        ios: {
-          paddingRight: '3%'
-         },
-        android: {
-          paddingRight: '5%'
-        },
-        default: {
-          paddingRight: '5%'
-        }
-      })
+      height: responsiveHeight(10)
     },
     smallButtonContainer: {
       flex: 2,
@@ -93,23 +82,11 @@ const styles = StyleSheet.create({
       fontSize: responsiveFontSize(1.8),
       fontFamily: 'Roboto',
       color: Color.WHITE,
-      marginLeft: 7
+      marginLeft: 7,
     },
     avatar: {
-      ...Platform.select({
-        ios: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-         },
-        android: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-        },
-        default: {
-          width: responsiveWidth(100) >= 768 ? 40 : 21,
-          height: responsiveWidth(100) >= 768 ? 40 : 21
-        }
-      })
+      width: responsiveWidth(100) >= 768 ? 40 : 21,
+      height: responsiveWidth(100) >= 768 ? 40 : 21,
     }
   })
 
