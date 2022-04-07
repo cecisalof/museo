@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     navigationButtonText: {
       fontFamily: 'Roboto',
       color: Color.WHITE,
-      fontSize: responsiveWidth(100) >= 820 ? 14 : 12,
+      fontSize: responsiveFontSize(1.5),
       justifyContent: 'flex-end',
     },
     headerContent: {
@@ -166,23 +166,34 @@ const styles = StyleSheet.create({
       flex: 2
     },
     headerTitleText: {
-      fontSize: responsiveWidth(100) >= 820 ? 20 : 16,
+      fontSize: responsiveFontSize(1.8),
       flexWrap: 'nowrap',
       fontFamily: 'Roboto',
       color: Color.WHITE,
-      marginLeft: '3%',
+      marginLeft: 7,
     },
     headerTitleText2: {
-      fontSize: responsiveWidth(100) >= 820 ? 20 : 14,
+      fontSize: responsiveFontSize(1.8),
       flexWrap: 'nowrap',
       fontFamily: 'Roboto',
       color: Color.WHITE,
       marginLeft: '3%',
     },
     avatar: {
-      marginRight: '1%',
-      width: responsiveWidth(100) >= 820 ? 30 : 24,
-      height: responsiveHeight(100) >= 800 ? 35 : 24
+      ...Platform.select({
+        ios: {
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
+         },
+        android: {
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
+        },
+        default: {
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
+        }
+      })
     }
   })
 

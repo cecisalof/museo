@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import {
   responsiveHeight,
+  responsiveFontSize,
+  responsiveWidth
 } from "react-native-responsive-dimensions";
 import {
   setItems,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     floorButtonsText: {
       fontFamily: 'Roboto',
       color: Color.WHITE,
-      fontSize: 12,
+      fontSize: responsiveFontSize(1.5),
       justifyContent: 'flex-end',
     },
     floorButtonSelectedContainer: {
@@ -84,10 +86,11 @@ const styles = StyleSheet.create({
       marginHorizontal: '5%'
     },
     floorButtonSelected: {
-      flexDirection: 'row'
+      flexDirection: 'row',
+      alignItems: 'center'
     },
     floorButtonSelectedText: {
-      fontSize: 16,
+      fontSize: responsiveFontSize(1.8),
       fontFamily: 'Roboto',
       color: Color.WHITE,
       marginLeft: 7
@@ -95,16 +98,16 @@ const styles = StyleSheet.create({
     avatar: {
       ...Platform.select({
         ios: {
-          width: 21,
-          height: 21
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
          },
         android: {
-          width: 21,
-          height: 21
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
         },
         default: {
-          width: 21,
-          height: 21
+          width: responsiveWidth(100) >= 768 ? 40 : 21,
+          height: responsiveWidth(100) >= 768 ? 40 : 21
         }
       })
     }

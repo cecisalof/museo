@@ -10,6 +10,10 @@ import {
   PlatformColor,
   Linking
 } from "react-native";
+import {
+  responsiveHeight,
+  responsiveWidth
+} from "react-native-responsive-dimensions";
 import { Color, Font } from '../../assets/styles/index.js';
 
 const Footer = (props) => {
@@ -51,16 +55,16 @@ const styles = StyleSheet.create({
   icons: {
     ...Platform.select({
       ios: {
-        width: 24,
-        height: 24
+        width: responsiveWidth(100) >= 768 ? 40 :  24,
+        height: responsiveWidth(100) >= 768 ? 40 :  24
        },
       android: {
-        width: 24,
-        height: 24
+        width: responsiveWidth(100) >= 768 ? 40 :  24,
+        height: responsiveWidth(100) >= 768 ? 40 :  24
       },
       default: {
-        width: 24,
-        height: 24
+        width: responsiveWidth(100) >= 768 ? 40 :  24,
+        height: responsiveWidth(100) >= 768 ? 40 :  24
       }
     })
   },
@@ -75,8 +79,8 @@ const styles = StyleSheet.create({
         height: '50%'
       },
       default: {
-        width: 73,
-        height: 35
+        width: responsiveWidth(100) >= 768 ? 103:  73,
+        height: responsiveWidth(100) >= 768 ?  65:  35
       }
     })
   }
