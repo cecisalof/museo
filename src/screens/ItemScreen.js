@@ -297,51 +297,53 @@ class ItemScreen extends Component {
                 </View>
               </View>
               {/* Audio Player */}
-              <View style={styles.sliderContainer}>
-                <Slider
-                  style={styles.slider}
-                  value={trackPositionPercentage}
-                  minimumValue={0}
-                  maximumValue={100}
-                  minimumTrackTintColor={Color.SECONDARY}
-                  maximumTrackTintColor="#787878"
-                  thumbStyle={styles.thumb}
-                  trackStyle={styles.track}
-                  onSlidingComplete={ async (trackPositionPercentage) => {
-                    try {
-                      const audioObject = await this.state.audioInstance.getStatusAsync();
-                      if (audioObject.isLoaded == true) {
-                        const currentPositionMilis = Math.round(audioObject.durationMillis * trackPositionPercentage / 100)
-                        await this.state.audioInstance.setPositionAsync(currentPositionMilis)
-                      }
-                    } catch (error) {
-                       console.log('Error');
-                     }
-                  }}
-                />
-              </View>
-              <View style={styles.audioController}>
-                <View style={styles.currentDurationContainer}>
-                  { this.state.audioInstance == null &&
-                  <Text style={styles.totalDuration}>00:00</Text>
-                  }
-                  { this.state.audioInstance !== null &&
-                  <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
-                  }
+              <View style={styles.audioContainer}>
+                <View style={styles.sliderContainer}>
+                  <Slider
+                    style={styles.slider}
+                    value={trackPositionPercentage}
+                    minimumValue={0}
+                    maximumValue={100}
+                    minimumTrackTintColor={Color.SECONDARY}
+                    maximumTrackTintColor="#787878"
+                    thumbStyle={styles.thumb}
+                    trackStyle={styles.track}
+                    onSlidingComplete={ async (trackPositionPercentage) => {
+                      try {
+                        const audioObject = await this.state.audioInstance.getStatusAsync();
+                        if (audioObject.isLoaded == true) {
+                          const currentPositionMilis = Math.round(audioObject.durationMillis * trackPositionPercentage / 100)
+                          await this.state.audioInstance.setPositionAsync(currentPositionMilis)
+                        }
+                      } catch (error) {
+                         console.log('Error');
+                       }
+                    }}
+                  />
                 </View>
-                <View style={styles.trackDurationContainer}>
-                  { this.state.audioInstance == null || this.state.durationLeft == 'Invalid date' &&
+                <View style={styles.audioController}>
+                  <View style={styles.currentDurationContainer}>
+                    { this.state.audioInstance == null &&
                     <Text style={styles.totalDuration}>00:00</Text>
-                  }
-                  { this.state.audioInstance !== null && this.state.durationLeft !== 'Invalid date' &&
-                    <Text style={styles.totalDuration}>{this.state.durationLeft}</Text>
-                  }
+                    }
+                    { this.state.audioInstance !== null &&
+                    <Text style={styles.totalDuration}>{this.state.positionInTrack}</Text>
+                    }
+                  </View>
+                  <View style={styles.trackDurationContainer}>
+                    { this.state.audioInstance == null || this.state.durationLeft == 'Invalid date' &&
+                      <Text style={styles.totalDuration}>00:00</Text>
+                    }
+                    { this.state.audioInstance !== null && this.state.durationLeft !== 'Invalid date' &&
+                      <Text style={styles.totalDuration}>{this.state.durationLeft}</Text>
+                    }
+                  </View>
                 </View>
-              </View>
-              <View style={styles.audioPlayer}>
-                <TouchableOpacity style={styles.audioButtons} onPress={this.handleRewind}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
-                <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
+                <View style={styles.audioPlayer}>
+                  <TouchableOpacity style={styles.audioButtons} onPress={this.handleRewind}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/backwards.png')}></Image></TouchableOpacity>
+                  <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
+                  <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
+                </View>
               </View>
               <View style={styles.itemDescription}>
                 <ScrollView style={styles.scrollText}>
@@ -563,6 +565,19 @@ const styles = StyleSheet.create({
  },
  leftRigth: {
    flexDirection: 'row'
+ },
+ audioContainer: {
+   // backgroundColor: '#F6A27E',
+   backgroundColor: '#F6A27E',
+   borderRadius: 10,
+   paddingVertical: '3%',
+   shadowColor: "#000",
+   shadowOpacity: 0.25,
+   shadowRadius: 2,
+   shadowOffset: {
+     height: 1,
+     width: 1
+   }
  }
 })
 

@@ -8,7 +8,7 @@ export const es = {
     museumTitle: "Museo Egipcio de Melilla",
     menuItems: {
       second: "Planta 2",
-      first: "Plata 1",
+      first: "Planta 1",
       base: "Planta Baja",
       museumFriends: "Amigos del museo"
     }
@@ -19,7 +19,7 @@ export const es = {
     floorSelection: "Haz clic sobre la planta que deseas visitar",
     floorLabel: {
       second: "Planta 2",
-      first: "Plata 1",
+      first: "Planta 1",
       base: "Planta Baja"
     }
   },
