@@ -24,6 +24,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Color, Font, Mixins } from '../assets/styles/index.js';
+import i18n from 'i18n-js';
 
 
 class HomeScreen extends Component {
@@ -63,16 +64,16 @@ class HomeScreen extends Component {
           <View style={styles.mainContainer}>
             <View styles={styles.titleContainer}>
               <Text style={styles.textBold}>
-                Bienvenidos
+                {i18n.t('home.welcome')}
               </Text>
-              <Text style={styles.text}> al Museo Egipcio de Melilla</Text>
+              <Text style={styles.text}>{i18n.t('home.welcome2')}</Text>
             </View>
             <View style={styles.iconContainer}>
               <Animated.View
                 style={[  styles.fadingContainer,
                    {opacity: animIn }]}>
                 <View style={styles.iconContainer}>
-                  <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text style={styles.touch}>Haz clic sobre la planta que deseas visitar</Text>
+                  <Image source={require('../assets/images/touch-icon.png')} style={styles.touchIcon}/><Text style={styles.touch}>  {i18n.t('home.floorSelection')}</Text>
                 </View>
               </Animated.View>
             </View>
@@ -80,21 +81,21 @@ class HomeScreen extends Component {
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})} >
                 <Image source={require('../assets/images/floors/App-Planta-2.png')} style={styles.floors} />
                 <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}>
-                  <Text style={styles.floorLabels}>Planta 2</Text>
+                  <Text style={styles.floorLabels}>{i18n.t('home.floorLabel.second')}</Text>
                   <Image source={line} style={styles.line}></Image>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})} >
                 <Image source={require('../assets/images/floors/App-Planta-1.png')} style={styles.floors} />
                 <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}>
-                  <Text style={styles.floorLabels}>Planta 1</Text>
+                  <Text style={styles.floorLabels}>{i18n.t('home.floorLabel.first')}</Text>
                   <Image source={line} style={styles.line}></Image>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})} >
                 <Image source={require('../assets/images/floors/App-Planta-Baja.png')} style={styles.floors} />
                 <View style={styles.floorLabelsContainer} onPress={() => this.props.navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta B'})}>
-                  <Text style={styles.floorLabels}>Planta Baja</Text>
+                  <Text style={styles.floorLabels}>{i18n.t('home.floorLabel.base')}</Text>
                   <Image source={line} style={styles.line}></Image>
                 </View>
               </TouchableOpacity>

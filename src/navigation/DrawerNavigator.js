@@ -34,6 +34,7 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import i18n from 'i18n-js';
 
 const Drawer = createDrawerNavigator();
 
@@ -120,12 +121,12 @@ const CustomDrawerContent = (props) => {
     <DrawerContentScrollView {...props} style={styles.drawerContainer} contentContainerStyle={styles.drawerContent}>
       <View style={styles.mainContainer}>
         <View style={styles.menuTitleContainer}>
-          <Text style={styles.menuTitle}>Menú</Text>
-          <Text style={styles.menuSubtitle}>Museo Egipcio Melilla</Text>
+          <Text style={styles.menuTitle}>{i18n.t('drawerMenu.title')}</Text>
+          <Text style={styles.menuSubtitle}>{i18n.t('drawerMenu.museumTitle')}</Text>
         </View>
         <View style={styles.itemContainer}>
           <Item
-            label = 'Planta Baja'
+            label = {i18n.t('drawerMenu.menuItems.base')}
             onPress = {() => {
                 props.navigation.dispatch(
                   CommonActions.reset({
@@ -140,7 +141,7 @@ const CustomDrawerContent = (props) => {
             image= {baseFloor}
           />
           <Item
-            label = 'Planta 1'
+            label = {i18n.t('drawerMenu.menuItems.first')}
             onPress = {() => {
               props.navigation.dispatch(
                 CommonActions.reset({
@@ -155,7 +156,7 @@ const CustomDrawerContent = (props) => {
           image= {firstFloor}
           />
           <Item
-            label = 'Planta 2'
+            label = {i18n.t('drawerMenu.menuItems.second')}
             onPress = {() => {
               props.navigation.dispatch(
                 CommonActions.reset({
@@ -170,7 +171,7 @@ const CustomDrawerContent = (props) => {
             image= {secondFloor}
           />
           <Item
-            label = 'Amigos del Museo'
+            label = {i18n.t('drawerMenu.menuItems.museumFriends')}
             onPress = {() => Linking.openURL('https://fundaciongaselec.es/club/')}
             image= {people}
           />

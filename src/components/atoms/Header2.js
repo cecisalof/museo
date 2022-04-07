@@ -19,6 +19,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { CommonActions } from '@react-navigation/native';
+import i18n from 'i18n-js';
 
 class Header2 extends Component{
     render () {
@@ -35,7 +36,7 @@ class Header2 extends Component{
               <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText}>{item.title_es}</Text></View>
               }
               { this.props.routeName == 'Panel' &&
-              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText2}>Paneles</Text>
+              <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/><Text style={styles.headerTitleText2}>{i18n.t("header.panelLabel")}</Text>
               <Text style={styles.headerTitleText2}>{item.title_es}</Text>
               </View>
               }
@@ -53,7 +54,7 @@ class Header2 extends Component{
                         },
                     );
                   }} >
-                  <Text style={styles.navigationButtonText}>Volver</Text></TouchableOpacity>
+                  <Text style={styles.navigationButtonText}>{i18n.t('header.backButton')}</Text></TouchableOpacity>
                 }
             { this.props.routeName == 'Item' &&
               <TouchableOpacity TouchableOpacity style={styles.navigationButton} onPress={() => {

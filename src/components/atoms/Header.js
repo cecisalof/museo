@@ -16,6 +16,7 @@ import {
   setItems,
 } from "../../store/itemActions";
 import { Color, Font } from '../../assets/styles/index.js';
+import i18n from 'i18n-js';
 
 class Header extends Component{
     render () {
@@ -28,9 +29,9 @@ class Header extends Component{
           </TouchableOpacity>
         </View>
         <View style={styles.smallButtonContainer}>
-          {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta Baja'})}><Text style={styles.floorButtonsText}>Planta Baja</Text></TouchableOpacity>}
-          {floorId != 'floor-1' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}><Text style={styles.floorButtonsText}>Planta 1</Text></TouchableOpacity>}
-          {floorId != 'floor-2' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}><Text style={styles.floorButtonsText}>Planta 2</Text></TouchableOpacity>}
+          {floorId != 'floor-0' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-0', floorName: 'Planta Baja'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.base')}</Text></TouchableOpacity>}
+          {floorId != 'floor-1' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-1', floorName: 'Planta 1'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.first')}</Text></TouchableOpacity>}
+          {floorId != 'floor-2' &&<TouchableOpacity style={styles.floorButton} onPress={()=>navigation.navigate('Floor', {floorId: 'floor-2', floorName: 'Planta 2'})}><Text style={styles.floorButtonsText}>{i18n.t('home.floorLabel.second')}</Text></TouchableOpacity>}
         </View>
       </View>
     );
