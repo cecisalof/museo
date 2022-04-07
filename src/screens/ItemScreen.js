@@ -211,6 +211,19 @@ class ItemScreen extends Component {
       }
   }
 
+  moveBody = index => {
+      if(index >= this.props.route.params.item.image_set.length){
+        index = 0
+      }else if(index < 0){
+        index = this.props.route.params.item.image_set.length
+      }
+      this.scrollRef.scrollTo({
+        x: index * (responsiveWidth(100) > 800 ? 800 : responsiveWidth(100)),
+        animation: false
+      })
+      this.setState({ carrouselCurrentImage: index });
+      console.log('mira', index, this.state.carrouselCurrentImage)
+  }
 
   render() {
     const { params } = this.props.route;
@@ -233,7 +246,14 @@ class ItemScreen extends Component {
             navigation={this.props.navigation}/>
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
+              { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
+                <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
+              </TouchableOpacity>}
+              { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {right: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}>
+                <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
+              </TouchableOpacity>}
               <ScrollView
+              ref={node=>this.scrollRef=node}
               style={styles.scroll}
               horizontal={true}
               pagingEnabled
@@ -455,9 +475,20 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     width: responsiveWidth(100)
   },
+  navIconsContainer: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    bottom: 10,
+    zIndex:1
+  },
+  navIcons: {
+    height: 30,
+    maxWidth: 30,
+    resizeMode: 'contain'
+  },
   scrollText: {
     marginVertical: responsiveWidth(100) > 820 ? '10%' : '2%'
-
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
