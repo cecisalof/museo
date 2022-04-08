@@ -21,7 +21,7 @@ import { Color, Font } from '../../assets/styles/index.js';
 
 class PanelRow extends React.Component {
   render() {
-    const {item, collection, localization} = this.props;
+    const {item, collection} = this.props;
     console.log(this.props);
     return (
       <View>
@@ -38,11 +38,9 @@ class PanelRow extends React.Component {
              />
           {/* Showcase Title */}
           <View style={styles.titleContainer}>
-            {/*{ localization == 'es-ES' &&
-              <Text style={styles.itemName}>{item.title_es}</Text>
-            }
+            {/*
             { localization.includes('en') &&
-              <Text style={styles.itemName}>{item.title_en}</Text>
+              <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
             }*/}
          </View>
         </TouchableOpacity>

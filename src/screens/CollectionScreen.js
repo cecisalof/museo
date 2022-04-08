@@ -24,14 +24,14 @@ class CollectionScreen extends Component {
     const { params } = this.props.route;
     console.log(params);
     console.log(this.props.route);
-    const { collection, floorName, localization } = params;
+    const { collection, floorName } = params;
     return (
     <SafeAreaView style={styles.blackBackground}>
       <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
           <Header2 routeName={this.props.route.name} collection={collection}
             headerName={params.floorName} floorId={params.floorId} navigation={this.props.navigation}
-            localization={localization}/>
+            />
           <View style={styles.itemsContainer}>
             <FlatList
               numColumns={2}
@@ -41,14 +41,12 @@ class CollectionScreen extends Component {
               renderItem={({ item, index }) => (
                 <ItemPreview
                   item={item}
-                  localization= {params.localization}
                   isFullWidth={collection.item_set.length%2!=0 && index == (collection.item_set.length-1)}
                   onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set,
                     floorId:this.props.route.params.floorId,
                     floorName: this.props.route.params.floorName,
                     collection: this.props.route.params.collection,
-                    routeName: this.props.route.name,
-                    localization: this.props.route.params.localization}) }}
+                    routeName: this.props.route.name}) }}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}

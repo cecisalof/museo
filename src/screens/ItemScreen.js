@@ -30,7 +30,7 @@ import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
 import i18n from 'i18n-js';
-
+import translateFromBackend from '../utils/translate';
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
@@ -84,7 +84,7 @@ class ItemScreen extends Component {
           try {
             const audioInstance = new Audio.Sound()
             const source = {
-              uri: this.props.route.params.item.audio_es
+              uri: translateFromBackend(this.props.route.params.item, 'audio')
             }
 
             const status = {
@@ -184,7 +184,6 @@ class ItemScreen extends Component {
         collection: this.props.route.params.collection,
         floorName: this.props.route.params.floorName,
         floorId: this.props.route.params.floorId,
-        localization: this.props.route.params.localization,
         routeName: 'Panel'})
       } else {
         await this.state.audioInstance.stopAsync(); // stops audio when user navigates to Panel View
@@ -198,7 +197,6 @@ class ItemScreen extends Component {
         collection: this.props.route.params.collection,
         floorName: this.props.route.params.floorName,
         floorId: this.props.route.params.floorId,
-        localization: this.props.route.params.localization,
         routeName: 'Panel' })
       }
     }
@@ -231,8 +229,7 @@ class ItemScreen extends Component {
   render() {
     const { params } = this.props.route;
     console.log(params);
-    const { item, panels, localization } = this.props.route.params;
-    console.log(localization);
+    const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
     const windowWidth = this.state.dimensions.window.width;
@@ -249,7 +246,7 @@ class ItemScreen extends Component {
             floorId={this.props.route.params.floorId}
             routeName={this.props.route.name}
             navigation={this.props.navigation}
-            localization={this.props.route.params.localization}/>
+          />
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
             { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
@@ -314,12 +311,7 @@ class ItemScreen extends Component {
                 <View><Text style={styles.smallText}>{i18n.t('itemScreen.category')}</Text></View>
                 <View style={styles.titleContainer}>
                   <View style={styles.title}>
-                    { localization == 'es-ES' &&
-                      <Text style={styles.itemTitle}>{item.title_es}</Text>
-                    }
-                    { localization.includes('en') &&
-                      <Text style={styles.itemTitle}>{item.title_en}</Text>
-                    }
+                    <Text style={styles.itemTitle}>{translateFromBackend(item,'title')}</Text>
                   </View>
                   <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons} onPress={this.toPanels} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
@@ -377,20 +369,11 @@ class ItemScreen extends Component {
               </View>
               <View style={styles.itemDescription}>
                 <ScrollView style={styles.scrollText}>
-                  { localization == 'es-ES' &&
-                    <View>
-                      <Text style={styles.smallText}>{item.description_es}</Text>
-                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{item.material_es}</Text></View>
-                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}/><Text style={styles.smallText}>{item.date_es}</Text></View>
-                    </View>
-                  }
-                  { localization.includes('en') &&
-                    <View>
-                      <Text style={styles.smallText}>{item.description_en}</Text>
-                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_en}</Text></View>
-                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_en}</Text></View>
-                    </View>
-                  }
+                  <View>
+                    <Text style={styles.smallText}>{translateFromBackend(item, 'description')}</Text>
+                    <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{translateFromBackend(item, 'material')}</Text></View>
+                    <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}/><Text style={styles.smallText}>{translateFromBackend(item, 'date')}</Text></View>
+                  </View>
                 </ScrollView>
               </View>
             </View>

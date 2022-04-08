@@ -20,12 +20,11 @@ import {
 } from "react-native-responsive-dimensions";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Color, Font } from '../../assets/styles/index.js';
-import i18n from 'i18n-js';
+import translateFromBackend from '../../utils/translate';
 
 class ItemPreview extends Component {
   render() {
-    const {item, isFullWidth, localization} = this.props;
-    console.log(localization);
+    const {item, isFullWidth} = this.props;
     return (
       <TouchableOpacity onPress={this.props.onPress} style={styles.itemButton}>
         <Image
@@ -40,12 +39,7 @@ class ItemPreview extends Component {
            />
           {/* Showcase Title */}
           <View style={styles.titleContainer}>
-            { localization == 'es-ES' &&
-              <Text style={styles.itemName}>{item.title_es}</Text>
-            }
-            { localization.includes('en') &&
-              <Text style={styles.itemName}>{item.title_en}</Text>
-            }
+            <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
             <Image source={require('../../assets/images/icons/white-line.png')} style={[styles.itemNameLine, isFullWidth ? {width: '40%'} : {}]}/>
           </View>
       </TouchableOpacity>

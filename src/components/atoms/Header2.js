@@ -24,7 +24,6 @@ import i18n from 'i18n-js';
 class Header2 extends Component{
     render () {
       const { floorName, floorId, item, collection, panels } = this.props
-      console.log(this.props.localization);
       return (
         <View style={styles.floorButtonsContainer}>
           <View style={styles.headerContainer}>

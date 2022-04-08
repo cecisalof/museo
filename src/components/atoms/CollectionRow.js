@@ -18,6 +18,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Color, Font } from '../../assets/styles/index.js';
+import translateFromBackend from '../../utils/translate';
 
 class CollectionRow extends React.Component {
   render() {
@@ -39,7 +40,7 @@ class CollectionRow extends React.Component {
             {/* Collection Title */}
            <View style={styles.titleContainer}>
              <View style={styles.itemLabel}>
-              <Text style={styles.itemName}>{item.title_es}</Text>
+              <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
              <Image source={require('../../assets/images/icons/white-line.png')} style={styles.itemNameLine}/>
            </View>
              <View style={styles.eyeContainer}>

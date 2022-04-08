@@ -23,7 +23,7 @@ import store from './src/store/store';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 i18n.translations = translations;
-i18n.defaultLocale = 'es';
+i18n.defaultLocale = 'en';
 i18n.locale = Localization.locale;
 // When a value is missing from a language it'll fallback to another language with the key present.
 i18n.fallbacks = true;

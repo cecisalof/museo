@@ -45,8 +45,7 @@ class PanelScreen extends Component {
             routeName= {this.props.route.name}
             navigation={this.props.navigation}
             floorName= {params.floorName}
-            floorId={params.floorId}
-            localization={params.localization}/>
+            floorId={params.floorId}/>
         <View style={styles.itemsContainer}>
           <FlatList
             numColumns={1}
@@ -65,8 +64,7 @@ class PanelScreen extends Component {
                   routeName: this.props.route.name,
                   piece: this.props.route.params.item,
                   item: item,
-                  collection: this.props.route.params.collection,
-                  localization: this.props.route.params.localization})
+                  collection: this.props.route.params.collection})
                 }}
 
               />

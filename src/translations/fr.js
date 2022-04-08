@@ -1,2 +1,3 @@
-export const fr = { 
+export const fr = {
+  currentLang: 'fr',
 }

@@ -58,7 +58,6 @@ function Logo(props) {
 
 const DrawerMenu = (props) => {
   const navigationRef = props.navigationRef
-  const localization = props.localization
   return (
     <Drawer.Navigator
       navigationRef={navigationRef}
@@ -104,13 +103,13 @@ const DrawerMenu = (props) => {
         }} }
         >
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerTitleAlign: "center" }} />
-      <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }} initialParams={{ localization: localization }}  />
-      <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }} initialParams={{ localization: localization }}/>
-      <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center"}} initialParams={{ localization: localization }}/>
-      <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }} initialParams={{ localization: localization }}/>
-      <Drawer.Screen name="Panel" component={PanelsScreen} options={{ headerTitleAlign: "center"}} initialParams={{ localization: localization }}/>
-      <Drawer.Screen name="Pdf" component={PdfScreen} options={{ headerTitleAlign: "center" }} initialParams={{ localization: localization }}/>
-      <Drawer.Screen name="Contact" component={ContactScreen} options={{ headerTitleAlign: "center" }} initialParams={{ localization: localization }}/>
+      <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }}  />
+      <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center"}}/>
+      <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Panel" component={PanelsScreen} options={{ headerTitleAlign: "center"}}/>
+      <Drawer.Screen name="Pdf" component={PdfScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Contact" component={ContactScreen} options={{ headerTitleAlign: "center" }}/>
     </Drawer.Navigator>
   );
 }
@@ -132,8 +131,7 @@ const CustomDrawerContent = (props) => {
                       index: 0,
                       routes: [{ name: 'Floor', params: {
                       floorName: 'Planta B',
-                      floorId: 'floor-0',
-                      localization: props.state.route.params.localization}
+                      floorId: 'floor-0'}
                     }],
                   })
                 );
@@ -148,8 +146,7 @@ const CustomDrawerContent = (props) => {
                     index: 0,
                     routes: [{ name: 'Floor', params: {
                     floorName: 'Planta 1',
-                    floorId: 'floor-1',
-                    localization: props.state.route.params.localization}
+                    floorId: 'floor-1'}
                   }],
                 })
             );
@@ -164,8 +161,7 @@ const CustomDrawerContent = (props) => {
                     index: 0,
                     routes: [{ name: 'Floor', params: {
                     floorName: 'Planta 2',
-                    floorId: 'floor-2',
-                    localization: props.state.route.params.localization}
+                    floorId: 'floor-2'}
                   }],
                 })
             );

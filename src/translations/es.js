@@ -1,4 +1,5 @@
 export const es = {
+  currentLang: 'es',
   splashScreen: {
     loadingLabel: "Cargando...",
   },
