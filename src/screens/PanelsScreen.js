@@ -29,11 +29,9 @@ import Header2 from '../components/atoms/Header2.js';
 import i18n from 'i18n-js';
 
 
-
 class PanelScreen extends Component {
   render() {
     const { params } = this.props.route;
-    console.log('aquí panel View', params);
     const panels = params.panels;
     const item = params.item;
     const collection = params.collection;

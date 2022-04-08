@@ -20,6 +20,7 @@ import {
 } from "react-native-responsive-dimensions";
 import { CommonActions } from '@react-navigation/native';
 import i18n from 'i18n-js';
+import translateFromBackend from '../../utils/translate';
 
 class Header2 extends Component{
     render () {
@@ -29,11 +30,10 @@ class Header2 extends Component{
           <View style={styles.headerContainer}>
             <View style={styles.headerContent}>
               <View style={styles.headerTitle}><Image source={require('../../assets/images/personPin.png')} style={styles.avatar}/>
-              { this.props.routeName == 'Collection' &&<Text style={styles.headerTitleText}>{collection.title_es}</Text>}
-              { this.props.routeName == 'Item' && <Text style={styles.headerTitleText}>{item.title_es}</Text>}
-              { this.props.routeName == 'Item' && <Text style={styles.headerTitleText}>{item.title_en}</Text>}
+              { this.props.routeName == 'Collection' &&<Text style={styles.headerTitleText}>{translateFromBackend(collection, 'title')}</Text>}
+              { this.props.routeName == 'Item' && <Text style={styles.headerTitleText}>{translateFromBackend(item, 'title')}</Text>}
               { this.props.routeName == 'Panel' && <Text style={styles.headerTitleText}>{i18n.t("header.panelLabel")}</Text>}
-              { this.props.routeName == 'Pdf' && <Text style={styles.headerTitleText}>{panels.title_es}</Text>}
+              { this.props.routeName == 'Pdf' && <Text style={styles.headerTitleText}>{translateFromBackend(panels, 'title')}</Text>}
               </View>
             </View>
             <View style={styles.buttonContainer}>

@@ -228,7 +228,6 @@ class ItemScreen extends Component {
 
   render() {
     const { params } = this.props.route;
-    console.log(params);
     const { item, panels } = this.props.route.params;
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;

@@ -23,8 +23,7 @@ import i18n from 'i18n-js';
 class Header extends Component{
     render () {
       const { headerName, floorId, navigation } = this.props
-      console.log(headerName);
-      console.log(this.props);
+
       return (
       <View style={styles.floorButtonsContainer}>
         <View style={styles.floorButtonSelectedContainer}>

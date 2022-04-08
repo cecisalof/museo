@@ -25,8 +25,6 @@ class PdfScreen extends Component {
 
   render () {
     const { item } =  this.props.route.params;
-    console.log(item);
-    console.log(Platform.OS);
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -43,7 +41,7 @@ class PdfScreen extends Component {
                 source={{ uri: item.document }}
               />
             }
-            { Platform.OS == 'android' && 
+            { Platform.OS == 'android' &&
               <WebView
                 source={{ uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=` + item.document }}
               />

@@ -18,6 +18,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Color, Font } from '../../assets/styles/index.js';
+import translateFromBackend from '../../utils/translate';
 
 class PanelRow extends React.Component {
   render() {
@@ -36,12 +37,9 @@ class PanelRow extends React.Component {
              locations={[0.0, 0.2, 1]}
              style={styles.gradient}
              />
-          {/* Showcase Title */}
+           {/* Collection Title */}
           <View style={styles.titleContainer}>
-            {/*
-            { localization.includes('en') &&
-              <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
-            }*/}
+            <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
          </View>
         </TouchableOpacity>
       </View>
@@ -76,9 +74,6 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     textAlign: 'left',
     textTransform: 'uppercase',
-    // textShadowColor: Color.BLACK,
-    // textShadowOffset:{ width: 2, height: 2},
-    // textShadowRadius: 1,
     marginBottom: 10
   },
   itemNameLine:{
