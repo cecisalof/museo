@@ -29,6 +29,7 @@ i18n.locale = Localization.locale;
 i18n.fallbacks = true;
 
 export default function App() {
+  const localization = i18n.locale;
   const navigationRef = useNavigationContainerRef();
 
   let [fontsLoaded] = useFonts({
@@ -50,7 +51,7 @@ export default function App() {
        <View style={styles.mainContainer}>
         <NavigationContainer ref={navigationRef}>
           <View style={styles.body}>
-            <DrawerMenu navigationRef={navigationRef}/>
+            <DrawerMenu navigationRef={navigationRef} localization={localization}/>
           </View>
           <View style={styles.footer}>
             <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>

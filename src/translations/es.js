@@ -1,4 +1,7 @@
 export const es = {
+  splashScreen: {
+    loadingLabel: "Cargando...",
+  },
   errors: {
     loadingLabel: "Cargando...",
     loading: '¡Ups! Parece que no tienes una buena conexión a internet y no hemos podido recuperar la información. Inténtalo más tarde de nuevo.'
@@ -29,5 +32,14 @@ export const es = {
   },
   itemScreen: {
     category: "Categoría"
+  },
+  store: {
+    warning: "No hay elementos"
+  },
+  collectionScreen:{
+    shop: "Visitar tienda"
   }
+  // itemPreview: {
+  //   item: '{{itemTitle}}'
+  // }
 }

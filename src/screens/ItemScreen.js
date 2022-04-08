@@ -184,7 +184,8 @@ class ItemScreen extends Component {
         collection: this.props.route.params.collection,
         floorName: this.props.route.params.floorName,
         floorId: this.props.route.params.floorId,
-        routeName: 'Panel' })
+        localization: this.props.route.params.localization,
+        routeName: 'Panel'})
       } else {
         await this.state.audioInstance.stopAsync(); // stops audio when user navigates to Panel View
         await this.state.audioInstance.setPositionAsync(0);
@@ -197,6 +198,7 @@ class ItemScreen extends Component {
         collection: this.props.route.params.collection,
         floorName: this.props.route.params.floorName,
         floorId: this.props.route.params.floorId,
+        localization: this.props.route.params.localization,
         routeName: 'Panel' })
       }
     }
@@ -212,10 +214,25 @@ class ItemScreen extends Component {
       }
   }
 
+  moveBody = index => {
+       if(index >= this.props.route.params.item.image_set.length){
+         index = 0
+       }else if(index < 0){
+         index = this.props.route.params.item.image_set.length
+       }
+       this.scrollRef.scrollTo({
+         x: index * (responsiveWidth(100) > 800 ? 800 : responsiveWidth(100)),
+         animation: false
+       })
+       this.setState({ carrouselCurrentImage: index });
+       console.log('mira', index, this.state.carrouselCurrentImage)
+   }
 
   render() {
     const { params } = this.props.route;
-    const { item, panels } = this.props.route.params;
+    console.log(params);
+    const { item, panels, localization } = this.props.route.params;
+    console.log(localization);
     const itemImages = item.image_set;
     const trackPositionPercentage = this.state.currentTrackDuration;
     const windowWidth = this.state.dimensions.window.width;
@@ -231,15 +248,23 @@ class ItemScreen extends Component {
             floorName={this.props.route.params.floorName}
             floorId={this.props.route.params.floorId}
             routeName={this.props.route.name}
-            navigation={this.props.navigation}/>
+            navigation={this.props.navigation}
+            localization={this.props.route.params.localization}/>
           {/* Image carrousel */}
           <View style={styles.scrollContainer}>
-              <ScrollView
-              style={styles.scroll}
-              horizontal={true}
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onScroll={Animated.event([
+            { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
+              <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
+            </TouchableOpacity>}
+            { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {right: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}>
+              <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
+            </TouchableOpacity>}
+            <ScrollView
+            ref={node=>this.scrollRef=node}
+            style={styles.scroll}
+            horizontal={true}
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event([
               {
                 nativeEvent: {
                   contentOffset: {
@@ -289,7 +314,12 @@ class ItemScreen extends Component {
                 <View><Text style={styles.smallText}>{i18n.t('itemScreen.category')}</Text></View>
                 <View style={styles.titleContainer}>
                   <View style={styles.title}>
-                    <Text style={styles.itemTitle}>{item.title_es}</Text>
+                    { localization == 'es-ES' &&
+                      <Text style={styles.itemTitle}>{item.title_es}</Text>
+                    }
+                    { localization.includes('en') &&
+                      <Text style={styles.itemTitle}>{item.title_en}</Text>
+                    }
                   </View>
                   <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons} onPress={this.toPanels} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
@@ -347,9 +377,20 @@ class ItemScreen extends Component {
               </View>
               <View style={styles.itemDescription}>
                 <ScrollView style={styles.scrollText}>
-                  <Text style={styles.smallText}>{item.description_es}</Text>
-                  <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_es}</Text></View>
-                  <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_es}</Text></View>
+                  { localization == 'es-ES' &&
+                    <View>
+                      <Text style={styles.smallText}>{item.description_es}</Text>
+                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{item.material_es}</Text></View>
+                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}/><Text style={styles.smallText}>{item.date_es}</Text></View>
+                    </View>
+                  }
+                  { localization.includes('en') &&
+                    <View>
+                      <Text style={styles.smallText}>{item.description_en}</Text>
+                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}></Image><Text style={styles.smallText}>{item.material_en}</Text></View>
+                      <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}></Image><Text style={styles.smallText}>{item.date_en}</Text></View>
+                    </View>
+                  }
                 </ScrollView>
               </View>
             </View>
@@ -408,7 +449,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: window.width >= 820 ? 35 : responsiveFontSize(2.5),
     fontFamily: 'Roboto-Bold',
-    lineHeight: window.width >= 820 ? 40 : 21,
+    lineHeight: window.width >= 768 ? 40 : 21,
     color: Color.BLACK
   },
   iconsContainer:{
@@ -456,6 +497,18 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     width: responsiveWidth(100)
   },
+  navIconsContainer: {
+   height: 30,
+   width: 30,
+   position: 'absolute',
+   bottom: 10,
+   zIndex:1
+   },
+   navIcons: {
+     height: 17,
+     maxWidth: 30,
+     resizeMode: 'contain'
+   },
   scrollText: {
     marginVertical: responsiveWidth(100) > 820 ? '10%' : '3%',
     marginBottom: '10%'

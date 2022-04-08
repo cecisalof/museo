@@ -26,6 +26,7 @@ import {
 } from "../store/itemActions";
 import { CommonActions } from '@react-navigation/native';
 import Header2 from '../components/atoms/Header2.js';
+import i18n from 'i18n-js';
 
 
 
@@ -44,7 +45,8 @@ class PanelScreen extends Component {
             routeName= {this.props.route.name}
             navigation={this.props.navigation}
             floorName= {params.floorName}
-            floorId={params.floorId}/>
+            floorId={params.floorId}
+            localization={params.localization}/>
         <View style={styles.itemsContainer}>
           <FlatList
             numColumns={1}
@@ -63,14 +65,15 @@ class PanelScreen extends Component {
                   routeName: this.props.route.name,
                   piece: this.props.route.params.item,
                   item: item,
-                  collection: this.props.route.params.collection})
+                  collection: this.props.route.params.collection,
+                  localization: this.props.route.params.localization})
                 }}
 
               />
             )}
             keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={
-              <Text>No hay elementos</Text>
+              <Text>{i18n.t('store.warning')}</Text>
             }
           />
         </View>

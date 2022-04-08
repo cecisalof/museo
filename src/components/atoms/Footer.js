@@ -38,13 +38,6 @@ const styles = StyleSheet.create({
     height: 82,
     borderTopColor: Color.SECONDARY,
     borderWidth: 1,
-    // shadowColor: "#000",
-    // shadowOpacity: 0.25,
-    // shadowRadius: 2,
-    // shadowOffset: {
-    //   height: 1,
-    //   width: 1
-    // }
   },
   footer: {
     flex: 1,

@@ -26,6 +26,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Color, Font } from '../assets/styles/index.js';
 import Header from '../components/atoms/Header.js';
+import i18n from 'i18n-js';
 
 class Floor extends Component {
   render() {
@@ -49,7 +50,7 @@ class Floor extends Component {
               )}
               keyExtractor={(item, index) => index.toString()}
               ListEmptyComponent={
-                <Text>No hay elementos</Text>
+                <Text>{i18n.t('store.warning')}</Text>
               }
               ListFooterComponent={
                 <View>
@@ -60,7 +61,7 @@ class Floor extends Component {
                      />
                      <View style={styles.footerBtnContainer}>
                        <TouchableOpacity style={styles.footerBtn} onPress = {() => Linking.openURL('https://fundaciongaselec.es/tienda/')}>
-                          <Text style={styles.footerBtnText}>Visitar tienda</Text>
+                          <Text style={styles.footerBtnText}>{i18n.t('collectionScreen.shop')}</Text>
                        </TouchableOpacity>
                      </View>
                   </View>}

@@ -1,6 +1,8 @@
 export const en = {
+  splashScreen: {
+    loadingLabel: "Loading...",
+  },
   errors: {
-   loadingLabel: "Loading...",
    loading: 'Oops! It seems that you don\'t have a good internet connection and we couldn\'t retrieve the information. Please try again later.'
  },
  drawerMenu:{
@@ -9,7 +11,7 @@ export const en = {
    menuItems: {
      second: "Second Floor",
      first: "First Floor",
-     base: "Ground Level",
+     base: "Ground Floor",
      museumFriends: "Museum´s friends"
    }
  },
@@ -20,7 +22,7 @@ export const en = {
    floorLabel: {
      second: "Second Floor",
      first: "First Floor",
-     base: "Ground Level"
+     base: "Ground Floor"
    }
  },
  header: {
@@ -29,6 +31,14 @@ export const en = {
  },
  itemScreen: {
    category: "Category"
+ },
+ store: {
+   warning: "No elements"
+ },
+ collectionScreen:{
+   shop: "Visit Shop"
  }
-
+ // itemPreview: {
+ //   item: '{{itemTitle}}'
+ // }
 }

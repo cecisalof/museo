@@ -46,7 +46,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.splash}>
-        <Text style={styles.splashText}>Cargando...</Text>
+        <Text style={styles.splashText}>{i18n.t('splashScreen.loadingLabel')}</Text>
       </View>
     );
   }
