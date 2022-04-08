@@ -568,7 +568,7 @@ const styles = StyleSheet.create({
  },
  audioContainer: {
    // backgroundColor: '#F6A27E',
-   backgroundColor: '#fff',
+   backgroundColor: '#FFF9F8',
    borderTopColor: Color.SECONDARY,
    borderBottomColor: 'transparent',
    borderLeftColor: 'transparent',
