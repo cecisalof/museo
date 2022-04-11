@@ -27,6 +27,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
+import { PinchGestureHandler } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
@@ -56,6 +57,11 @@ class ItemScreen extends Component {
   leftScroll: new Animated.Value(0),
   modalVisible: false
   }
+
+  /* Slider Scroll */
+  scrollX = new Animated.Value(0);
+  /* Image zomm scale*/
+  scale = new Animated.Value(1);
 
   onDimensionsChange = ({ window }) => {
     this.setState({ dimensions: { window } });
@@ -175,9 +181,6 @@ class ItemScreen extends Component {
     }
   }
 
-  /* Slider Scroll */
-  scrollX = new Animated.Value(0);
-
   /* Navigation to Panel Screen*/
     toPanels = async () => {
       if (this.state.audioInstance == null) {
@@ -232,9 +235,11 @@ class ItemScreen extends Component {
 
    /*Handle Modal*/
    setModalVisible = (visible) => {
-     this.setState({ modalVisible: visible });
+     this.setState({ modalVisible: visible }); /*change modal´s state -if it is open or not*/
    }
-
+   onPinchEvent= Animated.event([
+       {nativeEvent: { scale: this.scale }}
+   ], {useNativeDriver: true})
 
   render() {
     const { params } = this.props.route;
@@ -245,7 +250,7 @@ class ItemScreen extends Component {
     const screenWidth = this.state.dimensions.screen.width
     const leftScrollValue = this.state.leftScroll;
     const { modalVisible } = this.state;
-    console.log(modalVisible);
+    const carrouselCurrentImage = this.state.carrouselCurrentImage
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -287,13 +292,13 @@ class ItemScreen extends Component {
               {/* Pop-up */}
               <SafeAreaView>
                 <Modal
-                 animationType="fade"
-                 transparent={true}
-                 visible={modalVisible}
-                 onRequestClose={() => {
+                  animationType="fade"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
                    Alert.alert('Modal has been closed.');
                    setModalVisible(!modalVisible);
-                 }}>
+                  }}>
                   <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                       <TouchableOpacity
@@ -303,16 +308,20 @@ class ItemScreen extends Component {
                       </TouchableOpacity>
                       <View
                         style={styles.imageContainer2}
-                        key={itemImages[0]}
+                        key={itemImages}
                       >
-                        <ImageBackground source={{ uri: itemImages[0].image }} style={styles.modalImage}/>
+                      <PinchGestureHandler
+                        onGestureEvent= {this.onPinchEvent}
+                        >
+                        <Animated.Image source={{ uri: itemImages[3].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                      </PinchGestureHandler>
                       </View>
                     </View>
                   </View>
                 </Modal>
               </SafeAreaView>
               {/* Image Carrousel */}
-              <TouchableOpacity onPress={() => this.setModalVisible(true)} activeOpacity={1}  style={{ flex: 1, flexDirection: "row" }} >
+              <TouchableOpacity onPress={() => this.setModalVisible(true, carrouselCurrentImage)} activeOpacity={1}  style={{ flex: 1, flexDirection: "row" }} >
                 {itemImages.map((image, imageIndex) => {
                   return (
                     <View
@@ -327,19 +336,19 @@ class ItemScreen extends Component {
               </ScrollView>
               {/* Carrousel Indicators*/}
               <View style={styles.indicatorContainer}>
-               {itemImages.map((image, imageIndex) => {
+               {itemImages.map((image, imagePaginationIndex) => {
                  const width = this.scrollX.interpolate({
                    inputRange: [
-                     windowWidth * (imageIndex - 1),
-                     windowWidth * imageIndex,
-                     windowWidth * (imageIndex + 1)
+                     windowWidth * (imagePaginationIndex - 1),
+                     windowWidth * imagePaginationIndex,
+                     windowWidth * (imagePaginationIndex + 1)
                    ],
                    outputRange: [8, 16, 8],
                    extrapolate: "clamp"
                  });
                  return (
                    <Animated.View
-                     key={imageIndex}
+                     key={imagePaginationIndex}
                      style={[styles.normalDot, { width }]}
                    />
                  );
@@ -665,30 +674,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    backgroundColor: Color.BLACK,
   },
   modalView: {
-    margin: 20,
+    marginVertical: 150,
     backgroundColor: Color.BLACK,
-    borderRadius: 0,
-    padding: 35,
-    alignItems: 'flex-end',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    paddingVertical: 35,
+    alignItems: 'flex-end'
   },
   button: {
-    borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
   },
   buttonClose: {
     backgroundColor: 'transparent',
@@ -702,13 +698,14 @@ const styles = StyleSheet.create({
   modalImage: {
     flex: 1,
     resizeMode: 'contain',
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 20
+    width: 350,
+    height: 350
   },
   imageContainer2: {
-    width: responsiveWidth(95),
-    height: responsiveHeight(90)
+    width: responsiveWidth(98),
+    height: responsiveHeight(65),
+    alignItems: "center",
+    justifyContent: "center"
   }
 })
 
