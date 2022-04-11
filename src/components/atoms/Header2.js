@@ -123,6 +123,11 @@ const styles = StyleSheet.create({
       color: Color.WHITE,
       fontSize: responsiveFontSize(1.5),
       justifyContent: 'flex-end',
+      borderWidth: 1,
+      borderColor: Color.SECONDARY,
+      paddingVertical: 5,
+      paddingHorizontal: 8,
+      borderRadius: 5
     },
     headerContent: {
       flex: 3,

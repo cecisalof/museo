@@ -22,14 +22,14 @@ import translateFromBackend from '../../utils/translate';
 
 class PanelRow extends React.Component {
   render() {
-    const {item, collection} = this.props;
-    console.log(this.props);
+    const {item} = this.props;
+    console.log('Panel row',item);
     return (
       <View>
         <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
           <Image
               style={styles.collectionImage}
-              source={{uri: collection.image}}
+              source={{uri: item.image}}
             />
             <LinearGradient
              colors={['rgba(0,0,0,0.6)', 'rgba(0, 0, 0, 0.4)', 'transparent']}

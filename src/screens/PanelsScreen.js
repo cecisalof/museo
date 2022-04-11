@@ -54,7 +54,6 @@ class PanelScreen extends Component {
               (
               <PanelRow
                 item={item}
-                collection={collection}
                 onPress={()=> {
                 this.props.navigation.navigate('Pdf', {
                   floorName: this.props.route.params.floorName,

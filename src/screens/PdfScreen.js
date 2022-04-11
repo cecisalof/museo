@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Header2 from '../components/atoms/Header2.js';
 import { Color, Font } from '../assets/styles/index.js';
+import PDFReader from 'rn-pdf-reader-js'
 import {
   responsiveHeight,
   responsiveWidth,
@@ -19,7 +20,7 @@ import {
 import {
   setItems,
 } from "../store/itemActions";
-
+import translateFromBackend from '../utils/translate';
 
 class PdfScreen extends Component {
 
@@ -36,16 +37,11 @@ class PdfScreen extends Component {
                 routeName= {this.props.route.name}
                 navigation={this.props.navigation}/>
             </View>
-            { Platform.OS == 'ios' &&
-              <WebView
-                source={{ uri: item.document }}
-              />
-            }
-            { Platform.OS == 'android' &&
-              <WebView
-                source={{ uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=` + item.document }}
-              />
-            }
+            <View style={{flex:1, backgroundColor: '#555'}}>
+            <PDFReader
+              source={{ uri: translateFromBackend(item, 'document')}}
+            />
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -58,7 +54,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     maxWidth: 800,
     overflow: 'hidden'
   },
