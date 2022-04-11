@@ -15,7 +15,8 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
-  Dimensions
+  Dimensions,
+  Modal
 } from "react-native";
 import {
   setItems,
@@ -29,6 +30,7 @@ import { Audio } from 'expo-av';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
+import ImageModal from '../components/atoms/ImageModal.js'
 import i18n from 'i18n-js';
 import translateFromBackend from '../utils/translate';
 
@@ -52,6 +54,7 @@ class ItemScreen extends Component {
     },
   carrouselCurrentImage: 0,
   leftScroll: new Animated.Value(0),
+  modalVisible: false
   }
 
   onDimensionsChange = ({ window }) => {
@@ -227,6 +230,12 @@ class ItemScreen extends Component {
        console.log('mira', index, this.state.carrouselCurrentImage)
    }
 
+   /*Handle Modal*/
+   setModalVisible = (visible) => {
+     this.setState({ modalVisible: visible });
+   }
+
+
   render() {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
@@ -235,6 +244,9 @@ class ItemScreen extends Component {
     const windowWidth = this.state.dimensions.window.width;
     const screenWidth = this.state.dimensions.screen.width
     const leftScrollValue = this.state.leftScroll;
+    const { modalVisible } = this.state;
+    console.log(modalVisible);
+
     {/* DETALLE DE PIEZA*/}
     return (
       <SafeAreaView style={styles.blackBackground}>
@@ -247,7 +259,7 @@ class ItemScreen extends Component {
             routeName={this.props.route.name}
             navigation={this.props.navigation}
           />
-          {/* Image carrousel */}
+        {/* CARROUSEL CONTROL LEFT & RIGHT */}
           <View style={styles.scrollContainer}>
             { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
               <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
@@ -272,6 +284,35 @@ class ItemScreen extends Component {
             ], {useNativeDriver: false})}
             scrollEventThrottle={1}
               >
+              {/* Pop-up */}
+              <SafeAreaView>
+                <Modal
+                 animationType="fade"
+                 transparent={true}
+                 visible={modalVisible}
+                 onRequestClose={() => {
+                   Alert.alert('Modal has been closed.');
+                   setModalVisible(!modalVisible);
+                 }}>
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <TouchableOpacity
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => this.setModalVisible(!modalVisible)}>
+                        <Text style={styles.textStyle}>X</Text>
+                      </TouchableOpacity>
+                      <View
+                        style={styles.imageContainer2}
+                        key={itemImages[0]}
+                      >
+                        <ImageBackground source={{ uri: itemImages[0].image }} style={styles.modalImage}/>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
+              </SafeAreaView>
+              {/* Image Carrousel */}
+              <TouchableOpacity onPress={() => this.setModalVisible(true)} activeOpacity={1}  style={{ flex: 1, flexDirection: "row" }} >
                 {itemImages.map((image, imageIndex) => {
                   return (
                     <View
@@ -282,6 +323,7 @@ class ItemScreen extends Component {
                     </View>
                   );
                 })}
+              </TouchableOpacity>
               </ScrollView>
               {/* Carrousel Indicators*/}
               <View style={styles.indicatorContainer}>
@@ -618,7 +660,56 @@ const styles = StyleSheet.create({
      height: 1,
      width: 1
    }
- }
+ },
+   centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: Color.BLACK,
+    borderRadius: 0,
+    padding: 35,
+    alignItems: 'flex-end',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: 'transparent',
+    margin: 10
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 20
+  },
+  imageContainer2: {
+    width: responsiveWidth(95),
+    height: responsiveHeight(90)
+  }
 })
 
 //---- Connect to props functions and values -----//
