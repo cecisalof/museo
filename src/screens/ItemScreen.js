@@ -212,6 +212,7 @@ class ItemScreen extends Component {
       }
   }
 
+  /* Carrousel buttons left & rigth */
   moveBody = index => {
        if(index >= this.props.route.params.item.image_set.length){
          index = 0
@@ -255,7 +256,7 @@ class ItemScreen extends Component {
               <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
             </TouchableOpacity>}
             <ScrollView
-            ref={node=>this.scrollRef=node}
+            ref={node => this.scrollRef = node}
             style={styles.scroll}
             horizontal={true}
             pagingEnabled
@@ -277,12 +278,12 @@ class ItemScreen extends Component {
                       style={styles.imageContainer}
                       key={imageIndex}
                     >
-                      <Image source={{ uri: image.image }} style={styles.card}></Image>
+                    <Image source={{ uri: image.image }} style={styles.card}/>
                     </View>
                   );
                 })}
               </ScrollView>
-            {  /* Carrousel Indicators*/}
+              {/* Carrousel Indicators*/}
               <View style={styles.indicatorContainer}>
                {itemImages.map((image, imageIndex) => {
                  const width = this.scrollX.interpolate({

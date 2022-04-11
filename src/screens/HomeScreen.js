@@ -29,7 +29,7 @@ import i18n from 'i18n-js';
 
 class HomeScreen extends Component {
   state = {
-    opacity: new Animated.Value(1),
+    opacity: new Animated.Value(0.8),
   }
 
   fade = (howManyTimesLeft) => {
@@ -42,7 +42,7 @@ class HomeScreen extends Component {
      if (finished) {
         // Will change fadeAnim value to 1 in 3 seconds
        Animated.timing(this.state.opacity, {
-        toValue: 1,
+        toValue: 0.8,
         duration: 5000,
         useNativeDriver: true
       }).start(({ finished }) => {
@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
     width: 90,
     flexWrap: 'nowrap',
     color: Color.PRIMARY,
+    opacity: 0.8,
     fontFamily: 'Roboto-Bold',
     fontSize: 10,
     lineHeight: 12
