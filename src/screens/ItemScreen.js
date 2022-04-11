@@ -27,7 +27,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
-import { PinchGestureHandler } from 'react-native-gesture-handler';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
@@ -241,6 +241,17 @@ class ItemScreen extends Component {
        {nativeEvent: { scale: this.scale }}
    ], {useNativeDriver: true})
 
+   onPinchStateChange = (event) => {
+     console.log(event.nativeEvent);
+     if (event.nativeEvent.oldState === State.ACTIVE) {
+       Animated.spring( this.scale, {
+         toValue: 1,
+         useNativeDriver: true,
+         bounciness: 1,
+       }).start();
+     }
+   }
+
   render() {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
@@ -312,6 +323,7 @@ class ItemScreen extends Component {
                       >
                       <PinchGestureHandler
                         onGestureEvent= {this.onPinchEvent}
+                        onHandlerStateChange={this.onPinchStateChange}
                         >
                         <Animated.Image source={{ uri: itemImages[3].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
                       </PinchGestureHandler>
