@@ -27,7 +27,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
-import { PinchGestureHandler, State, PanGestureHandler } from 'react-native-gesture-handler';
+import { PinchGestureHandler, State, PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
@@ -255,14 +255,12 @@ class ItemScreen extends Component {
        }
    ],
    {
-     listener: e => console.log(e.nativeEvent),
      useNativeDriver: true
    }
  );
 
    /* Return image to inicial scale state when user releases the pinch gesture*/
    onPinchStateChange = (event) => {
-     console.log(event.nativeEvent);
      if (event.nativeEvent.oldState === State.ACTIVE) {
        Animated.spring( this.scale, {
          toValue: 1,
@@ -349,12 +347,14 @@ class ItemScreen extends Component {
                           style={styles.imageContainer2}
                           key={this.state.modalImageIndex}
                         >
-                        <PinchGestureHandler
-                          onGestureEvent= {this.onPinchEvent}
-                          onHandlerStateChange={this.onPinchStateChange}
-                          >
-                          <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
-                        </PinchGestureHandler>
+                        <GestureHandlerRootView>
+                          <PinchGestureHandler
+                            onGestureEvent= {this.onPinchEvent}
+                            onHandlerStateChange={this.onPinchStateChange}
+                            >
+                            <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                          </PinchGestureHandler>
+                        </GestureHandlerRootView>
                       </View>
                     </View>
                   </View>
