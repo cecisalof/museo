@@ -580,7 +580,7 @@ const styles = StyleSheet.create({
    zIndex:1
    },
    navIcons: {
-     height: 17,
+     height: 25,
      maxWidth: 30,
      resizeMode: 'contain'
    },
@@ -724,11 +724,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   button: {
-    padding: '1%',
-    margin: '1%'
+    padding: '2%',
+    margin: '2%'
   },
   buttonClose: {
-    width: responsiveWidth(3),
+    width: responsiveWidth(4),
     height: responsiveHeight(3)
   },
   textStyle: {
