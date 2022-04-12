@@ -27,7 +27,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
-import { PinchGestureHandler, State } from 'react-native-gesture-handler';
+import { PinchGestureHandler, State, PanGestureHandler } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
@@ -55,13 +55,16 @@ class ItemScreen extends Component {
     },
   carrouselCurrentImage: 0,
   leftScroll: new Animated.Value(0),
-  modalVisible: false
+  modalVisible: false,
+  modalImageIndex: 0,
   }
 
   /* Slider Scroll */
   scrollX = new Animated.Value(0);
   /* Image zomm scale*/
   scale = new Animated.Value(1);
+  /* Pan Value*/
+  translateX = new Animated.Value(window.width / 2);
 
   onDimensionsChange = ({ window }) => {
     this.setState({ dimensions: { window } });
@@ -230,17 +233,34 @@ class ItemScreen extends Component {
          animation: false
        })
        this.setState({ carrouselCurrentImage: index });
-       console.log('mira', index, this.state.carrouselCurrentImage)
+       console.log('Carrousel´s image parameters', index, this.state.carrouselCurrentImage)
    }
 
    /*Handle Modal*/
-   setModalVisible = (visible) => {
-     this.setState({ modalVisible: visible }); /*change modal´s state -if it is open or not*/
+   setModalVisible = (visible, index) => {
+     console.log(index);
+     console.log(visible);
+     /* change modal´s state -if it is open or not && setting carrouselCurrentImage to modalImageIndex*/
+     this.setState({
+      modalVisible: visible,
+      modalImageIndex: index });
    }
-   onPinchEvent= Animated.event([
-       {nativeEvent: { scale: this.scale }}
-   ], {useNativeDriver: true})
 
+   /* Get user´s gestue that modifies image´s scale*/
+   onPinchEvent= Animated.event([
+       {
+         nativeEvent: {
+           scale: this.scale
+         }
+       }
+   ],
+   {
+     listener: e => console.log(e.nativeEvent),
+     useNativeDriver: true
+   }
+ );
+
+   /* Return image to inicial scale state when user releases the pinch gesture*/
    onPinchStateChange = (event) => {
      console.log(event.nativeEvent);
      if (event.nativeEvent.oldState === State.ACTIVE) {
@@ -262,6 +282,8 @@ class ItemScreen extends Component {
     const leftScrollValue = this.state.leftScroll;
     const { modalVisible } = this.state;
     const carrouselCurrentImage = this.state.carrouselCurrentImage
+    const modalImageIndex = this.state.modalImageIndex;
+    console.log(modalImageIndex);
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -306,33 +328,35 @@ class ItemScreen extends Component {
                   animationType="fade"
                   transparent={true}
                   visible={modalVisible}
+                  modalImageIndex={this.state.modalImageIndex}
                   onRequestClose={() => {
-                   Alert.alert('Modal has been closed.');
-                   setModalVisible(!modalVisible);
+                  console.log('Modal has been closed.');
+                  setModalVisible(!modalVisible);
                   }}>
                   <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                       <TouchableOpacity
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => this.setModalVisible(!modalVisible)}>
-                        <Text style={styles.textStyle}>X</Text>
+                        style={styles.button}
+                        onPress={() => this.setModalVisible(!modalVisible, carrouselCurrentImage)}>
+                        <Image source={require('../assets/images/icons/close-icon.png')} style={styles.buttonClose}/>
                       </TouchableOpacity>
-                      <View
-                        style={styles.imageContainer2}
-                        key={itemImages}
-                      >
-                      <PinchGestureHandler
-                        onGestureEvent= {this.onPinchEvent}
-                        onHandlerStateChange={this.onPinchStateChange}
+                        <View
+                          style={styles.imageContainer2}
+                          key={this.state.modalImageIndex}
                         >
-                        <Animated.Image source={{ uri: itemImages[3].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
-                      </PinchGestureHandler>
+                        <PinchGestureHandler
+                          onGestureEvent= {this.onPinchEvent}
+                          onHandlerStateChange={this.onPinchStateChange}
+                          >
+                          <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                        </PinchGestureHandler>
                       </View>
                     </View>
                   </View>
                 </Modal>
               </SafeAreaView>
               {/* Image Carrousel */}
+                {/* Open modal button*/}
               <TouchableOpacity onPress={() => this.setModalVisible(true, carrouselCurrentImage)} activeOpacity={1}  style={{ flex: 1, flexDirection: "row" }} >
                 {itemImages.map((image, imageIndex) => {
                   return (
@@ -695,12 +719,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   button: {
-    padding: 10,
-    elevation: 2,
+    padding: '1%',
+    margin: '1%'
   },
   buttonClose: {
-    backgroundColor: 'transparent',
-    margin: 10
+    width: responsiveWidth(3),
+    height: responsiveHeight(3)
   },
   textStyle: {
     color: 'white',
@@ -710,8 +734,8 @@ const styles = StyleSheet.create({
   modalImage: {
     flex: 1,
     resizeMode: 'contain',
-    width: 350,
-    height: 350
+    width: responsiveWidth(100),
+    height: responsiveHeight(65),
   },
   imageContainer2: {
     width: responsiveWidth(98),
