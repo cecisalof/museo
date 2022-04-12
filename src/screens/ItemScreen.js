@@ -272,6 +272,10 @@ class ItemScreen extends Component {
      }
    }
 
+  handleScroll = (event) => {
+    this.setState({carrouselCurrentImage: Math.round(event.nativeEvent.contentOffset.x/responsiveWidth(100))})
+  }
+
   render() {
     const { params } = this.props.route;
     const { item, panels } = this.props.route.params;
@@ -320,6 +324,7 @@ class ItemScreen extends Component {
                 }
               }
             ], {useNativeDriver: false})}
+            onMomentumScrollEnd={(event) => this.handleScroll(event)}
             scrollEventThrottle={1}
               >
               {/* Pop-up */}
