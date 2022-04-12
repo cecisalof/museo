@@ -614,18 +614,12 @@ const styles = StyleSheet.create({
     marginRight: '5%'
   },
   border: {
-    // borderBottomColor: Color.SECONDARY,
-    // borderTopColor: 'transparent',
-    // borderLeftColor: 'transparent',
-    // borderRightColor: 'transparent',
-    // borderWidth: 2,
     marginBottom: window.width > 820 ? '1%' : '3%',
     marginHorizontal: '4%',
   },
   sliderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // marginVertical: responsiveHeight(1)
   },
   slider: {
     width:  responsiveWidth(100) > 820 ? responsiveWidth(30) : responsiveWidth(50),
@@ -680,7 +674,6 @@ const styles = StyleSheet.create({
      },
      default: {
        backgroundColor: Color.SECONDARY,
-       // borderBottomRightRadius: 100
      }
    }),
  },
@@ -695,7 +688,6 @@ const styles = StyleSheet.create({
    flexDirection: 'row'
  },
  audioContainer: {
-   // backgroundColor: '#F6A27E',
    backgroundColor: '#FFF9F8',
    borderTopColor: Color.SECONDARY,
    borderBottomColor: 'transparent',

@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -21,6 +22,7 @@ import * as Font from 'expo-font';
 import { translations } from './src/translations'
 import store from './src/store/store';
 import * as Localization from 'expo-localization';
+import getPushToken from './src/services/notifications.js';
 import i18n from 'i18n-js';
 i18n.translations = translations;
 i18n.defaultLocale = 'en';
@@ -31,6 +33,15 @@ i18n.fallbacks = true;
 export default function App() {
   const localization = i18n.locale;
   const navigationRef = useNavigationContainerRef();
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+
+    useEffect(() => {
+        getPushToken().then((pushToken) => {
+          console.log('Device pushToken', pushToken);
+            setExpoPushToken(pushToken);
+        });
+      });
 
   let [fontsLoaded] = useFonts({
     // Load a font `Roboto` from a static resource
@@ -51,7 +62,7 @@ export default function App() {
        <View style={styles.mainContainer}>
         <NavigationContainer ref={navigationRef}>
           <View style={styles.body}>
-            <DrawerMenu navigationRef={navigationRef} localization={localization}/>
+            <DrawerMenu navigationRef={navigationRef} localization={localization} expoPushToken={expoPushToken}/>
           </View>
           <View style={styles.footer}>
             <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>

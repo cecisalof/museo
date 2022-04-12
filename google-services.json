@@ -20,35 +20,6 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPTa7fCo4ewVAoaAcqyLR_3yJYSSHrRao"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "399058439703-t62p4u2gg0ip51u5fc772fhcccr5n7ol.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:399058439703:android:e074e0d45ce4c675fb5652",
-        "android_client_info": {
-          "package_name": "es.fundaciongaselec"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "399058439703-t62p4u2gg0ip51u5fc772fhcccr5n7ol.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
           "current_key": "AIzaSyBGLKS2rd5jocCBoy3ec-oFpVGO4U2YZ4Q"
         }
       ],
