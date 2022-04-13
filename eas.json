@@ -1,0 +1,17 @@
+{
+  "build": {
+    "production": {}
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./pc-api-5210678747272129967-940-3583dd44c808.json",
+        "track": "production"
+      }
+    }
+  },
+  "cli": {
+    "version": ">= 0.50.0",
+    "requireCommit": true
+  }
+}
