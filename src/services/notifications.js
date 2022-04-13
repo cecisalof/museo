@@ -12,7 +12,7 @@ Notifications.setNotificationHandler({
     })
 });
 
-export default function getPushToken() {
+export default function getDevicePushToken() {
     if (!Constants.isDevice) {
         return Promise.reject('Must use physical device for Push Notifications');
     }

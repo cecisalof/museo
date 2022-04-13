@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:399058439703:android:1eec5e476dba9888fb5652",
+        "mobilesdk_app_id": "1:399058439703:android:ceab9235400c7b79fb5652",
         "android_client_info": {
-          "package_name": "com.fundaciongaselec.mem"
+          "package_name": "es.fundaciongaselec.mem"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "399058439703-t62p4u2gg0ip51u5fc772fhcccr5n7ol.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "399058439703-0aln42kulehl37lhm7c2co7jie03jt37.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "es.fundaciongaselec.mem"
+              }
             }
           ]
         }
