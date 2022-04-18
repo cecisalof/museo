@@ -3,7 +3,7 @@ import * as Notifications from 'expo-notifications';
 import React, { useEffect, useRef, useState } from 'react';
 
 
-
+{/* Behavior that should be applied to the incoming notification.*/}
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,

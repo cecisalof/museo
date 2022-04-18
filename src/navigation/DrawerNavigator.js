@@ -28,6 +28,7 @@ import PdfScreen from '../screens/PdfScreen';
 import ContactScreen from '../screens/ContactScreen';
 import ItemScreen from '../screens/ItemScreen';
 import SplashScreen from '../screens/SplashScreen';
+import SearchResults from '../screens/SearchScreen';
 import { Color, Font } from '../assets/styles/index.js';
 import {
   responsiveHeight,
@@ -56,6 +57,21 @@ function Logo(props) {
   );
 }
 
+function Search(props) {
+  return (
+    <TouchableOpacity
+      onPress={() => props.navigationRef.dispatch(
+        CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Search'}],
+        })
+      )}
+    >
+      <Image source={require('../assets/images/icons/search.png')} style={styles.search} />
+    </TouchableOpacity>
+  );
+}
+
 const DrawerMenu = (props) => {
   const navigationRef = props.navigationRef
   return (
@@ -64,13 +80,7 @@ const DrawerMenu = (props) => {
       drawerContent= { (props) => <CustomDrawerContent {...props} /> }
       screenOptions={{
         headerTitle: (props) => <Logo {...props} navigationRef={navigationRef}  />,
-        // headerRight: () => (
-        //      <TouchableOpacity
-        //        onPress={() => alert('This is the search button. Pending section')}
-        //        title="Search"
-        //        color="#FFFFFFDE"
-        //      ><Image source={require('../assets/images/icons/search.png')} style={styles.search} /></TouchableOpacity>
-        //    ),
+        headerRight: () => <Search {...props} navigationRef={navigationRef}  />,
         headerTintColor: '#FFFFFF',
         headerBackButtonMenuEnabled: false,
         headerStyle: {
@@ -104,6 +114,7 @@ const DrawerMenu = (props) => {
         >
       <Drawer.Screen name="Splash" component={SplashScreen} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign: "center" }} />
+      <Drawer.Screen name="Search" component={SearchResults} options={{ headerTitleAlign: "center" }} />
       <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center"}}/>
       <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
