@@ -106,19 +106,14 @@ class SearchResults extends Component {
           <View style={styles.mainContainer}>
             <View style={styles.viewStyle}>
               <SearchBar
-<<<<<<< HEAD
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
                 onChangeText={text => this.SearchFilterFunction(text)}
                 onClear={text => this.SearchFilterFunction('')}
-=======
-
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
-
->>>>>>> e03dd52259e2e6a64400d875e3d4e4d7a0dea5eb
                 placeholder={i18n.t('searchScreen.searchLabel')}
                 value={this.state.search}
               />
@@ -145,7 +140,7 @@ class SearchResults extends Component {
                     console.log(index, item);
                     index.toString()}}
                   ListEmptyComponent={
-                    <Text>{i18n.t('store.warning')}</Text>
+                    <Text style={styles.warningLabel}>{i18n.t('store.warning')}</Text>
                   }
                 />
 
@@ -189,6 +184,12 @@ const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: 'transparent',
     paddingHorizontal: 1
+  },
+  warningLabel: {
+    fontFamily: 'Roboto',
+    fontSize: responsiveFontSize(2),
+    color: Color.WHITE,
+    padding: 5
   }
 });
 
