@@ -16,6 +16,7 @@ import {
 import { SearchBar } from 'react-native-elements';
 import ItemPreview from "../components/atoms/ItemPreview";
 import { Color } from '../assets/styles/index.js';
+import i18n from 'i18n-js';
 
 
 class SearchResults extends Component {
@@ -89,8 +90,10 @@ class SearchResults extends Component {
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={styles.spinner}>
+          <ActivityIndicator
+            color="#D99578"
+            size="large"  />
         </View>
       );
     }
@@ -104,7 +107,7 @@ class SearchResults extends Component {
                 searchIcon={{ size: 24 }}
                 onChangeText={text => this.searchFilterFunction(text)}
                 onClear={text => this.searchFilterFunction('')}
-                placeholder="Type Here..."
+                placeholder={i18n.t('searchScreen.searchLabel')}
                 value={this.state.search}
               />
               <FlatList
@@ -129,7 +132,11 @@ class SearchResults extends Component {
                   keyExtractor={(item, index) => {
                     console.log(index, item);
                     index.toString()}}
+                  ListEmptyComponent={
+                    <Text>{i18n.t('store.warning')}</Text>
+                  }
                 />
+
             </View>
           </View>
         </ImageBackground>
@@ -160,6 +167,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  spinner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: Color.BLACK
   }
 });
 

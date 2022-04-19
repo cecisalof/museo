@@ -38,8 +38,9 @@ export const en = {
  },
  collectionScreen:{
    shop: "Visit Shop"
+ },
+ searchScreen: {
+   searchLabel: 'Search',
+
  }
- // itemPreview: {
- //   item: '{{itemTitle}}'
- // }
 }
