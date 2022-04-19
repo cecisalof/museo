@@ -90,27 +90,35 @@ class SearchResults extends Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      // Loading View while data is loading
-      return (
-        <View style={styles.spinner}>
-          <ActivityIndicator
-            color="#D99578"
-            size="large"  />
-        </View>
-      );
-    }
+    // if (this.state.isLoading) {
+    //   // Loading View while data is loading
+    //   return (
+    //     <View style={styles.spinner}>
+    //       <ActivityIndicator
+    //         color="#D99578"
+    //         size="large"  />
+    //     </View>
+    //   );
+    // }
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
           <View style={styles.mainContainer}>
             <View style={styles.viewStyle}>
               <SearchBar
+<<<<<<< HEAD
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
                 onChangeText={text => this.SearchFilterFunction(text)}
                 onClear={text => this.SearchFilterFunction('')}
+=======
+
+                containerStyle={styles.searchBar}
+                inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
+                searchIcon={{ size: 24 }}
+
+>>>>>>> e03dd52259e2e6a64400d875e3d4e4d7a0dea5eb
                 placeholder={i18n.t('searchScreen.searchLabel')}
                 value={this.state.search}
               />
