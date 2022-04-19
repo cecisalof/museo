@@ -233,13 +233,13 @@ class ItemScreen extends Component {
          animation: false
        })
        this.setState({ carrouselCurrentImage: index });
-       console.log('Carrousel´s image parameters', index, this.state.carrouselCurrentImage)
+       // console.log('Carrousel´s image parameters', index, this.state.carrouselCurrentImage)
    }
 
    /*Handle Modal*/
    setModalVisible = (visible, index) => {
-     console.log(index);
-     console.log(visible);
+     // console.log(index);
+     // console.log(visible);
      /* change modal´s state -if it is open or not && setting carrouselCurrentImage to modalImageIndex*/
      this.setState({
       modalVisible: visible,
@@ -285,7 +285,6 @@ class ItemScreen extends Component {
     const { modalVisible } = this.state;
     const carrouselCurrentImage = this.state.carrouselCurrentImage
     const modalImageIndex = this.state.modalImageIndex;
-    console.log(modalImageIndex);
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -333,7 +332,6 @@ class ItemScreen extends Component {
                   visible={modalVisible}
                   modalImageIndex={this.state.modalImageIndex}
                   onRequestClose={() => {
-                  console.log('Modal has been closed.');
                   setModalVisible(!modalVisible);
                   }}>
                   <View style={styles.centeredView}>
