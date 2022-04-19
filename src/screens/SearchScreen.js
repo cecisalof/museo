@@ -11,11 +11,14 @@ import {
   SafeAreaView
 } from 'react-native';
 import {
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+import {
   setItems,
 } from "../store/itemActions";
 import { SearchBar } from 'react-native-elements';
 import ItemPreview from "../components/atoms/ItemPreview";
-import { Color } from '../assets/styles/index.js';
+import { Color, Font } from '../assets/styles/index.js';
 import i18n from 'i18n-js';
 
 
@@ -87,26 +90,27 @@ class SearchResults extends Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      // Loading View while data is loading
-      return (
-        <View style={styles.spinner}>
-          <ActivityIndicator
-            color="#D99578"
-            size="large"  />
-        </View>
-      );
-    }
+    // if (this.state.isLoading) {
+    //   // Loading View while data is loading
+    //   return (
+    //     <View style={styles.spinner}>
+    //       <ActivityIndicator
+    //         color="#D99578"
+    //         size="large"  />
+    //     </View>
+    //   );
+    // }
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
           <View style={styles.mainContainer}>
             <View style={styles.viewStyle}>
               <SearchBar
-                round
+
+                containerStyle={styles.searchBar}
+                inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
-                onChangeText={text => this.searchFilterFunction(text)}
-                onClear={text => this.searchFilterFunction('')}
+
                 placeholder={i18n.t('searchScreen.searchLabel')}
                 value={this.state.search}
               />
@@ -173,6 +177,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: Color.BLACK
+  },
+  searchBar: {
+    backgroundColor: 'transparent',
+    paddingHorizontal: 1
   }
 });
 
