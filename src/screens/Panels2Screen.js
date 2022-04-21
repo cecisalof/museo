@@ -25,27 +25,23 @@ import {
   setItems,
 } from "../store/itemActions";
 import { CommonActions } from '@react-navigation/native';
-import Header2 from '../components/atoms/Header2.js';
+import Header3 from '../components/atoms/Header3.js';
 import i18n from 'i18n-js';
 
 
-class PanelScreen extends Component {
+class Panels2Screen extends Component {
   render() {
     const { params } = this.props.route;
-    console.log(params);
     const panels = params.panels;
-    console.log(panels);
     const item = params.item;
     const collection = params.collection;
     return (
       <View style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
-          <Header2 panels={panels} item={item} collection={this.props.route.params.collection}
-            routeName= {this.props.route.name}
-            navigation={this.props.navigation}
-            floorName= {params.floorName}
-            floorId={params.floorId}/>
+          <Header3 panels={panels} item={item}
+            routeName={this.props.route.name}
+            navigation={this.props.navigation}/>
         <View style={styles.itemsContainer}>
           {/* FlatList data should be an array */}
           <FlatList
@@ -57,14 +53,12 @@ class PanelScreen extends Component {
                 <PanelRow
                   item={item}
                   onPress={()=> {
-                  this.props.navigation.navigate('Pdf', {
-                    floorName: this.props.route.params.floorName,
-                    floorId: this.props.route.params.floorId,
+                  this.props.navigation.navigate('Pdf2', {
                     routeName: this.props.route.name,
                     piece: this.props.route.params.item,
-                    item: item,
-                    collection: this.props.route.params.collection})
-                  }}
+                    item,
+                  })
+                }}
               />
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -173,4 +167,4 @@ function mapStateToProps({items}) {
   return {items}
 }
 
-export default connect(mapStateToProps)(PanelScreen);
+export default connect(mapStateToProps)(Panels2Screen);

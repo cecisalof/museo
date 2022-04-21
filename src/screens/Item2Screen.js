@@ -30,7 +30,7 @@ import { Audio } from 'expo-av';
 import { PinchGestureHandler, State, PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
-import Header2 from '../components/atoms/Header2.js';
+import Header3 from '../components/atoms/Header3.js';
 import ImageModal from '../components/atoms/ImageModal.js'
 import i18n from 'i18n-js';
 import translateFromBackend from '../utils/translate';
@@ -187,26 +187,20 @@ class ItemScreen extends Component {
   /* Navigation to Panel Screen*/
     toPanels = async () => {
       if (this.state.audioInstance == null) {
-        this.props.navigation.navigate('Panel', {
+        this.props.navigation.navigate('Panel2', {
         item: this.props.route.params.item,
         panels: this.props.route.params.panels,
-        collection: this.props.route.params.collection,
-        floorName: this.props.route.params.floorName,
-        floorId: this.props.route.params.floorId,
-        routeName: 'Panel'})
+        routeName: 'Panel2'})
       } else {
         await this.state.audioInstance.stopAsync(); // stops audio when user navigates to Panel View
         await this.state.audioInstance.setPositionAsync(0);
         this.setState({
           isPlaying: false
         })
-        this.props.navigation.navigate('Panel', {
+        this.props.navigation.navigate('Panel2', {
         item: this.props.route.params.item,
         panels: this.props.route.params.panels,
-        collection: this.props.route.params.collection,
-        floorName: this.props.route.params.floorName,
-        floorId: this.props.route.params.floorId,
-        routeName: 'Panel' })
+        routeName: 'Panel2'})
       }
     }
 
@@ -292,9 +286,7 @@ class ItemScreen extends Component {
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
         <View style={styles.mainContainer}>
           {/* Header */}
-          <Header2 panels={panels} item={item} collection={this.props.route.params.collection}
-            floorName={this.props.route.params.floorName}
-            floorId={this.props.route.params.floorId}
+          <Header3 panels={panels} item={item}
             routeName={this.props.route.name}
             navigation={this.props.navigation}
           />
@@ -345,14 +337,16 @@ class ItemScreen extends Component {
                           style={styles.imageContainer2}
                           key={this.state.modalImageIndex}
                         >
-                        <GestureHandlerRootView>
-                          <PinchGestureHandler
-                            onGestureEvent= {this.onPinchEvent}
-                            onHandlerStateChange={this.onPinchStateChange}
-                            >
-                            <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
-                          </PinchGestureHandler>
-                        </GestureHandlerRootView>
+                        {item.image_set > 0 &&
+                          <GestureHandlerRootView>
+                            <PinchGestureHandler
+                              onGestureEvent= {this.onPinchEvent}
+                              onHandlerStateChange={this.onPinchStateChange}
+                              >
+                              <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                            </PinchGestureHandler>
+                          </GestureHandlerRootView>
+                        }
                       </View>
                     </View>
                   </View>

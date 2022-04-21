@@ -24,9 +24,12 @@ import HomeScreen from '../screens/HomeScreen';
 import FloorScreen from '../screens/FloorScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import PanelsScreen from '../screens/PanelsScreen';
+import Panels2Screen from '../screens/Panels2Screen';
 import PdfScreen from '../screens/PdfScreen';
+import Pdf2Screen from '../screens/Pdf2Screen';
 import ContactScreen from '../screens/ContactScreen';
 import ItemScreen from '../screens/ItemScreen';
+import Item2Screen from '../screens/Item2Screen';
 import SplashScreen from '../screens/SplashScreen';
 import SearchResults from '../screens/SearchScreen';
 import { Color, Font } from '../assets/styles/index.js';
@@ -118,8 +121,11 @@ const DrawerMenu = (props) => {
       <Drawer.Screen name="Floor" component={FloorScreen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Collection" component={CollectionScreen} options={{ headerTitleAlign: "center"}}/>
       <Drawer.Screen name="Item" component={ItemScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Item2" component={Item2Screen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Panel" component={PanelsScreen} options={{ headerTitleAlign: "center"}}/>
+      <Drawer.Screen name="Panel2" component={Panels2Screen} options={{ headerTitleAlign: "center"}}/>
       <Drawer.Screen name="Pdf" component={PdfScreen} options={{ headerTitleAlign: "center" }}/>
+      <Drawer.Screen name="Pdf2" component={Pdf2Screen} options={{ headerTitleAlign: "center" }}/>
       <Drawer.Screen name="Contact" component={ContactScreen} options={{ headerTitleAlign: "center" }}/>
     </Drawer.Navigator>
   );

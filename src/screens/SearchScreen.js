@@ -31,10 +31,10 @@ class SearchResults extends Component {
     };
 
   componentDidMount() {
-    return fetch('https://b0dd-2a02-2e02-adb0-ab00-dcf1-3862-2793-62d.eu.ngrok.io/api/items/search/5')
+    return fetch('https://3003-2a02-2e02-adb0-ab00-d4b4-8c7e-8077-8f3d.eu.ngrok.io/api/items/search/56')
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
+        console.log('data from endpoint', responseJson);
         this.setState(
           {
             isLoading: false,
@@ -63,7 +63,7 @@ class SearchResults extends Component {
     //passing the inserted text in textinput
     const newData = this.arrayholder.filter(function(itemfromBackend) {
       //applying filter for the inserted text in search bar
-      console.log('item', itemfromBackend.title_es);
+      console.log('item', itemfromBackend);
       const itemData = itemfromBackend.title_es ? itemfromBackend.title_es.toUpperCase() : ''.toUpperCase();
       const textInputData = text.toUpperCase();
       // if the search element is in the array of newData
@@ -90,27 +90,27 @@ class SearchResults extends Component {
   };
 
   render() {
-    // if (this.state.isLoading) {
-    //   // Loading View while data is loading
-    //   return (
-    //     <View style={styles.spinner}>
-    //       <ActivityIndicator
-    //         color="#D99578"
-    //         size="large"  />
-    //     </View>
-    //   );
-    // }
+    if (this.state.isLoading) {
+      // Loading View while data is loading
+      return (
+        <View style={styles.spinner}>
+          <ActivityIndicator
+            color="#D99578"
+            size="large"  />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
           <View style={styles.mainContainer}>
             <View style={styles.viewStyle}>
               <SearchBar
+                onChangeText={text => this.searchFilterFunction(text)}
+                onClear={text => this.searchFilterFunction('')}
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
-                onChangeText={text => this.SearchFilterFunction(text)}
-                onClear={text => this.SearchFilterFunction('')}
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
@@ -122,22 +122,20 @@ class SearchResults extends Component {
                 ItemSeparatorComponent={this.ListViewItemSeparator}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                 renderItem={({ item }) => (
+                 renderItem={({item}) => (
                    /* Elements that will render in the screen based on the users´s search*/
                    <ItemPreview
                      item={item}
                      isFullWidth={true}
-                     onPress={()=>{ this.props.navigation.navigate('Item', {item,
-                       panels: collection.panel_set,
-                       floorId:this.props.route.params.floorId,
-                       floorName: this.props.route.params.floorName,
-                       collection: this.props.route.params.collection,
+                     onPress={()=>{ this.props.navigation.navigate('Item2', {
+                       item,
+                       panels: item.collection_panel,
+                       floorName: item.collection_floor,
                        routeName: this.props.route.name}) }}
                        />
                   )}
                   enableEmptySections={true}
                   keyExtractor={(item, index) => {
-                    console.log(index, item);
                     index.toString()}}
                   ListEmptyComponent={
                     <Text style={styles.warningLabel}>{i18n.t('store.warning')}</Text>
