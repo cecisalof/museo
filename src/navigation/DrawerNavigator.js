@@ -15,6 +15,7 @@ import {
   Platform,
   Linking
 } from "react-native";
+import {useRoute} from '@react-navigation/native';
 import Item from '../components/atoms/MenuItem.js';
 import firstFloor from '../assets/images/icons/firstFloor.png';
 import baseFloor from '../assets/images/icons/baseFloor.png';
@@ -61,16 +62,18 @@ function Logo(props) {
 }
 
 function Search(props) {
+  const route = useRoute();
+  const isSearch = (route.name == "Search")
   return (
     <TouchableOpacity
       onPress={() => props.navigationRef.dispatch(
         CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Search'}],
+            routes: [{ name: isSearch ? 'Home' : 'Search'}],
         })
       )}
     >
-      <Image source={require('../assets/images/icons/search.png')} style={styles.search} />
+      <Image source={isSearch ? require('../assets/images/icons/close-icon.png') : require('../assets/images/icons/search.png')} style={styles.search} />
     </TouchableOpacity>
   );
 }

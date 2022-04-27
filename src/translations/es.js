@@ -35,13 +35,14 @@ export const es = {
     category: "Categoría"
   },
   store: {
-    warning: "No hay elementos"
+    warning: "No hay elementos que coincidan con la búsqueda",
+    startSearch: "Introduce un texto para la búsqueda",
   },
   collectionScreen:{
     shop: "Visitar tienda"
   },
   searchScreen: {
     searchLabel: 'Buscar',
-    
+
   }
 }

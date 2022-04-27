@@ -34,7 +34,8 @@ export const en = {
    category: "Category"
  },
  store: {
-   warning: "No elements"
+   warning: "No elements matching the text",
+   startSearch: "Insert a text for searching",
  },
  collectionScreen:{
    shop: "Visit Shop"

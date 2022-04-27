@@ -25,16 +25,22 @@ import i18n from 'i18n-js';
 class SearchResults extends Component {
     //setting default state
     state = {
-      isLoading: true,
+      isLoading: false,
       search: '',
       arrayholder: []
     };
 
-  componentDidMount() {
-    return fetch('https://3003-2a02-2e02-adb0-ab00-d4b4-8c7e-8077-8f3d.eu.ngrok.io/api/items/search/56')
+  clearSearch = () => {
+    this.setState({isLoading: false, dataSource: [], search: ''})
+  }
+
+  searchFilterFunction(text) {
+    this.setState({isLoading: true, dataSource: [], search: text})
+
+    return fetch('https://fundaciongaselec.codepremium.es/api/items/search/'+text)
       .then(response => response.json())
       .then(responseJson => {
-        console.log('data from endpoint', responseJson);
+        // console.log('data from endpoint', responseJson);
         this.setState(
           {
             isLoading: false,
@@ -48,33 +54,12 @@ class SearchResults extends Component {
       .catch(error => {
         console.error(error);
       });
-  }
-
-  search = text => {
-    console.log(text);
-  };
-
-  clear = () => {
-    this.searchclear();
-  };
-
-  searchFilterFunction(text) {
-    console.log('búsqueda', text);
-    //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(itemfromBackend) {
-      //applying filter for the inserted text in search bar
-      console.log('item', itemfromBackend);
-      const itemData = itemfromBackend.title_es ? itemfromBackend.title_es.toUpperCase() : ''.toUpperCase();
-      const textInputData = text.toUpperCase();
-      // if the search element is in the array of newData
-      return itemData.indexOf(textInputData) > -1;
-    });
 
     this.setState({
       //setting the filtered newData on datasource
       //After setting the data it will automatically re-render the view
       dataSource: newData,
-      search: text,
+      // search: text,
     });
   }
 
@@ -90,16 +75,6 @@ class SearchResults extends Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      // Loading View while data is loading
-      return (
-        <View style={styles.spinner}>
-          <ActivityIndicator
-            color="#D99578"
-            size="large"  />
-        </View>
-      );
-    }
     return (
       <SafeAreaView style={styles.blackBackground}>
         <ImageBackground source={require('../assets/images/background.png')} style={styles.bg}>
@@ -107,7 +82,7 @@ class SearchResults extends Component {
             <View style={styles.viewStyle}>
               <SearchBar
                 onChangeText={text => this.searchFilterFunction(text)}
-                onClear={text => this.searchFilterFunction('')}
+                onClear={text => this.clearSearch('')}
                 containerStyle={styles.searchBar}
                 inputStyle={{fontFamily: 'Roboto', fontSize: responsiveFontSize(2) }}
                 searchIcon={{ size: 24 }}
@@ -117,12 +92,19 @@ class SearchResults extends Component {
                 placeholder={i18n.t('searchScreen.searchLabel')}
                 value={this.state.search}
               />
+              { this.state.isLoading ?
+                <View style={styles.spinner}>
+                  <ActivityIndicator
+                    color="#D99578"
+                    size="large"  />
+                </View>
+              :
               <FlatList
                 data={this.state.dataSource}
                 ItemSeparatorComponent={this.ListViewItemSeparator}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                 renderItem={({item}) => (
+                renderItem={({item}) => (
                    /* Elements that will render in the screen based on the users´s search*/
                    <ItemPreview
                      item={item}
@@ -133,15 +115,16 @@ class SearchResults extends Component {
                        floorName: item.collection_floor,
                        routeName: this.props.route.name}) }}
                        />
-                  )}
-                  enableEmptySections={true}
-                  keyExtractor={(item, index) => {
-                    index.toString()}}
-                  ListEmptyComponent={
-                    <Text style={styles.warningLabel}>{i18n.t('store.warning')}</Text>
-                  }
+                )}
+                enableEmptySections={true}
+                keyExtractor={(item, index) => {index.toString()}}
+                ListEmptyComponent={
+                  <View style={styles.emptySearch}>
+                    <Text style={styles.warningLabel}>{this.state.search == "" ? i18n.t('store.startSearch') : i18n.t('store.warning')}</Text>
+                  </View>
+                }
                 />
-
+              }
             </View>
           </View>
         </ImageBackground>
@@ -182,6 +165,13 @@ const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: 'transparent',
     paddingHorizontal: 1
+  },
+  emptySearch:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: "100%",
+    flexDirection: 'row',
   },
   warningLabel: {
     fontFamily: 'Roboto',

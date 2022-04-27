@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SET_ITEMS } from "./itemTypes";
+import { SET_ITEMS, SET_SEARCH_TERM } from "./itemTypes";
 
 const initialState = {
-  items: []
+  items: [],
+  searchTerm: ""
 }
 
 const itemReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const itemReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload
+      }
+    case SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.payload
       }
     default:
       return state;
