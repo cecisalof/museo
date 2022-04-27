@@ -3,7 +3,7 @@ import * as Notifications from 'expo-notifications';
 import React, { useEffect, useRef, useState } from 'react';
 
 
-
+{/* Behavior that should be applied to the incoming notification.*/}
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
@@ -12,7 +12,7 @@ Notifications.setNotificationHandler({
     })
 });
 
-export default function getPushToken() {
+export default function getDevicePushToken() {
     if (!Constants.isDevice) {
         return Promise.reject('Must use physical device for Push Notifications');
     }

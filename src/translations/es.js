@@ -39,8 +39,9 @@ export const es = {
   },
   collectionScreen:{
     shop: "Visitar tienda"
+  },
+  searchScreen: {
+    searchLabel: 'Buscar',
+    
   }
-  // itemPreview: {
-  //   item: '{{itemTitle}}'
-  // }
 }

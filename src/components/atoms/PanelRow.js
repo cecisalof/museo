@@ -23,7 +23,6 @@ import translateFromBackend from '../../utils/translate';
 class PanelRow extends React.Component {
   render() {
     const {item} = this.props;
-    console.log('Panel row',item);
     return (
       <View>
         <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>

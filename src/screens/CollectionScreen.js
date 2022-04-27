@@ -23,7 +23,6 @@ class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
     console.log(params);
-    console.log(this.props.route);
     const { collection, floorName } = params;
     return (
     <SafeAreaView style={styles.blackBackground}>
@@ -42,7 +41,9 @@ class CollectionScreen extends Component {
                 <ItemPreview
                   item={item}
                   isFullWidth={collection.item_set.length%2!=0 && index == (collection.item_set.length-1)}
-                  onPress={()=>{ this.props.navigation.navigate('Item', {item, panels: collection.panel_set,
+                  onPress={()=>{ this.props.navigation.navigate('Item', {
+                    item,
+                    panels: collection.panel_set,
                     floorId:this.props.route.params.floorId,
                     floorName: this.props.route.params.floorName,
                     collection: this.props.route.params.collection,
