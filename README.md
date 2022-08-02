@@ -1,6 +1,8 @@
 # Submiting
 
-First, you have to create a build.
+Update your app.json previously to set the nw version number
+
+Then, you have to create a build.
 
 ```
 eas build
