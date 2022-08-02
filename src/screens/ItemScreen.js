@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Color, Font } from '../assets/styles/index.js';
+import { Color } from '../assets/styles/index.js';
 import {
   Text,
   View,
-  Button,
-  FlatList,
   StyleSheet,
   Image,
   ImageBackground,
@@ -19,19 +16,15 @@ import {
   Modal
 } from "react-native";
 import {
-  setItems,
-} from "../store/itemActions";
-import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Audio } from 'expo-av';
-import { PinchGestureHandler, State, PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PinchGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
-import ImageModal from '../components/atoms/ImageModal.js'
 import i18n from 'i18n-js';
 import translateFromBackend from '../utils/translate';
 
@@ -217,7 +210,7 @@ class ItemScreen extends Component {
       } else {
         await this.state.audioInstance.stopAsync();
         await this.state.audioInstance.unloadAsync();
-        console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
+        // console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
       }
   }
 
@@ -232,8 +225,8 @@ class ItemScreen extends Component {
          x: index * (responsiveWidth(100) > 800 ? 800 : responsiveWidth(100)),
          animation: false
        })
-       this.setState({ carrouselCurrentImage: index });
-       // console.log('Carrousel´s image parameters', index, this.state.carrouselCurrentImage)
+       this.setState({ carrouselCurrentImage: index});
+      //  console.log('Carrousel´s image parameters', index, this.state.carrouselCurrentImage)
    }
 
    /*Handle Modal*/
@@ -241,9 +234,7 @@ class ItemScreen extends Component {
      // console.log(index);
      // console.log(visible);
      /* change modal´s state -if it is open or not && setting carrouselCurrentImage to modalImageIndex*/
-     this.setState({
-      modalVisible: visible,
-      modalImageIndex: index });
+     this.setState({modalVisible: visible});
    }
 
    /* Get user´s gestue that modifies image´s scale*/
@@ -284,7 +275,6 @@ class ItemScreen extends Component {
     const leftScrollValue = this.state.leftScroll;
     const { modalVisible } = this.state;
     const carrouselCurrentImage = this.state.carrouselCurrentImage
-    const modalImageIndex = this.state.modalImageIndex;
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -330,27 +320,33 @@ class ItemScreen extends Component {
                   animationType="fade"
                   transparent={true}
                   visible={modalVisible}
-                  modalImageIndex={this.state.modalImageIndex}
+                  modalImageIndex={this.state.carrouselCurrentImage}
                   onRequestClose={() => {
                   setModalVisible(!modalVisible);
                   }}>
                   <View style={styles.centeredView}>
                     <View style={styles.modalView}>
+                      { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {left: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage-1)}}>
+                        <Image style={styles.navIcons} source={require('../assets/images/icons/back.png')}></Image>
+                      </TouchableOpacity>}
+                      { itemImages && itemImages.length > 1 && <TouchableOpacity style={[styles.navIconsContainer, {right: 20}]} onPress={()=> {this.moveBody(this.state.carrouselCurrentImage+1)}}>
+                        <Image style={styles.navIcons} source={require('../assets/images/icons/next.png')}></Image>
+                      </TouchableOpacity>}
                       <TouchableOpacity
-                        style={styles.button}
+                        style={[styles.button, {zIndex:1}]}
                         onPress={() => this.setModalVisible(!modalVisible, carrouselCurrentImage)}>
                         <Image source={require('../assets/images/icons/close-icon.png')} style={styles.buttonClose}/>
                       </TouchableOpacity>
-                        <View
-                          style={styles.imageContainer2}
-                          key={this.state.modalImageIndex}
-                        >
+                      <View
+                        style={styles.imageContainer2}
+                        key={this.state.carrouselCurrentImage}
+                      >
                         <GestureHandlerRootView>
                           <PinchGestureHandler
                             onGestureEvent= {this.onPinchEvent}
                             onHandlerStateChange={this.onPinchStateChange}
                             >
-                            <Animated.Image source={{ uri: item.image_set[this.state.modalImageIndex].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                            <Animated.Image source={{ uri: item.image_set[this.state.carrouselCurrentImage].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
                           </PinchGestureHandler>
                         </GestureHandlerRootView>
                       </View>

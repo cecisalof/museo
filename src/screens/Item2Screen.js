@@ -211,7 +211,7 @@ class ItemScreen extends Component {
       } else {
         await this.state.audioInstance.stopAsync();
         await this.state.audioInstance.unloadAsync();
-        console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
+        // console.log('done', this.state.audioInstance._loaded, this.state.audioInstance._loading );
       }
   }
 

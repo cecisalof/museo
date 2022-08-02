@@ -30,7 +30,7 @@ function Logo() {
 
 class AppNavigator extends Component {
   render() {
-    console.log(props);
+    // console.log(props);
     return (
       <Stack.Navigator initialRouteName="Drawer"
         screenOptions={{

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Color, Font } from '../assets/styles/index.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Text,
   View,
@@ -9,7 +10,6 @@ import {
   StyleSheet,
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
-import {Typography} from '../assets/styles/index.js'
 import {
   setItems,
 } from "../store/itemActions";

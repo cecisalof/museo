@@ -1,40 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { WebView } from 'react-native-webview';
 import {
   Text,
   View,
-  Image,
-  Button,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   Platform,
-  Linking,
   ImageBackground
 } from "react-native";
 import PanelRow from "../components/atoms/PanelRow";
-import { Color, Font } from '../assets/styles/index.js';
+import { Color } from '../assets/styles/index.js';
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import {
-  setItems,
-} from "../store/itemActions";
-import { CommonActions } from '@react-navigation/native';
 import Header2 from '../components/atoms/Header2.js';
 import i18n from 'i18n-js';
-
 
 class PanelScreen extends Component {
   render() {
     const { params } = this.props.route;
-    console.log(params);
+    // console.log(params);
     const panels = params.panels;
-    console.log(panels);
+    // console.log(panels);
     const item = params.item;
     const collection = params.collection;
     return (
