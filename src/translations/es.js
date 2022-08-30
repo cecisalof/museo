@@ -1,10 +1,9 @@
 export const es = {
   currentLang: 'es',
   splashScreen: {
-    loadingLabel: "Cargando...",
+    loadingLabel: "Actualizando artículos...",
   },
   errors: {
-    loadingLabel: "Cargando...",
     loading: '¡Ups! Parece que no tienes una buena conexión a internet y no hemos podido recuperar la información. Inténtalo más tarde de nuevo.'
   },
   drawerMenu:{

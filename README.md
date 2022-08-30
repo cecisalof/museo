@@ -15,3 +15,8 @@ Then, submit the builds by using:
 ```
 eas submit
 ```
+
+Note: In case you want to generate an apk, use this command instead (the default config will generate an aab):
+```
+expo build:android -t apk
+```

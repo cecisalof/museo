@@ -68,9 +68,9 @@ class ItemScreen extends Component {
       {/*define how the audio player is going to behave.*/}
        await Audio.setAudioModeAsync({
          allowsRecordingIOS: false,
-         interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+         interruptionModeIOS: 1, //Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
          playsInSilentModeIOS: true,
-         interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+         interruptionModeAndroid: 1, //Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
          shouldDuckAndroid: false,
          staysActiveInBackground: true,
          playThroughEarpieceAndroid: true
@@ -78,89 +78,89 @@ class ItemScreen extends Component {
           this.loadAudio()
           Dimensions.addEventListener("change", this.onDimensionsChange);
       } catch (e) {
-          console.log(e)
-        }
+        console.log(e)
+      }
   }
 
-      async loadAudio() {
-        if (this.state.audioInstance == null) {
-          const {isPlaying, volume} = this.state
+    async loadAudio() {
+      if (this.state.audioInstance == null) {
+        const {isPlaying, volume} = this.state
 
-          try {
-            const audioInstance = new Audio.Sound()
-            const source = {
-              uri: translateFromBackend(this.props.route.params.item, 'audio')
-            }
+        try {
+          const audioInstance = new Audio.Sound()
+          const source = {
+            uri: translateFromBackend(this.props.route.params.item, 'audio')
+          }
 
-            const status = {
-              shouldPlay: isPlaying,
-              volume
-            }
+          const status = {
+            shouldPlay: isPlaying,
+            volume
+          }
 
-            audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
-            const soundObj= await audioInstance.loadAsync(source, status, false)
-            this.setState({audioInstance, soundObj: soundObj})
-            } catch (e) {
-              console.log(e)
-            }
+          audioInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+          const soundObj= await audioInstance.loadAsync(source, status, false)
+          this.setState({audioInstance, soundObj: soundObj})
+          } catch (e) {
+            console.log(e)
+          }
+      }
+    }
+
+    onPlaybackStatusUpdate = async (status) => {
+      // console.log('Sound object changing in real time', status);
+        if (status.isLoaded == true) {
+          const positionMillis = moment(status.positionMillis).format("mm:ss");
+          const durationLeft = moment(status.durationMillis - status.positionMillis).format("mm:ss");
+          const percentage = (status.positionMillis / status.durationMillis) * 100;
+          this.setState({
+            isBuffering: status.isBuffering,
+            positionInTrack: positionMillis,
+            durationLeft: durationLeft,
+            currentTrackDuration: percentage
+          })
         }
-      }
+    }
 
-      onPlaybackStatusUpdate = async (status) => {
-        // console.log('Sound object changing in real time', status);
-         if (status.isLoaded == true) {
-           const positionMillis = moment(status.positionMillis).format("mm:ss");
-           const durationLeft = moment(status.durationMillis - status.positionMillis).format("mm:ss");
-           const percentage = (status.positionMillis / status.durationMillis) * 100;
-           this.setState({
-             isBuffering: status.isBuffering,
-             positionInTrack: positionMillis,
-             durationLeft: durationLeft,
-             currentTrackDuration: percentage
-           })
-         }
-      }
+    /* get audioInstance duration */
+    getTrackDuration =  async () => {
+      const { audioInstance } = this.state
+      const audioStatus = await audioInstance.getStatusAsync();
+      const milliToMinutes = moment(audioStatus.durationMillis).format("mm:ss")
+      const positionMillis = moment(audioStatus.positionMillis).format("mm:ss")
+      this.setState({
+        trackTotalDuration: milliToMinutes,
+        positionInTrack: positionMillis
+      })
+    }
 
-      /* get audioInstance duration */
-      getTrackDuration =  async () => {
-        const { audioInstance } = this.state
-        const audioStatus = await audioInstance.getStatusAsync();
-        const milliToMinutes = moment(audioStatus.durationMillis).format("mm:ss")
-        const positionMillis = moment(audioStatus.positionMillis).format("mm:ss")
-        this.setState({
-          trackTotalDuration: milliToMinutes,
-          positionInTrack: positionMillis
-        })
-      }
-
-      /* Play & pause */
-      handlePlayPause = async () => {
-        if(this.state.audioInstance == null){
-          return
-        } else {
-        const { isPlaying, audioInstance, positionInTrack } = this.state
-        isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
-        this.setState({
-          isPlaying: !isPlaying
-        })
-        this.getTrackDuration()
-        }
-      }
-
-    /* Forward */
-    handleForward = async () => {
+    /* Play & pause */
+    handlePlayPause = async () => {
       if(this.state.audioInstance == null){
         return
       } else {
-        const { audioInstance } = this.state
-        const { positionMillis, durationMillis } = await audioInstance.getStatusAsync()
-        if (positionMillis == durationMillis) {
-          await audioInstance.setPositionAsync(0)
-        } else {
-          const plusTen = await audioInstance.setPositionAsync(positionMillis + 10000)
-        }
+      const { isPlaying, audioInstance, positionInTrack } = this.state
+      isPlaying ? await audioInstance.pauseAsync() : await audioInstance.playAsync()
+      this.setState({
+        isPlaying: !isPlaying
+      })
+      this.getTrackDuration()
       }
     }
+
+  /* Forward */
+  handleForward = async () => {
+    if(this.state.audioInstance == null){
+      return
+    } else {
+      const { audioInstance } = this.state
+      const { positionMillis, durationMillis } = await audioInstance.getStatusAsync()
+      if (positionMillis == durationMillis) {
+        await audioInstance.setPositionAsync(0)
+      } else {
+        const plusTen = await audioInstance.setPositionAsync(positionMillis + 10000)
+      }
+    }
+  }
 
   /* Rewind */
   handleRewind = async () => {
@@ -275,6 +275,8 @@ class ItemScreen extends Component {
     const leftScrollValue = this.state.leftScroll;
     const { modalVisible } = this.state;
     const carrouselCurrentImage = this.state.carrouselCurrentImage
+    const materialDescription = translateFromBackend(item, 'material')
+    const dateDescription = translateFromBackend(item, 'date')
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -453,15 +455,13 @@ class ItemScreen extends Component {
                   <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
                 </View>
               </View>
-              <View style={styles.itemDescription}>
-                <ScrollView style={styles.scrollText}>
-                  <View>
-                    <Text style={styles.smallText}>{translateFromBackend(item, 'description')}</Text>
-                    <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{translateFromBackend(item, 'material')}</Text></View>
-                    <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}/><Text style={styles.smallText}>{translateFromBackend(item, 'date')}</Text></View>
-                  </View>
-                </ScrollView>
-              </View>
+              <ScrollView style={styles.scrollText} showsVerticalScrollIndicator={false}>
+                <Text style={styles.smallText}>{translateFromBackend(item, 'description')}</Text>
+                {materialDescription && <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{materialDescription}</Text></View>}
+                {dateDescription && <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/date.png')}/><Text style={styles.smallText}>{dateDescription}</Text></View>}
+                {/* Bootom margin */}
+                <View style={{paddingBottom: 20}}></View> 
+              </ScrollView>
             </View>
           </View>
         </View>
@@ -579,9 +579,10 @@ const styles = StyleSheet.create({
      resizeMode: 'contain'
    },
   scrollText: {
-    marginVertical: responsiveWidth(100) > 820 ? '10%' : '3%',
-    marginBottom: '10%'
-
+    marginBottom: 175,
+    marginTop: 10,
+    // height: responsiveHeight(100) >= 768 ? responsiveHeight(30) : responsiveHeight(20),
+    marginHorizontal: '4%',
   },
   imageContainer: {
     width: responsiveWidth(100) >= 800 ? 800 : responsiveWidth(100),
@@ -593,14 +594,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  itemDescription: {
-    height: responsiveHeight(100) >= 768 ? responsiveHeight(30) : responsiveHeight(20),
-    marginHorizontal: '4%',
-  },
   iconTextRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: '1%',
+    paddingVertical: 2,
   },
   descriptionIcons: {
     width: 20,

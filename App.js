@@ -1,21 +1,13 @@
 import 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 import {
-  Text,
   View,
-  Button,
-  Image,
-  TouchableOpacity,
   StyleSheet,
-  Platform,
-  PlatformColor,
-  SafeAreaView
 } from "react-native";
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import Footer from './src/components/atoms/Footer.js'
 import AppLoading from 'expo-app-loading';
 import DrawerMenu from './src/navigation/DrawerNavigator';
-import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';

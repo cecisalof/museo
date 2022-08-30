@@ -75,9 +75,9 @@ class ItemScreen extends Component {
       {/*define how the audio player is going to behave.*/}
        await Audio.setAudioModeAsync({
          allowsRecordingIOS: false,
-         interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+         interruptionModeIOS: 1, //Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
          playsInSilentModeIOS: true,
-         interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+         interruptionModeAndroid: 1, //Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
          shouldDuckAndroid: false,
          staysActiveInBackground: true,
          playThroughEarpieceAndroid: true

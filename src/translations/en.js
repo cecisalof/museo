@@ -1,7 +1,7 @@
 export const en = {
   currentLang: 'en',
   splashScreen: {
-    loadingLabel: "Loading...",
+    loadingLabel: "Updating items...",
   },
   errors: {
    loading: 'Oops! It seems that you don\'t have a good internet connection and we couldn\'t retrieve the information. Please try again later.'
