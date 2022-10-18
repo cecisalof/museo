@@ -12,14 +12,6 @@ import {
 import Header3 from '../components/atoms/Header3.js';
 import { Color, Font } from '../assets/styles/index.js';
 import PDFReader from 'rn-pdf-reader-js'
-import {
-  responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
-import {
-  setItems,
-} from "../store/itemActions";
 import translateFromBackend from '../utils/translate';
 
 class Pdf2Screen extends Component {

@@ -85,7 +85,7 @@ class ItemScreen extends Component {
           this.loadAudio()
           Dimensions.addEventListener("change", this.onDimensionsChange);
       } catch (e) {
-          console.log(e)
+          console.error(e)
         }
   }
 
@@ -108,7 +108,7 @@ class ItemScreen extends Component {
             const soundObj= await audioInstance.loadAsync(source, status, false)
             this.setState({audioInstance, soundObj: soundObj})
             } catch (e) {
-              console.log(e)
+              console.error(e)
             }
         }
       }
@@ -422,7 +422,7 @@ class ItemScreen extends Component {
                           await this.state.audioInstance.setPositionAsync(currentPositionMilis)
                         }
                       } catch (error) {
-                         console.log('Error');
+                         console.error('Error');
                        }
                     }}
                   />

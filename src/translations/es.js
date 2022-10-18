@@ -4,7 +4,8 @@ export const es = {
     loadingLabel: "Actualizando artículos...",
   },
   errors: {
-    loading: '¡Ups! Parece que no tienes una buena conexión a internet y no hemos podido recuperar la información. Inténtalo más tarde de nuevo.'
+    loading: '¡Ups! Parece que no tienes una buena conexión a internet y no hemos podido recuperar la información. Inténtalo más tarde de nuevo.',
+    emptyPDF: 'No disponible'
   },
   drawerMenu:{
     title: "Menú",

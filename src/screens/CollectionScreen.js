@@ -22,7 +22,7 @@ import i18n from 'i18n-js';
 class CollectionScreen extends Component {
   render() {
     const { params } = this.props.route;
-    // console.log(params);
+    // console.log("Collection params", params);
     const { collection, floorName } = params;
     return (
     <SafeAreaView style={styles.blackBackground}>

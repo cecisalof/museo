@@ -19,13 +19,14 @@ import {
 } from "react-native-responsive-dimensions";
 import { Color, Font } from '../../assets/styles/index.js';
 import translateFromBackend from '../../utils/translate';
+import i18n from 'i18n-js';
 
 class PanelRow extends React.Component {
   render() {
     const {item} = this.props;
     return (
       <View>
-        <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+        <TouchableOpacity onPress={this.props.onPress} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }} disabled={translateFromBackend(item, 'document')==null}>
           <Image
               style={styles.collectionImage}
               source={{uri: item.image}}
@@ -40,6 +41,9 @@ class PanelRow extends React.Component {
           <View style={styles.titleContainer}>
             <Text style={styles.itemName}>{translateFromBackend(item, 'title')}</Text>
          </View>
+         {!translateFromBackend(item, 'document') && <View style={[styles.titleContainer, {bottom: 5, right: 0, opacity: 1}]}>
+              <Text style={[styles.itemName, {fontSize: responsiveFontSize(2), opacity: 1, textTransform: 'none'}]}>-{i18n.t('errors.emptyPDF')}-</Text>
+            </View>}
         </TouchableOpacity>
       </View>
     );

@@ -4,7 +4,8 @@ export const en = {
     loadingLabel: "Updating items...",
   },
   errors: {
-   loading: 'Oops! It seems that you don\'t have a good internet connection and we couldn\'t retrieve the information. Please try again later.'
+   loading: 'Oops! It seems that you don\'t have a good internet connection and we couldn\'t retrieve the information. Please try again later.',
+   emptyPDF: 'No available'
  },
  drawerMenu:{
    title: 'Menu',

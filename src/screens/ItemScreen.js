@@ -78,7 +78,7 @@ class ItemScreen extends Component {
           this.loadAudio()
           Dimensions.addEventListener("change", this.onDimensionsChange);
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
   }
 
@@ -101,7 +101,7 @@ class ItemScreen extends Component {
           const soundObj= await audioInstance.loadAsync(source, status, false)
           this.setState({audioInstance, soundObj: soundObj})
           } catch (e) {
-            console.log(e)
+            console.error(e)
           }
       }
     }
@@ -277,6 +277,9 @@ class ItemScreen extends Component {
     const carrouselCurrentImage = this.state.carrouselCurrentImage
     const materialDescription = translateFromBackend(item, 'material')
     const dateDescription = translateFromBackend(item, 'date')
+    const audio_url = translateFromBackend(this.props.route.params.item, 'audio')
+
+    // console.log("Item params", params, panels)
 
     {/* DETALLE DE PIEZA*/}
     return (
@@ -348,7 +351,7 @@ class ItemScreen extends Component {
                             onGestureEvent= {this.onPinchEvent}
                             onHandlerStateChange={this.onPinchStateChange}
                             >
-                            <Animated.Image source={{ uri: item.image_set[this.state.carrouselCurrentImage].image }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
+                            <Animated.Image source={{ uri: item.image_set[this.state.carrouselCurrentImage]?.image ? item.image_set[this.state.carrouselCurrentImage]?.image : item.image  }} style={[styles.modalImage, { transform: [{scale: this.scale}]}]}/>
                           </PinchGestureHandler>
                         </GestureHandlerRootView>
                       </View>
@@ -369,6 +372,9 @@ class ItemScreen extends Component {
                     </View>
                   );
                 })}
+                {(!itemImages || itemImages.length==0) && <View style={styles.imageContainer}>
+                  <Image source={{ uri: params.item.image }} style={styles.card}/>
+                </View>}
               </TouchableOpacity>
               </ScrollView>
               {/* Carrousel Indicators*/}
@@ -401,13 +407,13 @@ class ItemScreen extends Component {
                   <View style={styles.title}>
                     <Text style={styles.itemTitle}>{translateFromBackend(item,'title')}</Text>
                   </View>
-                  <View style={styles.iconsContainer}>
+                  {(panels && panels.length > 0) && <View style={styles.iconsContainer}>
                     <TouchableOpacity style={styles.buttons} onPress={this.toPanels} ><Image style={styles.book} source={require('../assets/images/icons/book-icon.png')}></Image></TouchableOpacity>
-                  </View>
+                  </View>}
                 </View>
               </View>
               {/* Audio Player */}
-              <View style={styles.audioContainer}>
+              {audio_url && <View style={styles.audioContainer}>
                 <View style={styles.sliderContainer}>
                   <Slider
                     style={styles.slider}
@@ -426,7 +432,7 @@ class ItemScreen extends Component {
                           await this.state.audioInstance.setPositionAsync(currentPositionMilis)
                         }
                       } catch (error) {
-                         console.log('Error');
+                         console.error('Error');
                        }
                     }}
                   />
@@ -454,7 +460,7 @@ class ItemScreen extends Component {
                   <TouchableOpacity style={styles.audioButtons}  onPress={this.handlePlayPause} ><Image style={styles.play} source={ this.state.isPlaying ? require('../assets/images/audioPlayer/pause.png') : require('../assets/images/icons/play-icon.png')}></Image></TouchableOpacity>
                   <TouchableOpacity style={styles.audioButtons} onPress={this.handleForward}><Image style={styles.audioIcons} source={require('../assets/images/audioPlayer/forward.png')}></Image></TouchableOpacity>
                 </View>
-              </View>
+              </View>}
               <ScrollView style={styles.scrollText} showsVerticalScrollIndicator={false}>
                 <Text style={styles.smallText}>{translateFromBackend(item, 'description')}</Text>
                 {materialDescription && <View style={styles.iconTextRow}><Image style={styles.descriptionIcons} source={require('../assets/images/icons/materials.png')}/><Text style={styles.smallText}>{materialDescription}</Text></View>}
