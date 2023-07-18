@@ -19,7 +19,7 @@ import {
 import { SearchBar } from 'react-native-elements';
 import ItemPreview from "../components/atoms/ItemPreview";
 import { Color, Font } from '../assets/styles/index.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 
 class SearchResults extends Component {

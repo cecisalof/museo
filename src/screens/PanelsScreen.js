@@ -16,7 +16,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import Header2 from '../components/atoms/Header2.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 class PanelScreen extends Component {
   render() {

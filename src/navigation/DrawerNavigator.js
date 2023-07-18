@@ -1,14 +1,11 @@
 import React from 'react';
-import { NavigationContainer, CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import { createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
 } from '@react-navigation/drawer';
 import {
   Text,
   View,
-  Button,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -39,7 +36,7 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 const Drawer = createDrawerNavigator();
 

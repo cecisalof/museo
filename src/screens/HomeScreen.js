@@ -24,7 +24,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { Color, Font, Mixins } from '../assets/styles/index.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 
 class HomeScreen extends Component {

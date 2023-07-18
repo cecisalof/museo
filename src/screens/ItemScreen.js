@@ -25,7 +25,7 @@ import { PinchGestureHandler, State, GestureHandlerRootView } from 'react-native
 import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header2 from '../components/atoms/Header2.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 import translateFromBackend from '../utils/translate';
 
 const window = Dimensions.get("window");

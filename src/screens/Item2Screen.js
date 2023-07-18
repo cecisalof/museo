@@ -32,7 +32,7 @@ import moment from 'moment';
 import Slider from '@react-native-community/slider';
 import Header3 from '../components/atoms/Header3.js';
 import ImageModal from '../components/atoms/ImageModal.js'
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 import translateFromBackend from '../utils/translate';
 
 const window = Dimensions.get("window");

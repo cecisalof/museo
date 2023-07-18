@@ -17,7 +17,7 @@ import {
 } from "../store/itemActions";
 import Header2 from '../components/atoms/Header2.js';
 import { Color, Font } from '../assets/styles/index.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 class CollectionScreen extends Component {
   render() {

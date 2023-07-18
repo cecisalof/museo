@@ -26,7 +26,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Color, Font } from '../assets/styles/index.js';
 import Header from '../components/atoms/Header.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 class Floor extends Component {
   render() {
