@@ -19,7 +19,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import { CommonActions } from '@react-navigation/native';
-import i18n from 'i18n-js';
+import i18n from '../../translations/i18n';
 import translateFromBackend from '../../utils/translate';
 
 class Header2 extends Component{

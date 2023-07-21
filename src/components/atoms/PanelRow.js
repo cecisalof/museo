@@ -19,7 +19,7 @@ import {
 } from "react-native-responsive-dimensions";
 import { Color, Font } from '../../assets/styles/index.js';
 import translateFromBackend from '../../utils/translate';
-import i18n from 'i18n-js';
+import i18n from '../../translations/i18n';
 
 class PanelRow extends React.Component {
   render() {

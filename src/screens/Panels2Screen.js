@@ -26,7 +26,7 @@ import {
 } from "../store/itemActions";
 import { CommonActions } from '@react-navigation/native';
 import Header3 from '../components/atoms/Header3.js';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 
 class Panels2Screen extends Component {

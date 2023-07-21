@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Text,
   View,
-  Button,
   StyleSheet,
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
@@ -14,7 +13,7 @@ import {
   setItems,
 } from "../store/itemActions";
 import axios from 'axios';
-import i18n from 'i18n-js';
+import i18n from '../translations/i18n';
 
 class SplashScreen extends Component {
 

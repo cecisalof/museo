@@ -18,7 +18,7 @@ import {
   setItems,
 } from "../../store/itemActions";
 import { Color, Font } from '../../assets/styles/index.js';
-import i18n from 'i18n-js';
+import i18n from '../../translations/i18n';
 
 class Header extends Component{
     render () {

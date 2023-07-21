@@ -1,43 +1,37 @@
 import 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
 } from "react-native";
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import Footer from './src/components/atoms/Footer.js'
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import DrawerMenu from './src/navigation/DrawerNavigator';
 import { Provider } from 'react-redux'
 import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
-import { translations } from './src/translations'
 import store from './src/store/store';
-import * as Localization from 'expo-localization';
 import getDevicePushToken from './src/services/notifications.js';
-import i18n from 'i18n-js';
-i18n.translations = translations;
-i18n.defaultLocale = 'en';
-i18n.locale = Localization.locale;
-// When a value is missing from a language it'll fallback to another language with the key present.
-i18n.fallbacks = true;
 
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const localization = i18n.locale;
+
   const navigationRef = useNavigationContainerRef();
   const [devicePushToken, setDevicePushToken] = useState('');
-  const [notification, setNotification] = useState(false);
 
-    useEffect(() => {
-        getDevicePushToken().then((pushToken) => {
-          console.log('Device pushToken', pushToken);
-            setDevicePushToken(pushToken);
-        });
-      });
+  console.log('devicePushToken', devicePushToken);
 
-
-  let [fontsLoaded] = useFonts({
+  useEffect(() => {
+    getDevicePushToken().then((pushToken) => {
+      console.log('Device pushToken', pushToken);
+      setDevicePushToken(pushToken);
+    });
+  });
+  
+  const [fontsLoaded] = useFonts({
     // Load a font `Roboto` from a static resource
     Roboto: require('./src/assets/fonts/Roboto-Regular.ttf'),
     // Any string can be used as the fontFamily name. Here we use an object to provide more control
@@ -47,24 +41,35 @@ export default function App() {
     },
   });
 
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      // This tells the splash screen to hide immediately!
+      // We hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
-     <Provider store={store}>
-       <View style={styles.mainContainer}>
+    <Provider store={store}>
+      <View style={styles.mainContainer}
+        onLayout={onLayoutRootView}>
         <NavigationContainer ref={navigationRef}>
           <View style={styles.body}>
-            <DrawerMenu navigationRef={navigationRef}/>
+            <DrawerMenu navigationRef={navigationRef} />
           </View>
           <View style={styles.footer}>
-            <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')}/>
+            <Footer onPressNavigateContact={() => navigationRef.navigate('Contact')} />
           </View>
         </NavigationContainer>
       </View>
-     </Provider>
-   );
+    </Provider>
+  );
 };
 
 const styles = StyleSheet.create({
